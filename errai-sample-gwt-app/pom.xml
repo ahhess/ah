@@ -15,8 +15,7 @@
 
     <dependencies>
 
-        <!-- Project Dependencies -->
-
+        <!-- Errai Dependencies -->
         <dependency>
             <groupId>org.jboss.errai</groupId>
             <artifactId>errai-common</artifactId>
@@ -67,6 +66,19 @@
             <artifactId>gwt-user</artifactId>
             <scope>provided</scope>
             <version>${gwt.version}</version>
+        </dependency>
+
+		<!-- ISTEC PLS -->
+        <dependency>
+        	<groupId>istec</groupId>
+        	<artifactId>istec.pls.base</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>istec</groupId>
+        	<artifactId>istec.pls.base</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+            <classifier>sources</classifier>
         </dependency>
 
     </dependencies>
@@ -167,7 +179,6 @@
         </plugins>
     </build>
 
-    <!--  
     <reporting>
     	<excludeDefaults>true</excludeDefaults>
         <plugins>
@@ -185,11 +196,9 @@
             </plugin>
         </plugins>
     </reporting>
-    -->
 
     <!-- Repositories -->
     <repositories>
-<!--  
         <repository>
             <id>repository.jboss.org</id>
             <url>http://repository.jboss.org/maven2</url>
@@ -221,7 +230,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository> 
+        <repository><!-- used by mvel to publish snapshots -->
             <id>codehaus-snapshot</id>
             <url>http://snapshots.repository.codehaus.org</url>
             <snapshots>
@@ -234,11 +243,9 @@
             <id>gwt-maven</id>
             <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo/</url>
         </repository>
--->	
     </repositories>
 
     <pluginRepositories>
-    <!--  
         <pluginRepository>
             <id>maven2.java.net</id>
             <name>Java.net Repository for Maven 2</name>
@@ -261,19 +268,18 @@
             <id>gwt-maven</id>
             <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo/</url>
         </pluginRepository>
-    -->
     </pluginRepositories>
 
     <distributionManagement>
         <repository>
-            <id>repository.jboss.org</id>
-            <name>JBoss Maven Repository</name>
-            <url>file://${jboss.maven.repository}</url>
+            <id>${repo.id}</id>
+            <name>${repo.name}</name>
+            <url>${repo.url}</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots.jboss.org</id>
-            <name>JBoss Snapshot Repository</name>
-            <url>dav:https://snapshots.jboss.org/maven2</url>
+            <id>${repo.id}</id>
+            <name>${repo.name}</name>
+            <url>${repo.url}</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
