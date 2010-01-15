@@ -8,6 +8,9 @@
     <inherits name="org.jboss.errai.common.ErraiCommon" />
     <inherits name="org.jboss.errai.bus.ErraiBus" />
     <inherits name="org.jboss.errai.workspaces.ErraiWorkspaces" />
+
+    <inherits name='com.istec.pls.base.PlsBaseDomain' />
+    <inherits name='de.novanic.eventservice.GWTEventService' />
     
 	<!--  <entry-point class='foo.bar.ui.client.HelloWorldClient'/>    -->
     <entry-point class='foo.bar.ui.client.App'/>

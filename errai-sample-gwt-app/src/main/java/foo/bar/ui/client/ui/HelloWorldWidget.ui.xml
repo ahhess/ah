@@ -7,6 +7,7 @@
 			<gwt:TextBox ui:field="textBox"></gwt:TextBox>
 			<gwt:Button ui:field="clickMe" text="Message to HelloWorldService"></gwt:Button>
 			<gwt:Button ui:field="clickMe2" text="Call MyService"></gwt:Button>
+			<gwt:Button ui:field="bGetWp" text="Lese Arbeitsplaetze"></gwt:Button>
 			<gwt:Label ui:field="label"></gwt:Label>
 		</gwt:VerticalPanel>
 	</errai:WorkPanel>
