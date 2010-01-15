@@ -1,0 +1,13 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:gwt='urn:import:com.google.gwt.user.client.ui' 
+	xmlns:errai='urn:import:org.jboss.errai.workspaces.client.layout'
+	xmlns:grid='urn:import:org.jboss.errai.widgets.client'>
+	<errai:WorkPanel ui:field="workPanel" height="100%"	title="Hello World">
+		<gwt:VerticalPanel>
+			<gwt:TextBox ui:field="textBox"></gwt:TextBox>
+			<gwt:Button ui:field="clickMe" text="Message to HelloWorldService"></gwt:Button>
+			<gwt:Button ui:field="clickMe2" text="Call MyService"></gwt:Button>
+			<gwt:Label ui:field="label"></gwt:Label>
+		</gwt:VerticalPanel>
+	</errai:WorkPanel>
+</ui:UiBinder>
