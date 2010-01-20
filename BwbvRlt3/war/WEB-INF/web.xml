@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <servlet>
+    <servlet-name>bwbv.rlt.server.TestServiceImpl/bwbv.rlt.Application/testService</servlet-name>
+    <servlet-class>bwbv.rlt.server.TestServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bwbv.rlt.server.TestServiceImpl/bwbv.rlt.Application/testService</servlet-name>
+    <url-pattern>/BwbvRlt/testService</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>bwbv.rlt.server.SampleRemoteServiceImpl/bwbv.rlt.Application/sampleRemoteService</servlet-name>
+    <servlet-class>bwbv.rlt.server.SampleRemoteServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bwbv.rlt.server.SampleRemoteServiceImpl/bwbv.rlt.Application/sampleRemoteService</servlet-name>
+    <url-pattern>/BwbvRlt/sampleRemoteService</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>bwbv.rlt.server.security.SecurityServiceInMemoryImpl/bwbv.rlt.Application/securityService</servlet-name>
+    <servlet-class>bwbv.rlt.server.security.SecurityServiceInMemoryImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bwbv.rlt.server.security.SecurityServiceInMemoryImpl/bwbv.rlt.Application/securityService</servlet-name>
+    <url-pattern>/BwbvRlt/securityService</url-pattern>
+  </servlet-mapping>
+
+  <!-- 
+  <servlet>
+    <servlet-name>com.google.gwt.libideas.logging.server.RemoteLoggingServiceImpl/bwbv.rlt.Application/logging</servlet-name>
+    <servlet-class>com.google.gwt.libideas.logging.server.RemoteLoggingServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>com.google.gwt.libideas.logging.server.RemoteLoggingServiceImpl/bwbv.rlt.Application/logging</servlet-name>
+    <url-pattern>/bwbv.rlt.Application/logging</url-pattern>
+  </servlet-mapping>
+  -->
+    
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>BwbvRlt.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

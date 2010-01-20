@@ -1,0 +1,13 @@
+package bwbv.rlt.client.service;
+
+import bwbv.rlt.client.domain.Rlt;
+import bwbv.rlt.client.domain.Rlt.Kat;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
+public interface RltServiceAsync {
+
+	void getRlts(AsyncCallback<Rlt[]> callback);
+	void getRltsByKat(Kat kat, AsyncCallback<Rlt[]> callback);
+
+}
