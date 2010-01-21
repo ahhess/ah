@@ -1,0 +1,19 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "
+http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+
+
+  <New id="plsjisdemo" class="org.mortbay.jetty.plus.naming.Resource">
+    <Arg></Arg>
+    <Arg>java:comp/env/jdbc/plsjisdemo</Arg>
+    <Arg>
+      <New class="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+        <Set name="URL">jdbc:oracle:thin:@juno:1521:PLSR3DEV</Set>
+        <Set name="User">plsr3dev</Set>
+        <Set name="Password">plsr3dev</Set>
+      </New>
+    </Arg>
+  </New>
+
+</Configure>
