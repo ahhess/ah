@@ -1,0 +1,26 @@
+package bwbv.rlt.server;
+
+import org.apache.log4j.Logger;
+
+import bwbv.rlt.client.domain.Rlt;
+import bwbv.rlt.client.domain.Rlt.Kat;
+import bwbv.rlt.client.localdata.RltLocalData;
+import bwbv.rlt.client.service.RltService;
+
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+public class RltServiceImpl extends RemoteServiceServlet implements RltService {
+
+	private static final long serialVersionUID = 3442215508018675242L;
+	public static final Logger LOGGER = Logger.getLogger(RltServiceImpl.class);
+	
+	@Override
+	public Rlt[] getRlts() {
+		return RltLocalData.getRlts();
+	}
+
+	@Override
+	public Rlt[] getRltsByKat(Kat kat) {
+		return RltLocalData.getRltsByKat(kat);
+	}
+}

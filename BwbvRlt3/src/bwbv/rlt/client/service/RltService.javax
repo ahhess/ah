@@ -1,0 +1,12 @@
+package bwbv.rlt.client.service;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+
+import bwbv.rlt.client.domain.Rlt;
+
+public interface RltService extends RemoteService {
+
+	Rlt[] getRlts();
+	Rlt[] getRltsByKat(Rlt.Kat kat);
+	
+}
