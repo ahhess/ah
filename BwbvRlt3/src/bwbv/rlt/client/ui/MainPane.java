@@ -16,11 +16,9 @@
 
 package bwbv.rlt.client.ui;
 
-import bwbv.rlt.client.ClientState;
 import bwbv.rlt.client.domain.Rlt;
-import bwbv.rlt.client.service.ServiceRegistry;
-import bwbv.rlt.client.ui.widget.Pane;
 
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -30,9 +28,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
  * Entry point and flow control of our app.
- * Also instantiates and injects ServiceRegistry and ClientState into screens
  */
-public class MainPane extends Pane {
+public class MainPane extends Composite {
 
     private HeaderPane headerPane;
     private StatusBarPane statusBarPane;
@@ -43,14 +40,13 @@ public class MainPane extends Pane {
 //	private Screen1 screen1;
 //	private Screen2 screen2;
 
-	public MainPane(ClientState clientState, ServiceRegistry serviceRegistry) {
-        super(clientState, serviceRegistry);
+	public MainPane() {
 
         DockPanel mainPanel = new DockPanel();
 		mainPanel.setBorderWidth(5);    	
 		mainPanel.setSize("100%", "100%");
 		
-    	headerPane = new HeaderPane("GWT Maven Sample", clientState, serviceRegistry);
+    	headerPane = new HeaderPane("GWT Maven Sample");
         mainPanel.add(headerPane, DockPanel.NORTH);
     	mainPanel.setCellHeight(headerPane, "30px");
 		mainPanel.setCellHorizontalAlignment(headerPane, DockPanel.ALIGN_CENTER);
@@ -68,7 +64,7 @@ public class MainPane extends Pane {
 		
 		centerPane.add(new Label("Bitte RLT auswählen"));
 		horizontalSplitPanel.setRightWidget(centerPane);
-		menuPanel = new MenuPanel(serviceRegistry, this);
+		menuPanel = new MenuPanel(this);
 		
 		horizontalSplitPanel.setLeftWidget(menuPanel);
 		mainPanel.add(horizontalSplitPanel, DockPanel.CENTER);

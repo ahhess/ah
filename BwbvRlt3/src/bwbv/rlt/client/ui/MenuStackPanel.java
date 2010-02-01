@@ -1,7 +1,6 @@
 package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.domain.Rlt;
-import bwbv.rlt.client.service.ServiceRegistry;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,7 +16,7 @@ public class MenuStackPanel extends StackPanel {
 	private MainPane mainPane;
 	private Rlt[] rlts;
 	
-	public MenuStackPanel(ServiceRegistry serviceRegistry, final MainPane mainPane, Rlt[] rlts) {
+	public MenuStackPanel(final MainPane mainPane, Rlt[] rlts) {
 
 		this.mainPane = mainPane;
 		this.rlts = rlts;

@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package bwbv.rlt.server.security;
+package bwbv.rlt.client.service;
 
 import bwbv.rlt.client.domain.Authentication;
 import bwbv.rlt.client.domain.AuthenticationException;
-import bwbv.rlt.client.service.SecurityService;
-
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 
 /**
@@ -30,7 +27,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @author Uri Boness
  * @author Sam Brodkin
  */
-public class SecurityServiceInMemoryImpl extends RemoteServiceServlet implements SecurityService {
+public class SecurityServiceInMemoryImpl implements SecurityService {
 
 	private static Authentication authentication = Authentication.ANONYMOUS;
 

@@ -1,7 +1,6 @@
 
 package bwbv.rlt.client;
 
-import bwbv.rlt.client.service.ServiceRegistry;
 import bwbv.rlt.client.ui.MainPane;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -29,7 +28,7 @@ public class ClientMain implements EntryPoint {
         // is more trouble than it's worth!
         //
         // Bootstrap our dependencies (every client gets their own instance)
-        mainPane = new MainPane(new ClientState(), new ServiceRegistry());
+        mainPane = new MainPane();
 
         main = new SimplePanel();
         main.setSize("100%", "100%");

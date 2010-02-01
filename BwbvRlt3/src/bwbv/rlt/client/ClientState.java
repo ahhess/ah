@@ -1,6 +1,5 @@
 package bwbv.rlt.client;
 
-import bwbv.rlt.client.domain.Options;
 
 /**
  * 
@@ -9,8 +8,16 @@ import bwbv.rlt.client.domain.Options;
  * 
  */
 public class ClientState {
+	
+	private static ClientState instance = new ClientState();
 	private String userName;
-	private Options userOptions;
+
+	private ClientState() {
+	}
+	
+	public static ClientState get() {
+		return instance;
+	}
 	
 	public void setUserName(String username) {
 		this.userName=username;
@@ -20,12 +27,4 @@ public class ClientState {
 		return userName;
 	}
 
-	public void setUserOptions(Options userOptions) {
-		this.userOptions = userOptions;
-	}
-
-	public Options getUserOptions() {
-		return userOptions;
-	}
-	
 }

@@ -5,6 +5,7 @@
 
 <web-app>
 
+<!--  
   <servlet>
     <servlet-name>bwbv.rlt.server.TestServiceImpl/bwbv.rlt.Application/testService</servlet-name>
     <servlet-class>bwbv.rlt.server.TestServiceImpl</servlet-class>
@@ -31,6 +32,7 @@
     <servlet-name>bwbv.rlt.server.security.SecurityServiceInMemoryImpl/bwbv.rlt.Application/securityService</servlet-name>
     <url-pattern>/BwbvRlt/securityService</url-pattern>
   </servlet-mapping>
+-->
 
   <!-- 
   <servlet>

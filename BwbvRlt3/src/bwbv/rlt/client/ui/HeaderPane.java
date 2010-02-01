@@ -17,16 +17,14 @@
 package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.ClientState;
-import bwbv.rlt.client.domain.Authentication;
-import bwbv.rlt.client.service.ServiceRegistry;
-import bwbv.rlt.client.ui.widget.Pane;
+import bwbv.rlt.client.domain.AuthenticationException;
+import bwbv.rlt.client.service.SecurityServiceHolder;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.KeyboardListenerAdapter;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.PushButton;
@@ -40,7 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * Borrowed from Beginning Google Web Toolkit Book
  */
-public class HeaderPane extends Pane {
+public class HeaderPane extends Composite {
 
 	private PopupPanel confirmPopup;
 	private DockPanel main;
@@ -51,11 +49,9 @@ public class HeaderPane extends Pane {
 	 * @param titleText
 	 *            The text this header should show as a title.
 	 */
-	public HeaderPane(String titleText, ClientState clientState,
-			ServiceRegistry serviceRegistry) {
-		super(clientState, serviceRegistry);
+	public HeaderPane(String titleText) {
 		main = new DockPanel();
-		main.add(new Label("Brodkin's GWT Sample App"), DockPanel.CENTER);
+		main.add(new Label("Andy's GWT Sample App"), DockPanel.CENTER);
 		reset();
 		initWidget(main);
 		setStyleName("HeaderPane");
@@ -63,19 +59,19 @@ public class HeaderPane extends Pane {
 
 	public void reset() {
 		
-		getServiceRegistry().getSecurityService().isLoggedIn(
-				new AsyncCallback<Boolean>() {
-					public void onFailure(Throwable caught) {
-						throw new RuntimeException(caught);
-					}
-
-					public void onSuccess(Boolean result) {
-						Boolean isLoggedIn = result;
+//		getServiceRegistry().getSecurityService().isLoggedIn(
+//				new AsyncCallback<Boolean>() {
+//					public void onFailure(Throwable caught) {
+//						throw new RuntimeException(caught);
+//					}
+//
+//					public void onSuccess(Boolean result) {
+						Boolean isLoggedIn = SecurityServiceHolder.getService().isLoggedIn();
 						HorizontalPanel panel = buildHeaderPanel(isLoggedIn);
 						main.remove(0);
 						main.add(panel, DockPanel.EAST);
-					}
-				});
+//					}
+//				});
 	}
 
 	/**
@@ -87,7 +83,7 @@ public class HeaderPane extends Pane {
 		HorizontalPanel panel = new HorizontalPanel();
 		if (isLoggedIn) {
 			panel.setSpacing(10);
-			panel.add(new Label("Welcome " + getClientState().getUserName()));
+			panel.add(new Label("Welcome " + ClientState.get().getUserName()));
 
 			PushButton logoutButton = new PushButton("Logout");
 			logoutButton.setStyleName("LogoutButton");
@@ -111,42 +107,48 @@ public class HeaderPane extends Pane {
 	}
 
 	private void logout() {
-		getServiceRegistry().getSecurityService().logout(
-				new AsyncCallback<String>() {
-					public void onFailure(Throwable caught) {
-						throw new RuntimeException(caught);
-					}
-
-					public void onSuccess(String caught) {
+		SecurityServiceHolder.getService().logout();
+//		getServiceRegistry().getSecurityService().logout(
+//				new AsyncCallback<String>() {
+//					public void onFailure(Throwable caught) {
+//						throw new RuntimeException(caught);
+//					}
+//
+//					public void onSuccess(String caught) {
 						reset();
-					}
-				});
+//					}
+//				});
 	}
 
 	private void login(String userName) {
 
-		getServiceRegistry().getSecurityService().login(userName,
-				new AsyncCallback() {
-					public void onFailure(Throwable caught) {
+		try {
+			SecurityServiceHolder.getService().login(userName);
+			ClientState.get().setUserName(userName);
+			reset();
+		} catch (AuthenticationException caught) {
+//		getServiceRegistry().getSecurityService().login(userName,
+//				new AsyncCallback() {
+//					public void onFailure(Throwable caught) {
 						throw new RuntimeException(caught);
 					}
-
-					//after we log them in, make another call to get their name
-					//and set it in the ClientState.  This is inefficient, but it 
-					//demonstrates making two asynchronous calls serially
-					public void onSuccess(Object result) {
-						getServiceRegistry().getSecurityService().getCurrentAuthentication(
-						(new AsyncCallback<Authentication>() {
-							public void onFailure(Throwable caught) {
-								throw new RuntimeException(caught);
-							}
-							public void onSuccess(Authentication authentication) {
-								getClientState().setUserName(authentication.getUsername());
-								reset();
-							}
-						}));
-					}
-				});
+//
+//					//after we log them in, make another call to get their name
+//					//and set it in the ClientState.  This is inefficient, but it 
+//					//demonstrates making two asynchronous calls serially
+//					public void onSuccess(Object result) {
+//						getServiceRegistry().getSecurityService().getCurrentAuthentication(
+//						(new AsyncCallback<Authentication>() {
+//							public void onFailure(Throwable caught) {
+//								throw new RuntimeException(caught);
+//							}
+//							public void onSuccess(Authentication authentication) {
+//								getClientState().setUserName(authentication.getUsername());
+//								reset();
+//							}
+//						}));
+//					}
+//				});
 
 	}
 
