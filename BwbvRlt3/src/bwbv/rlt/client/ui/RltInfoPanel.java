@@ -16,7 +16,7 @@ public class RltInfoPanel extends Composite {
 		horizontalPanel.setWidth("25%");
 
 		//TODO
-		horizontalPanel.add(new HTML(rlt.toString()));
+		horizontalPanel.add(new HTML(rlt.getKurzbez()));
 		
 		FlexTable table = new FlexTable();
 		

@@ -1,8 +1,8 @@
 package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.domain.Rlt;
-import bwbv.rlt.client.localdata.RltLocalData;
 
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 
@@ -11,18 +11,17 @@ import com.google.gwt.user.client.ui.DockPanel;
  */
 public class MenuPanel extends Composite {
 
-	private Rlt[] rlts;
+	private MenuStackPanel menuStackPanel = null;
 	
-	public MenuPanel(MainPane mainPane) {
-		getRlts();
+	public MenuPanel() {
 		DockPanel main = new DockPanel();
 //		main.add(new MenuTree(serviceRegistry, mainPane, rlts), DockPanel.CENTER);
-		main.add(new MenuStackPanel(mainPane, rlts), DockPanel.CENTER);
+		menuStackPanel = new MenuStackPanel();
+		main.add(menuStackPanel, DockPanel.CENTER);
 		initWidget(main);
 	}
 
-	private void getRlts() {
-		rlts = RltLocalData.getRlts();
+	public void fillMenu(MainPane mainPane, JsArray<Rlt> rlts) {
+		menuStackPanel.fillMenu(mainPane, rlts);
 	}
-
 }

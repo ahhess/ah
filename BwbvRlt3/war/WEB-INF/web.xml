@@ -5,6 +5,15 @@
 
 <web-app>
 
+  <servlet>
+    <servlet-name>RltJsonServlet</servlet-name>
+    <servlet-class>bwbv.rlt.server.RltJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RltJsonServlet</servlet-name>
+    <url-pattern>/json</url-pattern>
+  </servlet-mapping>
+
 <!--  
   <servlet>
     <servlet-name>bwbv.rlt.server.TestServiceImpl/bwbv.rlt.Application/testService</servlet-name>

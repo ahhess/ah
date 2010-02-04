@@ -1,6 +1,7 @@
 package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.domain.Rlt;
+import bwbv.rlt.client.domain.RltKat;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
@@ -26,11 +27,11 @@ public class MenuTree extends Tree {
 //		menuTree.addItem("Screen 1");
 //		menuTree.addItem("Screen 2");
 
-		Rlt.Kat kat = null;
+		RltKat kat = null;
 		TreeItem katItem = null;
 		for (Rlt rlt : rlts) {
-			if (kat == null || !kat.equals(rlt.getRltkat())) {
-				kat  = rlt.getRltkat();
+			if (kat == null || !kat.equals(rlt.getRltKat())) {
+				kat  = rlt.getRltKat();
 				katItem = new TreeItem(new HTML(kat.toString()));
 				katItem.setState(true);
 				addItem(katItem);
