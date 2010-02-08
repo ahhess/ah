@@ -20,6 +20,6 @@ public class Rlt extends JavaScriptObject {
 	public final native Date getDatum() 		/*-{ return this.datum; }-*/;
 	public final native Date getCreated() 		/*-{ return this.created; }-*/;
 	public final native Date getMeldeschluss() 	/*-{ return this.meldeschluss; }-*/;
-	public final native String[] getDisz() 		/*-{ return this.disz; }-*/;
+	public final native String[] getDiszs() 	/*-{ return this.diszs; }-*/;
 
 }

@@ -76,8 +76,8 @@ public class MainPane extends Composite {
 		// tabPanel.setAnimationEnabled(true);
 		tabPanel.add(new RltInfoPanel(rlt), "Info");
 		tabPanel.selectTab(0);
-		if (rlt.getDisz() != null) {
-			for (String disz : rlt.getDisz()) {
+		if (rlt.getDiszs() != null) {
+			for (String disz : rlt.getDiszs()) {
 				tabPanel.add(new HTML("coming soon ..."), disz);
 			}
 		}
