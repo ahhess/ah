@@ -18,7 +18,7 @@ package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.ClientState;
 import bwbv.rlt.client.domain.AuthenticationException;
-import bwbv.rlt.client.service.SecurityServiceHolder;
+import bwbv.rlt.client.service.SecurityService;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -58,20 +58,10 @@ public class HeaderPane extends Composite {
 	}
 
 	public void reset() {
-		
-//		getServiceRegistry().getSecurityService().isLoggedIn(
-//				new AsyncCallback<Boolean>() {
-//					public void onFailure(Throwable caught) {
-//						throw new RuntimeException(caught);
-//					}
-//
-//					public void onSuccess(Boolean result) {
-						Boolean isLoggedIn = SecurityServiceHolder.getService().isLoggedIn();
-						HorizontalPanel panel = buildHeaderPanel(isLoggedIn);
-						main.remove(0);
-						main.add(panel, DockPanel.EAST);
-//					}
-//				});
+		Boolean isLoggedIn = SecurityService.Holder.get().isLoggedIn();
+		HorizontalPanel panel = buildHeaderPanel(isLoggedIn);
+		main.remove(0);
+		main.add(panel, DockPanel.EAST);
 	}
 
 	/**
@@ -107,49 +97,19 @@ public class HeaderPane extends Composite {
 	}
 
 	private void logout() {
-		SecurityServiceHolder.getService().logout();
-//		getServiceRegistry().getSecurityService().logout(
-//				new AsyncCallback<String>() {
-//					public void onFailure(Throwable caught) {
-//						throw new RuntimeException(caught);
-//					}
-//
-//					public void onSuccess(String caught) {
-						reset();
-//					}
-//				});
+		SecurityService.Holder.get().logout();
+		reset();
 	}
 
 	private void login(String userName) {
 
 		try {
-			SecurityServiceHolder.getService().login(userName);
+			SecurityService.Holder.get().login(userName);
 			ClientState.get().setUserName(userName);
 			reset();
 		} catch (AuthenticationException caught) {
-//		getServiceRegistry().getSecurityService().login(userName,
-//				new AsyncCallback() {
-//					public void onFailure(Throwable caught) {
-						throw new RuntimeException(caught);
-					}
-//
-//					//after we log them in, make another call to get their name
-//					//and set it in the ClientState.  This is inefficient, but it 
-//					//demonstrates making two asynchronous calls serially
-//					public void onSuccess(Object result) {
-//						getServiceRegistry().getSecurityService().getCurrentAuthentication(
-//						(new AsyncCallback<Authentication>() {
-//							public void onFailure(Throwable caught) {
-//								throw new RuntimeException(caught);
-//							}
-//							public void onSuccess(Authentication authentication) {
-//								getClientState().setUserName(authentication.getUsername());
-//								reset();
-//							}
-//						}));
-//					}
-//				});
-
+			throw new RuntimeException(caught);
+		}
 	}
 
 	private void showNewUserNameRequestPopupPanel() {
