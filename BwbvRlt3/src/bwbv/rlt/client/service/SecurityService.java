@@ -19,8 +19,6 @@ package bwbv.rlt.client.service;
 import bwbv.rlt.client.domain.Authentication;
 import bwbv.rlt.client.domain.AuthenticationException;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-
 /**
  * 
  * Manages all security aspects of the application.
@@ -28,7 +26,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
  *
  * @author Uri Boness
  */
-public interface SecurityService extends RemoteService {
+public interface SecurityService /*extends RemoteService*/ {
 
 	/**
 	 * 
