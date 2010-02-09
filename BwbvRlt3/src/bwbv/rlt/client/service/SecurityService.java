@@ -28,6 +28,17 @@ import bwbv.rlt.client.domain.AuthenticationException;
  */
 public interface SecurityService /*extends RemoteService*/ {
 
+	public static class Holder {
+		private static SecurityService service;
+
+		public static SecurityService get() {
+			if (service == null) {
+				service = new SecurityServiceInMemoryImpl();
+			}
+			return service;
+		}
+	}
+
 	/**
 	 * 
 	 * @param userName
