@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='gwtresttutorialview'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.google.gwt.json.JSON"/>
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  
+  <entry-point class='edu.ucar.cisl.gwtRESTTutorialView.client.GwtRESTTutorialView'/>
+  <source path='client'/>
+
+</module>

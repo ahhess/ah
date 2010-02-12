@@ -80,6 +80,22 @@
         	<version>0.0.1-SNAPSHOT</version>
             <classifier>sources</classifier>
         </dependency>
+        <dependency>
+        	<groupId>org.mortbay.jetty</groupId>
+        	<artifactId>jetty-plus</artifactId>
+        	<version>6.1.19</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.mortbay.jetty</groupId>
+        	<artifactId>jetty-naming</artifactId>
+        	<version>6.1.19</version>
+        </dependency>
+        <dependency>
+        	<groupId>oracle</groupId>
+        	<artifactId>oracle-ojdbc</artifactId>
+        	<version>1.4</version>
+        	<scope>runtime</scope>
+        </dependency>
 
     </dependencies>
 
