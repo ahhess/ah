@@ -7,11 +7,11 @@ import org.jboss.errai.bus.client.ErraiBus;
 import org.jboss.errai.bus.client.MessageBuilder;
 import org.jboss.errai.bus.client.MessageBus;
 import org.jboss.errai.bus.client.RemoteCallback;
-import org.jboss.errai.common.client.framework.WSComponent;
 import org.jboss.errai.widgets.client.mapping.ErraiWidgetBinding;
-import org.jboss.errai.workspaces.client.framework.annotations.LoadTool;
+import org.jboss.errai.workspaces.client.api.WSComponent;
+import org.jboss.errai.workspaces.client.api.WidgetCallback;
+import org.jboss.errai.workspaces.client.api.annotations.LoadTool;
 import org.jboss.errai.workspaces.client.layout.WorkPanel;
-import org.jboss.errai.workspaces.client.svc.shoutbox.Shoutbox;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,14 +24,13 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 import com.istec.pls.base.domain.Workplace;
 
 @LoadTool(name = "HelloWorld", group = "App")
 public class HelloWorldTool implements WSComponent {
 
-	public Widget getWidget() {
-		return new HelloWorldWidget();
+	public void getWidget(WidgetCallback callback) {
+		callback.onSuccess(new HelloWorldWidget());
 	}
 
 	public static class HelloWorldWidget extends Composite {
@@ -52,7 +51,7 @@ public class HelloWorldTool implements WSComponent {
 				.create(WidgetBinding.class);
 
 		private final MessageBus bus = ErraiBus.get();
-		private Shoutbox shoutbox = new Shoutbox();
+//		private Shoutbox shoutbox = new Shoutbox();
 
 		@UiField
 		WorkPanel workPanel;

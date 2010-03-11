@@ -1,15 +1,10 @@
-package bwbv.rlt.client.domain;
+package bwbv.rlt.model.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class Rlt implements Serializable {
+public class Rlt extends Detail {
 
-	private String id;
-	private RltKat rltKat;
-	private RltStatus rltStatus;
-	private String kurzbez;
 	private String turnierbez;
 	private String ort;
 	private String halle;
@@ -18,39 +13,6 @@ public class Rlt implements Serializable {
 	private Date datum;
 	private Date created;
 	private Date meldeschluss;
-	private String[] disz;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public RltKat getRltKat() {
-		return rltKat;
-	}
-
-	public void setRltKat(RltKat rltkat) {
-		this.rltKat = rltkat;
-	}
-
-	public RltStatus getRltstatus() {
-		return rltStatus;
-	}
-
-	public void setRltstatus(RltStatus rltstatus) {
-		this.rltStatus = rltstatus;
-	}
-
-	public String getKurzbez() {
-		return kurzbez;
-	}
-
-	public void setKurzbez(String kurzbez) {
-		this.kurzbez = kurzbez;
-	}
 
 	public String getTurnierbez() {
 		return turnierbez;
@@ -116,11 +78,4 @@ public class Rlt implements Serializable {
 		this.meldeschluss = meldeschluss;
 	}
 
-	public String[] getDisz() {
-		return disz;
-	}
-
-	public void setDisz(String[] disz) {
-		this.disz = disz;
-	}
 }

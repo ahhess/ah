@@ -7,15 +7,6 @@ public class OrganizationItemData extends ItemData {
 	protected String leadName;
 	protected String leadTitle;
 	protected int totalEmployees;
-	protected int id = -1;
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	public String getName() {
 		return name;
