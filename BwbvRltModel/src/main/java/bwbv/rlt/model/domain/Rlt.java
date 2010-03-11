@@ -1,0 +1,81 @@
+package bwbv.rlt.model.domain;
+
+import java.util.Date;
+
+@SuppressWarnings("serial")
+public class Rlt extends Detail {
+
+	private String turnierbez;
+	private String ort;
+	private String halle;
+	private String adresse;
+	private String datumtext;
+	private Date datum;
+	private Date created;
+	private Date meldeschluss;
+
+	public String getTurnierbez() {
+		return turnierbez;
+	}
+
+	public void setTurnierbez(String turnierbez) {
+		this.turnierbez = turnierbez;
+	}
+
+	public String getOrt() {
+		return ort;
+	}
+
+	public void setOrt(String ort) {
+		this.ort = ort;
+	}
+
+	public String getHalle() {
+		return halle;
+	}
+
+	public void setHalle(String halle) {
+		this.halle = halle;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getDatumtext() {
+		return datumtext;
+	}
+
+	public void setDatumtext(String datumtext) {
+		this.datumtext = datumtext;
+	}
+
+	public Date getDatum() {
+		return datum;
+	}
+
+	public void setDatum(Date datum) {
+		this.datum = datum;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date createdAt) {
+		created = createdAt;
+	}
+
+	public Date getMeldeschluss() {
+		return meldeschluss;
+	}
+
+	public void setMeldeschluss(Date meldeschluss) {
+		this.meldeschluss = meldeschluss;
+	}
+
+}
