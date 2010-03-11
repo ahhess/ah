@@ -1,10 +1,11 @@
-package bwbv.rlt.client.ui;
+package bwbv.rlt.client.presenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import bwbv.rlt.client.domain.Rlt;
-import bwbv.rlt.client.domain.RltKat;
+import bwbv.rlt.client.view.MainView;
+import bwbv.rlt.domain.Rlt;
+import bwbv.rlt.domain.RltKat;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,8 +33,7 @@ public class MenuStackPanel extends DecoratedStackPanel {
 		}
 	}
 
-//	public void fillMenu(final MainPane mainPane, JsArray<Rlt> rlts) {
-	public void fillMenu(final MainPane mainPane, ArrayList<Rlt> rlts) {
+	public void fillMenu(final MainView mainPane, ArrayList<Rlt> rlts) {
 		if (rlts != null) {
 			for (int i = 0; i < rlts.size(); i++) {
 				final Rlt rlt = rlts.get(i);

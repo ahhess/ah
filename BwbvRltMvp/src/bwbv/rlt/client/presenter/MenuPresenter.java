@@ -1,6 +1,9 @@
-package bwbv.rlt.client.ui;
+package bwbv.rlt.client.presenter;
 
-import bwbv.rlt.client.domain.Rlt;
+import java.util.ArrayList;
+
+import bwbv.rlt.client.view.MainView;
+import bwbv.rlt.domain.Rlt;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -8,11 +11,11 @@ import com.google.gwt.user.client.ui.DockPanel;
 /**
  * Menu on the left
  */
-public class MenuPanel extends Composite {
+public class MenuPresenter extends Composite {
 
 	private MenuStackPanel menuStackPanel = null;
 	
-	public MenuPanel() {
+	public MenuPresenter() {
 		DockPanel main = new DockPanel();
 //		main.add(new MenuTree(serviceRegistry, mainPane, rlts), DockPanel.CENTER);
 		menuStackPanel = new MenuStackPanel();
@@ -20,8 +23,7 @@ public class MenuPanel extends Composite {
 		initWidget(main);
 	}
 
-//	public void fillMenu(MainPane mainPane, JsArray<Rlt> rlts) {
-	public void fillMenu(MainPane mainPane, Rlt[] rlts) {
+	public void fillMenu(MainView mainPane, ArrayList<Rlt> rlts) {
 //		menuStackPanel.fillMenu(mainPane, rlts);
 	}
 }

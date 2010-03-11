@@ -7,8 +7,8 @@ import java.util.Date;
 public class Rlt implements Serializable {
 
 	private String id;
-	private RltKat rltkat;
-	private RltStatus rltstatus;
+	private RltKat rltKat;
+	private RltStatus rltStatus;
 	private String kurzbez;
 	private String turnierbez;
 	private String ort;
@@ -28,20 +28,20 @@ public class Rlt implements Serializable {
 		this.id = id;
 	}
 
-	public RltKat getRltkat() {
-		return rltkat;
+	public RltKat getRltKat() {
+		return rltKat;
 	}
 
-	public void setRltkat(RltKat rltkat) {
-		this.rltkat = rltkat;
+	public void setRltKat(RltKat rltkat) {
+		this.rltKat = rltkat;
 	}
 
 	public RltStatus getRltstatus() {
-		return rltstatus;
+		return rltStatus;
 	}
 
 	public void setRltstatus(RltStatus rltstatus) {
-		this.rltstatus = rltstatus;
+		this.rltStatus = rltstatus;
 	}
 
 	public String getKurzbez() {

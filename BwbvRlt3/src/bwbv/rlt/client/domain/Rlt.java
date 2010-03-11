@@ -1,25 +1,127 @@
 package bwbv.rlt.client.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import com.google.gwt.core.client.JavaScriptObject;
+@SuppressWarnings("serial")
+public class Rlt implements Serializable {
 
-public class Rlt extends JavaScriptObject {
+	private String id;
+	private RltKat rltKat;
+	private RltStatus rltStatus;
+	private String kurzbez;
+	private String turnierbez;
+	private String ort;
+	private String halle;
+	private String adresse;
+	private String datumtext;
+	private Date datum;
+	private Date created;
+	private Date meldeschluss;
+	private String[] disz;
 
-	protected Rlt() {}
+	public String getId() {
+		return id;
+	}
 
-	public final native String getId() 			/*-{ return this.id; }-*/;
-	public final native String getRltKat() 		/*-{ return this.rltkat; }-*/;
-	public final native String getRltStatus() 	/*-{ return this.rltstatus; }-*/;
-	public final native String getKurzbez() 	/*-{ return this.kurzbez; }-*/;
-	public final native String getTurnierbez() 	/*-{ return this.turnierbez; }-*/;
-	public final native String getOrt() 		/*-{ return this.ort; }-*/;
-	public final native String getHalle() 		/*-{ return this.halle; }-*/;
-	public final native String getAdresse() 	/*-{ return this.adresse; }-*/;
-	public final native String getDatumtext() 	/*-{ return this.datumtext; }-*/;
-	public final native Date getDatum() 		/*-{ return this.datum; }-*/;
-	public final native Date getCreated() 		/*-{ return this.created; }-*/;
-	public final native Date getMeldeschluss() 	/*-{ return this.meldeschluss; }-*/;
-	public final native String[] getDiszs() 	/*-{ return this.diszs; }-*/;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public RltKat getRltKat() {
+		return rltKat;
+	}
+
+	public void setRltKat(RltKat rltkat) {
+		this.rltKat = rltkat;
+	}
+
+	public RltStatus getRltstatus() {
+		return rltStatus;
+	}
+
+	public void setRltstatus(RltStatus rltstatus) {
+		this.rltStatus = rltstatus;
+	}
+
+	public String getKurzbez() {
+		return kurzbez;
+	}
+
+	public void setKurzbez(String kurzbez) {
+		this.kurzbez = kurzbez;
+	}
+
+	public String getTurnierbez() {
+		return turnierbez;
+	}
+
+	public void setTurnierbez(String turnierbez) {
+		this.turnierbez = turnierbez;
+	}
+
+	public String getOrt() {
+		return ort;
+	}
+
+	public void setOrt(String ort) {
+		this.ort = ort;
+	}
+
+	public String getHalle() {
+		return halle;
+	}
+
+	public void setHalle(String halle) {
+		this.halle = halle;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getDatumtext() {
+		return datumtext;
+	}
+
+	public void setDatumtext(String datumtext) {
+		this.datumtext = datumtext;
+	}
+
+	public Date getDatum() {
+		return datum;
+	}
+
+	public void setDatum(Date datum) {
+		this.datum = datum;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date createdAt) {
+		created = createdAt;
+	}
+
+	public Date getMeldeschluss() {
+		return meldeschluss;
+	}
+
+	public void setMeldeschluss(Date meldeschluss) {
+		this.meldeschluss = meldeschluss;
+	}
+
+	public String[] getDisz() {
+		return disz;
+	}
+
+	public void setDisz(String[] disz) {
+		this.disz = disz;
+	}
 
 }

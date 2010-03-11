@@ -1,11 +1,5 @@
 package bwbv.rlt.client;
 
-import bwbv.rlt.client.event.AddContactEvent;
-import bwbv.rlt.client.event.AddContactEventHandler;
-import bwbv.rlt.client.event.ContactUpdatedEvent;
-import bwbv.rlt.client.event.ContactUpdatedEventHandler;
-import bwbv.rlt.client.event.EditContactCancelledEvent;
-import bwbv.rlt.client.event.EditContactCancelledEventHandler;
 import bwbv.rlt.client.event.EditContactEvent;
 import bwbv.rlt.client.event.EditContactEventHandler;
 import bwbv.rlt.client.presenter.ContactsPresenter;
@@ -34,12 +28,12 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
   private void bind() {
     History.addValueChangeHandler(this);
 
-    eventBus.addHandler(AddContactEvent.TYPE,
-        new AddContactEventHandler() {
-          public void onAddContact(AddContactEvent event) {
-            doAddNewContact();
-          }
-        });  
+//    eventBus.addHandler(AddContactEvent.TYPE,
+//        new AddContactEventHandler() {
+//          public void onAddContact(AddContactEvent event) {
+//            doAddNewContact();
+//          }
+//        });  
 
     eventBus.addHandler(EditContactEvent.TYPE,
         new EditContactEventHandler() {
@@ -48,24 +42,24 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
           }
         });  
 
-    eventBus.addHandler(EditContactCancelledEvent.TYPE,
-        new EditContactCancelledEventHandler() {
-          public void onEditContactCancelled(EditContactCancelledEvent event) {
-            doEditContactCancelled();
-          }
-        });  
+//    eventBus.addHandler(EditContactCancelledEvent.TYPE,
+//        new EditContactCancelledEventHandler() {
+//          public void onEditContactCancelled(EditContactCancelledEvent event) {
+//            doEditContactCancelled();
+//          }
+//        });  
 
-    eventBus.addHandler(ContactUpdatedEvent.TYPE,
-        new ContactUpdatedEventHandler() {
-          public void onContactUpdated(ContactUpdatedEvent event) {
-            doContactUpdated();
-          }
-        });  
+//    eventBus.addHandler(ContactUpdatedEvent.TYPE,
+//        new ContactUpdatedEventHandler() {
+//          public void onContactUpdated(ContactUpdatedEvent event) {
+//            doContactUpdated();
+//          }
+//        });  
   }
   
-  private void doAddNewContact() {
-    History.newItem("add");
-  }
+//  private void doAddNewContact() {
+//    History.newItem("add");
+//  }
   
   private void doEditContact(String id) {
     History.newItem("edit", false);
@@ -73,13 +67,13 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     presenter.go(container);
   }
   
-  private void doEditContactCancelled() {
-    History.newItem("list");
-  }
+//  private void doEditContactCancelled() {
+//    History.newItem("list");
+//  }
   
-  private void doContactUpdated() {
-    History.newItem("list");
-  }
+//  private void doContactUpdated() {
+//    History.newItem("list");
+//  }
   
   public void go(final HasWidgets container) {
     this.container = container;
@@ -101,12 +95,12 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
       if (token.equals("list")) {
         presenter = new ContactsPresenter(rpcService, eventBus, new ContactsView());
       }
-      else if (token.equals("add")) {
-        presenter = new EditContactPresenter(rpcService, eventBus, new EditContactView());
-      }
-      else if (token.equals("edit")) {
-        presenter = new EditContactPresenter(rpcService, eventBus, new EditContactView());
-      }
+//      else if (token.equals("add")) {
+//        presenter = new EditContactPresenter(rpcService, eventBus, new EditContactView());
+//      }
+//      else if (token.equals("edit")) {
+//        presenter = new EditContactPresenter(rpcService, eventBus, new EditContactView());
+//      }
       
       if (presenter != null) {
         presenter.go(container);
