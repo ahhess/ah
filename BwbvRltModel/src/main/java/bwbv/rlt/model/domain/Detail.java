@@ -4,20 +4,51 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Detail implements Serializable {
-  private String id;
-  private String displayName;
-  
-  public Detail() {
-    new Detail("0", "");
-  }
+	private int id = 0;
+	private String kurzBez = "";
+	private String langBez = "";
+	
+	public Detail() {
+	}
+	
+	public Detail(int id, String kurzBez) {
+		this.id = id;
+		this.kurzBez = kurzBez;
+	}
 
-  public Detail(String id, String displayName) {
-    this.id = id;
-    this.displayName = displayName;
-  }
-  
-  public String getId() { return id; }
-  public void setId(String id) { this.id = id; }
-  public String getDisplayName() { return displayName; }
-  public void setDisplayName(String displayName) { this.displayName = displayName; } 
+	public Detail(int id, String kurzBez, String langBez) {
+		this.id = id;
+		this.kurzBez = kurzBez;
+		this.langBez = langBez;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getKurzBez() {
+		return kurzBez;
+	}
+
+	public void setKurzBez(String kurzBez) {
+		this.kurzBez = kurzBez;
+	}
+
+	public String getLangBez() {
+		return langBez;
+	}
+
+	public void setLangBez(String langBez) {
+		this.langBez = langBez;
+	}
+
+	@Override
+	public String toString() {
+		return getKurzBez()	+ " (" + getId() + ")";
+	}
+
 }
