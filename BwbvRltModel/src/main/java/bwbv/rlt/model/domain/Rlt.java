@@ -13,7 +13,10 @@ public class Rlt extends Detail {
 	private Date datum;
 	private Date created;
 	private Date meldeschluss;
-
+	private RltStatus status;
+	private RltKat kat;
+	private RltDisziplin[] disziplins;
+	
 	public String getTurnierbez() {
 		return turnierbez;
 	}
@@ -76,6 +79,30 @@ public class Rlt extends Detail {
 
 	public void setMeldeschluss(Date meldeschluss) {
 		this.meldeschluss = meldeschluss;
+	}
+
+	public RltStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(RltStatus status) {
+		this.status = status;
+	}
+
+	public RltKat getKat() {
+		return kat;
+	}
+
+	public void setKat(RltKat kat) {
+		this.kat = kat;
+	}
+
+	public RltDisziplin[] getDisziplins() {
+		return disziplins;
+	}
+
+	public void setDisziplins(RltDisziplin[] disziplins) {
+		this.disziplins = disziplins;
 	}
 
 }
