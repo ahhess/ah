@@ -1,28 +1,35 @@
 package bwbv.rlt.client.service;
 
-import bwbv.rlt.client.domain.Rlt;
+import java.util.ArrayList;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsArray;
+import bwbv.rlt.client.domain.Rlt;
+import bwbv.rlt.client.domain.RltKat;
+
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 
 public class RltJsonService implements RltService {
 
 	private static final String RLTSURL = "/json";
-	private JsArray<Rlt> rlts = null;
+	// private JsArray<Rlt> rlts = null;
+	private ArrayList<Rlt> rlts;
 
 	@Override
 	public Rlt[] getRlts() {
-		return null; //TODO
+		return rlts.toArray(new Rlt[rlts.size()]);
 	}
-	
-	private void sendGetRltsRequest( /* observer */ ) {
+
+	public void sendGetRltsRequest( /* observer */) {
 		// Send request to server and catch any errors.
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(RLTSURL));
 
@@ -34,7 +41,8 @@ public class RltJsonService implements RltService {
 
 				public void onResponseReceived(Request request, Response response) {
 					if (200 == response.getStatusCode()) {
-						setRlts(asJsArray(response.getText()));
+						// setRlts(asJsArray(response.getText()));
+						parseJsonRlt(response.getText());
 					} else {
 						Window.alert("Couldn't retrieve JSON (" + response.getStatusText() + ")");
 					}
@@ -45,15 +53,49 @@ public class RltJsonService implements RltService {
 		}
 	}
 
-	/**
-	 * Convert the string of JSON into JavaScript object.
-	 */
-	private final native JsArray<Rlt> asJsArray(String json) /*-{
-		return eval(json);
-	}-*/;
+	// /**
+	// * Convert the string of JSON into JavaScript object.
+	// */
+	// private final native JsArray<Rlt> asJsArray(String json) /*-{
+	// return eval(json);
+	// }-*/;
+	//
+	// private void setRlts(JsArray<Rlt> rlts) {
+	// this.rlts = rlts;
+	// // fire(rlts_changed);
+	// }
 
-	private void setRlts(JsArray<Rlt> rlts) {
-		this.rlts = rlts;
-		// fire(rlts_changed); 
+	private void parseJsonRlt(String json) {
+		rlts = new ArrayList<Rlt>();
+		JSONValue jsonValue = JSONParser.parse(json);
+		JSONArray jarr = jsonValue.isArray();
+		for (int i = 0; i < jarr.size(); i++) {
+			JSONObject jobj = jarr.get(i).isObject();
+			Rlt rlt = new Rlt();
+			rlt.setId(jobj.get("id").isString().stringValue());
+			rlt.setKurzbez(jobj.get("kurzbez").isString().stringValue());
+			String kat = jobj.get("kat").isString().stringValue();
+			for (RltKat rltKat : RltKat.values()) {
+				if (rltKat.toString().equals(kat)) {
+					rlt.setRltKat(rltKat);
+					break;
+				}
+			}
+			JSONArray diszs = jobj.get("diszs").isArray();
+			if (diszs != null) {
+				rlt.setDisz(parseDisz(jobj.get("diszs").isArray()));
+			}
+			rlts.add(rlt);
+		}
+		// notify ...
+	}
+
+	private String[] parseDisz(JSONArray jsonArray) {
+		ArrayList<String> diszs = new ArrayList<String>();
+		for (int i = 0; i < jsonArray.size(); ++i) {
+			JSONString disz = jsonArray.get(i).isString();
+			diszs.add(disz.isString().stringValue());
+		}
+		return (String[]) diszs.toArray(new String[diszs.size()]);
 	}
 }
