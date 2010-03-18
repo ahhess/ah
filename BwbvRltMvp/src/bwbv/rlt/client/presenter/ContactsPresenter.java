@@ -3,7 +3,7 @@ package bwbv.rlt.client.presenter;
 import bwbv.rlt.client.ContactsServiceAsync;
 import bwbv.rlt.client.event.AddContactEvent;
 import bwbv.rlt.client.event.EditContactEvent;
-import bwbv.rlt.domain.Detail;
+import bwbv.rlt.domain.ContactDetail;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ContactsPresenter implements Presenter {  
 
-  private List<Detail> details;
+  private List<ContactDetail> details;
 
   public interface Display {
     HasClickHandlers getAddButton();
@@ -83,7 +83,7 @@ public class ContactsPresenter implements Presenter {
     for (int i = 0; i < details.size(); ++i) {
       for (int j = 0; j < details.size() - 1; ++j) {
         if (details.get(j).getDisplayName().compareToIgnoreCase(details.get(j + 1).getDisplayName()) >= 0) {
-          Detail tmp = details.get(j);
+          ContactDetail tmp = details.get(j);
           details.set(j, details.get(j + 1));
           details.set(j + 1, tmp);
         }
@@ -91,17 +91,17 @@ public class ContactsPresenter implements Presenter {
     }
   }
 
-  public void setContactDetails(List<Detail> contactDetails) {
+  public void setContactDetails(List<ContactDetail> contactDetails) {
     this.details = contactDetails;
   }
   
-  public Detail getContactDetail(int index) {
+  public ContactDetail getContactDetail(int index) {
     return details.get(index);
   }
   
   private void fetchContactDetails() {
-    rpcService.getContactDetails(new AsyncCallback<ArrayList<Detail>>() {
-      public void onSuccess(ArrayList<Detail> result) {
+    rpcService.getContactDetails(new AsyncCallback<ArrayList<ContactDetail>>() {
+      public void onSuccess(ArrayList<ContactDetail> result) {
           details = result;
           sortContactDetails();
           List<String> data = new ArrayList<String>();
@@ -120,8 +120,8 @@ public class ContactsPresenter implements Presenter {
   }
   
   private void fetchRltDetails() {
-	  rpcService.getRltDetails(new AsyncCallback<ArrayList<Detail>>() {
-		  public void onSuccess(ArrayList<Detail> result) {
+	  rpcService.getRltDetails(new AsyncCallback<ArrayList<ContactDetail>>() {
+		  public void onSuccess(ArrayList<ContactDetail> result) {
 			  details = result;
 			  List<String> data = new ArrayList<String>();
 			  
@@ -146,8 +146,8 @@ public class ContactsPresenter implements Presenter {
       ids.add(details.get(selectedRows.get(i)).getId());
     }
     
-    rpcService.deleteContacts(ids, new AsyncCallback<ArrayList<Detail>>() {
-      public void onSuccess(ArrayList<Detail> result) {
+    rpcService.deleteContacts(ids, new AsyncCallback<ArrayList<ContactDetail>>() {
+      public void onSuccess(ArrayList<ContactDetail> result) {
         details = result;
         sortContactDetails();
         List<String> data = new ArrayList<String>();

@@ -3,15 +3,15 @@ package bwbv.rlt.domain;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Detail implements Serializable {
+public class ContactDetail implements Serializable {
   private String id;
   private String displayName;
   
-  public Detail() {
-    new Detail("0", "");
+  public ContactDetail() {
+    new ContactDetail("0", "");
   }
 
-  public Detail(String id, String displayName) {
+  public ContactDetail(String id, String displayName) {
     this.id = id;
     this.displayName = displayName;
   }

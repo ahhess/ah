@@ -2,7 +2,6 @@ package bwbv.rlt.domain;
 
 import java.io.Serializable;
 
-import bwbv.rlt.domain.Detail;
 
 @SuppressWarnings("serial")
 public class Contact implements Serializable {
@@ -20,8 +19,8 @@ public class Contact implements Serializable {
 		this.emailAddress = emailAddress;
 	}
 	
-	public Detail getLightWeightContact() {
-	  return new Detail(id, getFullName());
+	public ContactDetail getLightWeightContact() {
+	  return new ContactDetail(id, getFullName());
 	}
 	
   public String getId() { return id; }

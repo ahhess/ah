@@ -2,7 +2,7 @@ package bwbv.rlt.client;
 
 import java.util.ArrayList;
 
-import bwbv.rlt.domain.Rlt;
+import bwbv.rlt.model.domain.Rlt;
 
 
 /**

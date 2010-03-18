@@ -3,7 +3,7 @@ package bwbv.rlt.client.view;
 import bwbv.rlt.client.presenter.HeaderPane;
 import bwbv.rlt.client.presenter.MenuPresenter;
 import bwbv.rlt.client.presenter.StatusBarPane;
-import bwbv.rlt.domain.Rlt;
+import bwbv.rlt.model.domain.Rlt;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;

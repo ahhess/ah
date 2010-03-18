@@ -4,7 +4,7 @@ import bwbv.rlt.client.ContactsService;
 import bwbv.rlt.client.ContactsServiceAsync;
 import bwbv.rlt.client.presenter.ContactsPresenter;
 import bwbv.rlt.client.view.ContactsView;
-import bwbv.rlt.domain.Detail;
+import bwbv.rlt.domain.ContactDetail;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
@@ -30,10 +30,10 @@ public class ExampleGWTTest extends GWTTestCase {
   }
   
   public void testContactSort(){
-    ArrayList<Detail> contactDetails = new ArrayList<Detail>();
-    contactDetails.add(new Detail("0", "c_contact"));
-    contactDetails.add(new Detail("1", "b_contact"));
-    contactDetails.add(new Detail("2", "a_contact"));
+    ArrayList<ContactDetail> contactDetails = new ArrayList<ContactDetail>();
+    contactDetails.add(new ContactDetail("0", "c_contact"));
+    contactDetails.add(new ContactDetail("1", "b_contact"));
+    contactDetails.add(new ContactDetail("2", "a_contact"));
     contactsPresenter.setContactDetails(contactDetails);
     contactsPresenter.sortContactDetails();
     assertTrue(contactsPresenter.getContactDetail(0).getDisplayName().equals("a_contact"));

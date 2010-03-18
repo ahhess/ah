@@ -3,7 +3,7 @@ package bwbv.rlt.client.presenter;
 import java.util.ArrayList;
 
 import bwbv.rlt.client.view.MainView;
-import bwbv.rlt.domain.Rlt;
+import bwbv.rlt.model.domain.Rlt;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;

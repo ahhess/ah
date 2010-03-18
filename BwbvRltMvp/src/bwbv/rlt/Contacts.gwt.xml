@@ -7,6 +7,8 @@
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
+  <inherits name='bwbv.rlt.model.Domain'/>
+
   <entry-point class='bwbv.rlt.client.Contacts'/>
 
   <!-- Specify the paths for translatable code                    -->
