@@ -9,6 +9,7 @@
   <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>
 
   <!-- Other module inherits                                      -->
+  <inherits name='bwbv.rlt.model.Domain'/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='bwbv.rlt.client.ClientMain'/>

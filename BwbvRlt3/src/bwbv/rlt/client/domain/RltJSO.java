@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class RltJSO extends JavaScriptObject implements Rlt {
+public class RltJSO extends JavaScriptObject {
 
 	protected RltJSO() {}
 

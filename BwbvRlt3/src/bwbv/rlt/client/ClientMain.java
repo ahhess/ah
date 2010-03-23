@@ -1,6 +1,8 @@
 
 package bwbv.rlt.client;
 
+import bwbv.rlt.client.service.RltJsonService;
+import bwbv.rlt.client.service.RltService;
 import bwbv.rlt.client.ui.MainPane;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -23,12 +25,12 @@ public class ClientMain implements EntryPoint {
 
         //get better exception handling
         setUncaughtExceptionHandler();
-        
-        // Ha ha, who needs Spring!  Seriously, integrating it on the GWT client side
-        // is more trouble than it's worth!
-        //
-        // Bootstrap our dependencies (every client gets their own instance)
-        mainPane = new MainPane();
+                
+		ClientState clientState = new ClientState();
+		RltService rltService = new RltJsonService();
+		ClientController controller = new ClientController(clientState, rltService);
+
+        mainPane = new MainPane(clientState, controller);
 
         main = new SimplePanel();
         main.setSize("100%", "100%");

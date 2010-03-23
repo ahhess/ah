@@ -40,6 +40,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class HeaderPane extends Composite {
 
+	private ClientState clientState;
 	private PopupPanel confirmPopup;
 	private DockPanel main;
 
@@ -49,9 +50,10 @@ public class HeaderPane extends Composite {
 	 * @param titleText
 	 *            The text this header should show as a title.
 	 */
-	public HeaderPane(String titleText) {
+	public HeaderPane(ClientState clientState) {
+		this.clientState = clientState;
 		main = new DockPanel();
-		main.add(new Label(titleText), DockPanel.CENTER);
+		main.add(new Label("BWBV RLT Online"), DockPanel.CENTER);
 		reset();
 		initWidget(main);
 		setStyleName("HeaderPane");
@@ -73,7 +75,7 @@ public class HeaderPane extends Composite {
 		HorizontalPanel panel = new HorizontalPanel();
 		if (isLoggedIn) {
 			panel.setSpacing(10);
-			panel.add(new Label("Welcome " + ClientState.get().getUserName()));
+			panel.add(new Label("Welcome " + clientState.getUserName()));
 
 			PushButton logoutButton = new PushButton("Logout");
 			logoutButton.setStyleName("LogoutButton");
@@ -105,7 +107,7 @@ public class HeaderPane extends Composite {
 
 		try {
 			SecurityService.Holder.get().login(userName);
-			ClientState.get().setUserName(userName);
+			clientState.setUserName(userName);
 			reset();
 		} catch (AuthenticationException caught) {
 			throw new RuntimeException(caught);

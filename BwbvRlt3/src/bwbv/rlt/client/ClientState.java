@@ -2,30 +2,16 @@ package bwbv.rlt.client;
 
 import java.util.ArrayList;
 
-import bwbv.rlt.client.domain.Rlt;
+import bwbv.rlt.model.domain.Rlt;
 
+public class ClientState implements ClientStateChangeNotifier {
 
-/**
- * 
- * Like the session in traditional webapps.  
- * In GWT apps client state is managed on the client
- * 
- */
-public class ClientState {
-	
-	private static ClientState instance = new ClientState();
 	private String userName;
 	private ArrayList<Rlt> rlts;
+	private ArrayList<ClientStateChangeListener> listeners = new ArrayList<ClientStateChangeListener>();
 
-	private ClientState() {
-	}
-	
-	public static ClientState get() {
-		return instance;
-	}
-	
 	public void setUserName(String username) {
-		this.userName=username;
+		this.userName = username;
 	}
 
 	public String getUserName() {
@@ -38,6 +24,13 @@ public class ClientState {
 
 	public void setRlts(ArrayList<Rlt> rlts) {
 		this.rlts = rlts;
+		for (ClientStateChangeListener listener : listeners) {
+			listener.onChange(this);
+		}
 	}
 
+	@Override
+	public void addChangeListener(ClientStateChangeListener listener) {
+		listeners.add(listener);
+	}
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 public class RltJsonServlet extends HttpServlet {
 
 	@Override
@@ -15,26 +16,26 @@ public class RltJsonServlet extends HttpServlet {
 
 		StringBuffer b = new StringBuffer();
 		b.append("[ ");
-		b.append("{ \"id\": \"1\""); 
-		b.append(", \"rltkat\": \"Senioren\"");
+		b.append("{ \"id\": 1"); 
+		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
 		b.append(", \"kurzbez\": \"1. BezRlt NW\"");
 		b.append(", \"diszs\": [ \"HE\", \"DE\", \"MX\" ]");
 		b.append("}, ");
 
-		b.append("{ \"id\": \"2\""); 
-		b.append(", \"rltkat\": \"Senioren\"");
+		b.append("{ \"id\": 2"); 
+		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
 		b.append(", \"kurzbez\": \"2. BezRlt NW\"");
 		b.append(", \"diszs\": [ \"HD\", \"DD\", \"MX\" ]");
 		b.append("}, ");
 		
-		b.append("{ \"id\": \"3\""); 
-		b.append(", \"rltkat\": \"Senioren\"");
+		b.append("{ \"id\": 3"); 
+		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
 		b.append(", \"kurzbez\": \"3. BezRlt NW\"");
 		b.append(", \"diszs\": [ \"HE\", \"DE\", \"HD\", \"DD\" ]");
 		b.append("}, ");
 		
-		b.append("{ \"id\": \"4\""); 
-		b.append(", \"rltkat\": \"Jugend\"");
+		b.append("{ \"id\": 4"); 
+		b.append(", \"kat\": {\"id\": 2, \"kurzbez\": \"Jugend\"}");
 		b.append(", \"kurzbez\": \"1. JBezRlt NW\"");
 		b.append(", \"diszs\": [ \"U13JE\", \"U13ME\" ]");
 		b.append("} ]");

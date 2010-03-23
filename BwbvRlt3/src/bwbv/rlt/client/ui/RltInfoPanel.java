@@ -1,6 +1,6 @@
 package bwbv.rlt.client.ui;
 
-import bwbv.rlt.client.domain.Rlt;
+import bwbv.rlt.model.domain.Rlt;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -16,7 +16,7 @@ public class RltInfoPanel extends Composite {
 		horizontalPanel.setWidth("25%");
 
 		//TODO
-		horizontalPanel.add(new HTML(rlt.getKurzbez()));
+		horizontalPanel.add(new HTML(rlt.getKurzBez()));
 		
 		FlexTable table = new FlexTable();
 		

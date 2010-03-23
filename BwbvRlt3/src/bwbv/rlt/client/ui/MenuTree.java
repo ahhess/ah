@@ -1,7 +1,7 @@
 package bwbv.rlt.client.ui;
 
-import bwbv.rlt.client.domain.Rlt;
-import bwbv.rlt.client.domain.RltKat;
+import bwbv.rlt.model.domain.Rlt;
+import bwbv.rlt.model.domain.RltKat;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
@@ -30,8 +30,8 @@ public class MenuTree extends Tree {
 		RltKat kat = null;
 		TreeItem katItem = null;
 		for (Rlt rlt : rlts) {
-			if (kat == null || !kat.equals(rlt.getRltKat())) {
-				kat  = rlt.getRltKat();
+			if (kat == null || !kat.equals(rlt.getKat())) {
+				kat  = rlt.getKat();
 				katItem = new TreeItem(new HTML(kat.toString()));
 				katItem.setState(true);
 				addItem(katItem);
@@ -55,12 +55,12 @@ public class MenuTree extends Tree {
 
 	private void handleEvent(String text) {
 //		GWT.log(text,null);
-		for (Rlt rlt : rlts) {
-			if (rlt.getTurnierbez().equalsIgnoreCase(text)) {
-//				GWT.log("gefunden!",null);
-				mainPane.showRlt(rlt);
-			}
-		}
+//		for (Rlt rlt : rlts) {
+//			if (rlt.getTurnierbez().equalsIgnoreCase(text)) {
+////				GWT.log("gefunden!",null);
+//				mainPane.showRlt(rlt);
+//			}
+//		}
 	}
 
 }
