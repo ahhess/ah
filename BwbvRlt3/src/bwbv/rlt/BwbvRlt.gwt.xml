@@ -4,9 +4,9 @@
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.json.JSON'/>
 
-  <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/>  -->
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
-  <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>  -->
 
   <!-- Other module inherits                                      -->
   <inherits name='bwbv.rlt.model.Domain'/>
