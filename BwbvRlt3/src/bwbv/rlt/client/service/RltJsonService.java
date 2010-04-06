@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import bwbv.rlt.client.ClientState;
 import bwbv.rlt.model.domain.Detail;
 import bwbv.rlt.model.domain.Rlt;
+import bwbv.rlt.model.domain.RltDisziplin;
 import bwbv.rlt.model.domain.RltKat;
+import bwbv.rlt.model.domain.RltStatus;
 
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
@@ -22,13 +24,14 @@ import com.google.gwt.user.client.Window;
 public class RltJsonService implements RltService {
 
 	private static final String RLTSURL = "/json";
-	// private JsArray<Rlt> rlts = null;
-//	private ArrayList<Rlt> rlts;
 
-//	@Override
-//	public Rlt[] getRlts() {
-//		return rlts.toArray(new Rlt[rlts.size()]);
-//	}
+	// private JsArray<Rlt> rlts = null;
+	// private ArrayList<Rlt> rlts;
+
+	// @Override
+	// public Rlt[] getRlts() {
+	// return rlts.toArray(new Rlt[rlts.size()]);
+	// }
 
 	public void sendGetRltsRequest(final ClientState clientState) {
 		// Send request to server and catch any errors.
@@ -75,39 +78,42 @@ public class RltJsonService implements RltService {
 			Rlt rlt = new Rlt();
 			rlt.setId((int) jobj.get("id").isNumber().doubleValue());
 			rlt.setKurzBez(jobj.get("kurzbez").isString().stringValue());
-//			String kat = jobj.get("kat").isString().stringValue();
-			rlt.setKat(new RltKat(parseDetail(jobj.get("kat").isObject())));
-//			for (RltKat rltKat : RltKat.values()) {
-//				if (rltKat.toString().equals(kat)) {
-//					rlt.setRltKat(rltKat);
-//					break;
-//				}
-//			}
-//			JSONArray diszs = jobj.get("diszs").isArray();
-//			if (diszs != null) {
-//				rlt.setDisziplins(parseDisz(jobj.get("diszs").isArray()));
-//			}
+
+			rlt.setKat((RltKat) parseDetail(jobj, "kat", new RltKat()));
+			rlt.setStatus((RltStatus) parseDetail(jobj, "status", new RltStatus()));
+
+			JSONArray diszs = jobj.get("diszs").isArray();
+			if (diszs != null && diszs.size() > 0) {
+				RltDisziplin[] disziplins = new RltDisziplin[diszs.size()];
+				for (int j = 0; j < diszs.size(); j++) {
+					JSONObject jo2 = diszs.get(j).isObject();
+					disziplins[j] = (RltDisziplin) parseDetail(jo2, "disz", new RltDisziplin());
+				}
+				rlt.setDisziplins(disziplins);
+			}
 			rlts.add(rlt);
 		}
 		clientState.setRlts(rlts);
 	}
 
-//	private RltDisziplin[] parseDisz(JSONArray jsonArray) {
-//		ArrayList<RltDisziplin> diszs = new ArrayList<RltDisziplin>();
-//		for (int i = 0; i < jsonArray.size(); ++i) {
-//			JSONString disz = jsonArray.get(i).isString();
-//			diszs.add(disz.isString().stringValue());
-//		}
-//		return (String[]) diszs.toArray(new String[diszs.size()]);
-//	}
+	// private RltDisziplin[] parseDisz(JSONArray jsonArray) {
+	// ArrayList<RltDisziplin> diszs = new ArrayList<RltDisziplin>();
+	// for (int i = 0; i < jsonArray.size(); ++i) {
+	// JSONString disz = jsonArray.get(i).isString();
+	// diszs.add(disz.isString().stringValue());
+	// }
+	// return (String[]) diszs.toArray(new String[diszs.size()]);
+	// }
 
-	private Detail parseDetail(JSONObject jsonObject) {
-		Detail detail = null;
+	private Detail parseDetail(JSONObject jsonObject, String key, Detail detail) {
 		if (jsonObject != null) {
-			detail=new Detail();
-			detail.setId((int) jsonObject.get("id").isNumber().doubleValue());
-			detail.setKurzBez(jsonObject.get("kurzbez").isString().stringValue());
+			JSONValue value = jsonObject.get(key);
+			if (value != null && value.isObject() != null) {
+				detail.setId((int) jsonObject.get("id").isNumber().doubleValue());
+				detail.setKurzBez(jsonObject.get("kurzbez").isString().stringValue());
+				return detail;
+			}
 		}
-		return detail;
+		return null;
 	}
 }
