@@ -16,10 +16,7 @@ public class RltKat extends Detail {
 	}
 
 	public RltKat(Detail detail) {
-		super();
-		if (detail!=null)
-			setId(detail.getId());
-			setKurzBez(detail.getKurzBez());
+		super(detail);
 	}
 	
 }

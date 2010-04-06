@@ -22,6 +22,13 @@ public class Detail implements Serializable {
 		this.langBez = langBez;
 	}
 
+	public Detail(Detail detail) {
+		if (detail!=null) {
+			this.id = detail.getId();
+			this.kurzBez = detail.getKurzBez();
+		}
+	}
+
 	public int getId() {
 		return id;
 	}
