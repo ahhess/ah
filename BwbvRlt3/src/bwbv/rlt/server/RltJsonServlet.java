@@ -28,7 +28,9 @@ public class RltJsonServlet extends HttpServlet {
 		b.append("{ \"id\": 1"); 
 		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
 		b.append(", \"kurzbez\": \"1. BezRlt NW\"");
+		b.append(", \"status\": {\"id\": 3, \"kurzbez\": \"Meldeschluss\"}");
 		b.append(", \"diszs\": ");
+//		b.append("[ \"HE\", \"DE\", \"MX\"");
 		b.append("[ {\"id\": 1, \"kurzbez\": \"HE\"}");
 		b.append(", {\"id\": 2, \"kurzbez\": \"DE\"}");
 		b.append(", {\"id\": 5, \"kurzbez\": \"MX\"}");
@@ -38,9 +40,11 @@ public class RltJsonServlet extends HttpServlet {
 		b.append("]}, ");
 
 		b.append("{ \"id\": 2"); 
-		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
 		b.append(", \"kurzbez\": \"2. BezRlt NW\"");
+		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
+		b.append(", \"status\": {\"id\": 2, \"kurzbez\": \"meldeoffen\"}");
 		b.append(", \"diszs\": ");
+//		b.append("[ \"HD\", \"DD\", \"MX\"");
 		b.append("[ {\"id\": 3, \"kurzbez\": \"HD\"}");
 		b.append(", {\"id\": 4, \"kurzbez\": \"DD\"}");
 		b.append(", {\"id\": 5, \"kurzbez\": \"MX\"}");
@@ -50,9 +54,11 @@ public class RltJsonServlet extends HttpServlet {
 		b.append("]}, ");
 		
 		b.append("{ \"id\": 3"); 
-		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
 		b.append(", \"kurzbez\": \"3. BezRlt NW\"");
+		b.append(", \"kat\": {\"id\": 1, \"kurzbez\": \"Senioren\"}");
+		b.append(", \"status\": {\"id\": 1, \"kurzbez\": \"geplant\"}");
 		b.append(", \"diszs\": ");
+//		b.append("[ \"HE\", \"DE\", \"HD\", \"MX\"");
 		b.append("[ {\"id\": 1, \"kurzbez\": \"HE\"}");
 		b.append(", {\"id\": 2, \"kurzbez\": \"DE\"}");
 		b.append(", {\"id\": 3, \"kurzbez\": \"HD\"}");
@@ -64,9 +70,11 @@ public class RltJsonServlet extends HttpServlet {
 		b.append("]}, ");
 		
 		b.append("{ \"id\": 4"); 
-		b.append(", \"kat\": {\"id\": 2, \"kurzbez\": \"Jugend\"}");
 		b.append(", \"kurzbez\": \"1. JBezRlt NW\"");
+		b.append(", \"kat\": {\"id\": 2, \"kurzbez\": \"Jugend\"}");
+		b.append(", \"status\": {\"id\": 4, \"kurzbez\": \"beendet\"}");
 		b.append(", \"diszs\": ");
+//		b.append("[ \"U13JE\", \"U13ME\"");
 		b.append("[ {\"id\": 6, \"kurzbez\": \"U13JE\"}");
 		b.append(", {\"id\": 7, \"kurzbez\": \"U13ME\"}");
 //		b.append("[ \"disz\": {\"id\": 6, \"kurzbez\": \"U13JE\"}");

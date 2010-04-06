@@ -86,8 +86,12 @@ public class RltJsonService implements RltService {
 			if (diszs != null && diszs.size() > 0) {
 				RltDisziplin[] disziplins = new RltDisziplin[diszs.size()];
 				for (int j = 0; j < diszs.size(); j++) {
+					// String disz = diszs.get(j).isString().stringValue();
+					// disziplins[j] = (RltDisziplin) parseDetail(jo2, "disz", new RltDisziplin());
 					JSONObject jo2 = diszs.get(j).isObject();
-					disziplins[j] = (RltDisziplin) parseDetail(jo2, "disz", new RltDisziplin());
+					disziplins[j] = new RltDisziplin();
+					disziplins[j].setId((int) jo2.get("id").isNumber().doubleValue());
+					disziplins[j].setKurzBez(jo2.get("kurzbez").isString().stringValue());
 				}
 				rlt.setDisziplins(disziplins);
 			}
@@ -108,10 +112,13 @@ public class RltJsonService implements RltService {
 	private Detail parseDetail(JSONObject jsonObject, String key, Detail detail) {
 		if (jsonObject != null) {
 			JSONValue value = jsonObject.get(key);
-			if (value != null && value.isObject() != null) {
-				detail.setId((int) jsonObject.get("id").isNumber().doubleValue());
-				detail.setKurzBez(jsonObject.get("kurzbez").isString().stringValue());
-				return detail;
+			if (value != null) {
+				JSONObject jo3 = value.isObject();
+				if (jo3 != null) {
+					detail.setId((int) jo3.get("id").isNumber().doubleValue());
+					detail.setKurzBez(jo3.get("kurzbez").isString().stringValue());
+					return detail;
+				}
 			}
 		}
 		return null;
