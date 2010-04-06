@@ -8,6 +8,7 @@ public class ClientState implements ClientStateChangeNotifier {
 
 	private String userName;
 	private ArrayList<Rlt> rlts;
+	private Rlt currentRlt;
 	private ArrayList<ClientStateChangeListener> listeners = new ArrayList<ClientStateChangeListener>();
 
 	public void setUserName(String username) {
@@ -29,6 +30,17 @@ public class ClientState implements ClientStateChangeNotifier {
 		}
 	}
 
+	public Rlt getCurrentRlt() {
+		return currentRlt;
+	}
+
+	public void setCurrentRlt(Rlt currentRlt) {
+		this.currentRlt = currentRlt;
+		for (ClientStateChangeListener listener : listeners) {
+			listener.onRltSelected(this);
+		}
+	}
+	
 	@Override
 	public void addChangeListener(ClientStateChangeListener listener) {
 		listeners.add(listener);

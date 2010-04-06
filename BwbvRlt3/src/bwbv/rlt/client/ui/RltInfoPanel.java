@@ -18,7 +18,7 @@ public class RltInfoPanel extends Composite {
 		//TODO
 		horizontalPanel.add(new HTML(rlt.getKurzBez()));
 		
-		FlexTable table = new FlexTable();
+//		FlexTable table = new FlexTable();
 		
 		initWidget(horizontalPanel);
 	}

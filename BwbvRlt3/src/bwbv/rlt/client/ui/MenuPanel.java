@@ -4,7 +4,6 @@ import bwbv.rlt.client.ClientState;
 import bwbv.rlt.client.ClientStateChangeListener;
 
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
 
 /**
  * Menu on the left
@@ -14,16 +13,22 @@ public class MenuPanel extends Composite implements ClientStateChangeListener {
 	private MenuStackPanel menuStackPanel = null;
 
 	public MenuPanel() {
-		DockPanel main = new DockPanel();
+//		DockPanel main = new DockPanel();
 		// main.add(new MenuTree(serviceRegistry, mainPane, rlts), DockPanel.CENTER);
 		menuStackPanel = new MenuStackPanel();
-		main.add(menuStackPanel, DockPanel.CENTER);
-		initWidget(main);
+//		main.add(menuStackPanel, DockPanel.CENTER);
+//		initWidget(main);
+		initWidget(menuStackPanel);
 	}
 
 	@Override
 	public void onChange(ClientState clientState) {
 		menuStackPanel.onChange(clientState);
+	}
+	
+	@Override
+	public void onRltSelected(ClientState clientState) {
+		menuStackPanel.onRltSelected(clientState);
 	}
 
 	// public void fillMenu(MainPane mainPane, JsArray<Rlt> rlts) {
