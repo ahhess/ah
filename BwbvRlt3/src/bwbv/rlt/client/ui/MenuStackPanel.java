@@ -9,15 +9,15 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Stack Panel Menu
  */
-public class MenuStackPanel extends DecoratedStackPanel implements ClientStateChangeListener {
+public class MenuStackPanel extends StackPanel implements ClientStateChangeListener {
 
 //	private HashMap<String, Panel> map = new HashMap<String, Panel>();
 
