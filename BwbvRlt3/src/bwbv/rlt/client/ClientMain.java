@@ -31,6 +31,8 @@ public class ClientMain implements EntryPoint {
 		ClientController controller = new ClientController(clientState, rltService);
 
         mainPane = new MainPane(clientState, controller);
+        
+		controller.readRlts();
 
         main = new SimplePanel();
         main.setSize("100%", "100%");

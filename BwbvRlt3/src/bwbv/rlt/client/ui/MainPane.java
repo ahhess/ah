@@ -2,14 +2,9 @@ package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.ClientController;
 import bwbv.rlt.client.ClientState;
-import bwbv.rlt.client.service.RltJsonService;
-import bwbv.rlt.model.domain.Rlt;
-import bwbv.rlt.model.domain.RltDisziplin;
 
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalSplitPanel;
 
 /**
@@ -51,8 +46,6 @@ public class MainPane extends Composite {
 		horizontalSplitPanel.setLeftWidget(menuPanel);
 		horizontalSplitPanel.setRightWidget(centerPane);
 		mainPanel.add(horizontalSplitPanel, DockPanel.CENTER);
-
-		controller.readRlts();
 
 		initWidget(mainPanel);
 	}
