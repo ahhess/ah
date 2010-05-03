@@ -46,7 +46,7 @@ public class RltJsonService implements RltService {
 				public void onResponseReceived(Request request, Response response) {
 					if (200 == response.getStatusCode()) {
 						// setRlts(asJsArray(response.getText()));
-						parseJsonRlt(response.getText(), clientState);
+						parseJsonRlts(response.getText(), clientState);
 					} else {
 						Window.alert("Couldn't retrieve JSON (" + response.getStatusText() + ")");
 					}
@@ -57,19 +57,7 @@ public class RltJsonService implements RltService {
 		}
 	}
 
-	// /**
-	// * Convert the string of JSON into JavaScript object.
-	// */
-	// private final native JsArray<Rlt> asJsArray(String json) /*-{
-	// return eval(json);
-	// }-*/;
-	//
-	// private void setRlts(JsArray<Rlt> rlts) {
-	// this.rlts = rlts;
-	// // fire(rlts_changed);
-	// }
-
-	private void parseJsonRlt(String json, ClientState clientState) {
+	private void parseJsonRlts(String json, ClientState clientState) {
 		ArrayList<Rlt> rlts = new ArrayList<Rlt>();
 		JSONValue jsonValue = JSONParser.parse(json);
 		JSONArray jarr = jsonValue.isArray();
@@ -123,4 +111,31 @@ public class RltJsonService implements RltService {
 		}
 		return null;
 	}
+
+	public void sendGetRltRequest(final ClientState clientState, int rltId) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(RLTSURL));
+		try {
+			builder.sendRequest(null, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					Window.alert("Couldn't retrieve JSON:" + exception);
+				}
+
+				public void onResponseReceived(Request request, Response response) {
+					if (200 == response.getStatusCode()) {
+						parseJsonRlt(response.getText(), clientState);
+					} else {
+						Window.alert("Couldn't retrieve JSON (" + response.getStatusText() + ")");
+					}
+				}
+			});
+		} catch (RequestException e) {
+			Window.alert("Couldn't retrieve JSON");
+		}
+	}
+
+	private void parseJsonRlt(String json, ClientState clientState) {
+		JSONValue jsonValue = JSONParser.parse(json);
+		JSONObject jo = jsonValue.isObject();
+	}
+
 }
