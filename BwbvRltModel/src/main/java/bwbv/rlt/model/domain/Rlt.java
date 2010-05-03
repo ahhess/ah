@@ -5,7 +5,6 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class Rlt extends Detail {
 
-	private String turnierbez;
 	private String ort;
 	private String halle;
 	private String adresse;
@@ -17,14 +16,6 @@ public class Rlt extends Detail {
 	private RltKat kat;
 	private RltDisziplin[] disziplins;
 	
-	public String getTurnierbez() {
-		return turnierbez;
-	}
-
-	public void setTurnierbez(String turnierbez) {
-		this.turnierbez = turnierbez;
-	}
-
 	public String getOrt() {
 		return ort;
 	}
