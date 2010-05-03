@@ -36,7 +36,7 @@ public class MenuTree extends Tree {
 				katItem.setState(true);
 				addItem(katItem);
 			}
-			TreeItem rltItem = new TreeItem(new HTML(rlt.getTurnierbez()));
+			TreeItem rltItem = new TreeItem(new HTML(rlt.getLangBez()));
 			katItem.addItem(rltItem);
 		}
 	}
