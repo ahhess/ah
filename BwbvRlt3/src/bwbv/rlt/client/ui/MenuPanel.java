@@ -21,12 +21,10 @@ public class MenuPanel extends Composite implements ClientStateChangeListener {
 		initWidget(menuStackPanel);
 	}
 
-	@Override
 	public void onChange(ClientState clientState) {
 		menuStackPanel.onChange(clientState);
 	}
 	
-	@Override
 	public void onRltSelected(ClientState clientState) {
 		menuStackPanel.onRltSelected(clientState);
 	}

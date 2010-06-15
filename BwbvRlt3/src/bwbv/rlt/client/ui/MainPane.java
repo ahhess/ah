@@ -42,7 +42,7 @@ public class MainPane extends Composite {
 		clientState.addChangeListener(centerPane);
 
 		HorizontalSplitPanel horizontalSplitPanel = new HorizontalSplitPanel();
-		horizontalSplitPanel.setSplitPosition("150px");
+		horizontalSplitPanel.setSplitPosition("250px");
 		horizontalSplitPanel.setLeftWidget(menuPanel);
 		horizontalSplitPanel.setRightWidget(centerPane);
 		mainPanel.add(horizontalSplitPanel, DockPanel.CENTER);

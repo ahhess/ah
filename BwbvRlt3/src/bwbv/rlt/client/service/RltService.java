@@ -7,22 +7,4 @@ public interface RltService {
 	void sendGetRltsRequest(ClientState clientState);
 	void sendGetRltRequest(ClientState clientState, int rltId);
 	
-	//	Rlt[] getRlts();
-	//Rlt[] getRltsByKat(RltKat kat);
-	
-//	public static class Holder {
-//		
-//		private static RltService service = null;
-//		
-//		public static RltService get() {
-////			if (service == null) {
-////				service = new RltJsonService();
-////			}
-//			return service;
-//		}
-//		
-//		public static void set(RltService rltService) {
-//			service = rltService;
-//		}
-//	}
 }

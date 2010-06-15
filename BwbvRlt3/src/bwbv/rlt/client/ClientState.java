@@ -41,7 +41,6 @@ public class ClientState implements ClientStateChangeNotifier {
 		}
 	}
 	
-	@Override
 	public void addChangeListener(ClientStateChangeListener listener) {
 		listeners.add(listener);
 	}

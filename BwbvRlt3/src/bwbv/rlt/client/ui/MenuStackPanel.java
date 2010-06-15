@@ -33,7 +33,6 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 	// public void fillMenu(final MainPane mainPane, JsArray<Rlt> rlts) {
 	// public void fillMenu(final MainPane mainPane, ArrayList<Rlt> rlts) {
 
-	@Override
 	public void onChange(final ClientState clientState) {
 
 		if (clientState.getRlts() != null) {
@@ -42,7 +41,7 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 //			Panel panel = null;
 			Tree tree = null;
 			for (Rlt rlt : clientState.getRlts()) {
-				 GWT.log(rlt.getKurzBez() + " : " + kat, null);
+				GWT.log(rlt.getKurzBez() + " : " + kat, null);
 				if (kat == null || kat.getId() != rlt.getKat().getId()) {
 					kat = rlt.getKat();
 					// Panel panel = map.get(kat);
@@ -70,7 +69,9 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 //					panel.add(panelItem);
 //				}
 				if (tree != null) {
-					TreeItem item = new TreeItem(rlt.getKurzBez());
+					TreeItem item = new TreeItem(
+//							rlt.getDatumtext() + ": " + 
+							rlt.getKurzBez());
 					item.setUserObject(rlt);
 					tree.addItem(item);
 				}
@@ -78,7 +79,6 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 		}
 	}
 
-	@Override
 	public void onRltSelected(ClientState clientState) {
 	}
 

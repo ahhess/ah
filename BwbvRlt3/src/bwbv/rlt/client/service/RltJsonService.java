@@ -66,6 +66,7 @@ public class RltJsonService implements RltService {
 			Rlt rlt = new Rlt();
 			rlt.setId((int) jobj.get("id").isNumber().doubleValue());
 			rlt.setKurzBez(jobj.get("kurzbez").isString().stringValue());
+//			rlt.setDatumtext(jobj.get("datumtext").isString().stringValue());
 
 			rlt.setKat((RltKat) parseDetail(jobj, "kat", new RltKat()));
 			rlt.setStatus((RltStatus) parseDetail(jobj, "status", new RltStatus()));

@@ -15,13 +15,11 @@ public class CenterPane extends SimplePanel implements ClientStateChangeListener
 	public CenterPane() {
 	}
 
-	@Override
 	public void onChange(ClientState clientState) {
 		clear();
 		add(new Label("Bitte RLT auswählen"));
 	}
 	
-	@Override
 	public void onRltSelected(ClientState clientState) {
 		clear();
 		DecoratedTabPanel tabPanel = new DecoratedTabPanel();
