@@ -106,6 +106,9 @@ public class RltJsonService implements RltService {
 				if (jo3 != null) {
 					detail.setId((int) jo3.get("id").isNumber().doubleValue());
 					detail.setKurzBez(jo3.get("kurzbez").isString().stringValue());
+					JSONValue langbez = jo3.get("langbez");
+					if (langbez != null)
+						detail.setLangBez(langbez.isString().stringValue());
 					return detail;
 				}
 			}

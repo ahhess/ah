@@ -17,60 +17,32 @@ import com.google.gwt.user.client.ui.TreeItem;
  */
 public class MenuStackPanel extends StackPanel implements ClientStateChangeListener {
 
-//	private HashMap<String, Panel> map = new HashMap<String, Panel>();
-
 	public MenuStackPanel() {
-
 		setWidth("100%");
-
-		// for (RltKat kat : RltKat.values()) {
-		// VerticalPanel panel = new VerticalPanel();
-		// add(panel, kat.toString(), true);
-		// map.put(kat.toString(), panel);
-		// }
 	}
-
-	// public void fillMenu(final MainPane mainPane, JsArray<Rlt> rlts) {
-	// public void fillMenu(final MainPane mainPane, ArrayList<Rlt> rlts) {
 
 	public void onChange(final ClientState clientState) {
 
 		if (clientState.getRlts() != null) {
 			this.clear();
 			RltKat kat = null;
-//			Panel panel = null;
 			Tree tree = null;
 			for (Rlt rlt : clientState.getRlts()) {
 				GWT.log(rlt.getKurzBez() + " : " + kat, null);
 				if (kat == null || kat.getId() != rlt.getKat().getId()) {
 					kat = rlt.getKat();
-					// Panel panel = map.get(kat);
-//					panel = new VerticalPanel();
-//					add(panel, kat.getKurzBez());
 					tree = new Tree();
 					tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
 						public void onSelection(SelectionEvent<TreeItem> event) {
-							Rlt rlt = (Rlt)event.getSelectedItem().getUserObject();
-//							Window.alert("id="+rlt.getId());
+							Rlt rlt = (Rlt) event.getSelectedItem().getUserObject();
 							clientState.setCurrentRlt(rlt);
 						}
 					});
-					add(tree, kat.getKurzBez());
+					add(tree, kat.getLangBez());
 				}
-//				if (panel != null) {
-//					final Label panelItem = new Label(rlt.getKurzBez());
-//					final HTML panelItem = new HTML(rlt.getKurzBez());
-//					panelItem.addClickHandler(new ClickHandler() {
-//						public void onClick(ClickEvent event) {
-//							// mainPane.showRlt(rlt);
-//							Window.alert(panelItem.getText());
-//						}
-//					});
-//					panel.add(panelItem);
-//				}
 				if (tree != null) {
 					TreeItem item = new TreeItem(
-//							rlt.getDatumtext() + ": " + 
+					// rlt.getDatumtext() + ": " +
 							rlt.getKurzBez());
 					item.setUserObject(rlt);
 					tree.addItem(item);
@@ -81,5 +53,4 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 
 	public void onRltSelected(ClientState clientState) {
 	}
-
 }
