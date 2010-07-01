@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class RltJsonServlet extends HttpServlet {
 
-	private RltJsonData data = new RltJsonData();
+	private RltJsonProxy data = new RltJsonProxy();
+//	private RltJsonData data = new RltJsonData();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

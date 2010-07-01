@@ -66,24 +66,31 @@ public class RltJsonService implements RltService {
 			Rlt rlt = new Rlt();
 			rlt.setId((int) jobj.get("id").isNumber().doubleValue());
 			rlt.setKurzBez(jobj.get("kurzbez").isString().stringValue());
-//			rlt.setDatumtext(jobj.get("datumtext").isString().stringValue());
+			rlt.setDatumtext(jobj.get("datumtext").isString().stringValue());
+			
+			RltKat kat = new RltKat();
+			kat.setId((int) jobj.get("rltkat_id").isNumber().doubleValue());
+			kat.setKurzBez(jobj.get("kat").isString().stringValue());
+			kat.setLangBez(jobj.get("katbez").isString().stringValue());
+			rlt.setKat(kat);
 
-			rlt.setKat((RltKat) parseDetail(jobj, "kat", new RltKat()));
-			rlt.setStatus((RltStatus) parseDetail(jobj, "status", new RltStatus()));
+//			rlt.setKat((RltKat) parseDetail(jobj, "kat", new RltKat()));
+//			rlt.setStatus((RltStatus) parseDetail(jobj, "status", new RltStatus()));
 
-			JSONArray diszs = jobj.get("diszs").isArray();
-			if (diszs != null && diszs.size() > 0) {
-				RltDisziplin[] disziplins = new RltDisziplin[diszs.size()];
-				for (int j = 0; j < diszs.size(); j++) {
-					// String disz = diszs.get(j).isString().stringValue();
-					// disziplins[j] = (RltDisziplin) parseDetail(jo2, "disz", new RltDisziplin());
-					JSONObject jo2 = diszs.get(j).isObject();
-					disziplins[j] = new RltDisziplin();
-					disziplins[j].setId((int) jo2.get("id").isNumber().doubleValue());
-					disziplins[j].setKurzBez(jo2.get("kurzbez").isString().stringValue());
-				}
-				rlt.setDisziplins(disziplins);
-			}
+//			JSONArray diszs = jobj.get("diszs").isArray();
+//			if (diszs != null && diszs.size() > 0) {
+//				RltDisziplin[] disziplins = new RltDisziplin[diszs.size()];
+//				for (int j = 0; j < diszs.size(); j++) {
+//					// String disz = diszs.get(j).isString().stringValue();
+//					// disziplins[j] = (RltDisziplin) parseDetail(jo2, "disz", new RltDisziplin());
+//					JSONObject jo2 = diszs.get(j).isObject();
+//					disziplins[j] = new RltDisziplin();
+//					disziplins[j].setId((int) jo2.get("id").isNumber().doubleValue());
+//					disziplins[j].setKurzBez(jo2.get("kurzbez").isString().stringValue());
+//				}
+//				rlt.setDisziplins(disziplins);
+//			}
+			
 			rlts.add(rlt);
 		}
 		clientState.setRlts(rlts);

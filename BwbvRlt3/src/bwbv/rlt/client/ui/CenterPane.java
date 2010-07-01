@@ -27,12 +27,12 @@ public class CenterPane extends SimplePanel implements ClientStateChangeListener
 		RltInfoPanel infoPanel = new RltInfoPanel(clientState.getCurrentRlt());
 		tabPanel.add(infoPanel, "Info");
 		
-		for (RltDisziplin disz : clientState.getCurrentRlt().getDisziplins()) {
-			//TODO: 
-			HorizontalPanel p = new HorizontalPanel();
-			p.add(new HTML(disz.toString()));
-			tabPanel.add(p, disz.getKurzBez());
-		}
+//		for (RltDisziplin disz : clientState.getCurrentRlt().getDisziplins()) {
+//			//TODO: 
+//			HorizontalPanel p = new HorizontalPanel();
+//			p.add(new HTML(disz.toString()));
+//			tabPanel.add(p, disz.getKurzBez());
+//		}
 		add(tabPanel);
 		tabPanel.selectTab(0);
 	}

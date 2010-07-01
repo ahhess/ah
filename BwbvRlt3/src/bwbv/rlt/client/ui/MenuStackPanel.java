@@ -38,7 +38,7 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 							clientState.setCurrentRlt(rlt);
 						}
 					});
-					add(tree, kat.getLangBez());
+					add(tree, kat.getKurzBez());
 				}
 				if (tree != null) {
 					TreeItem item = new TreeItem(
