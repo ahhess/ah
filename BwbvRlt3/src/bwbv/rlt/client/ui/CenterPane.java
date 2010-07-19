@@ -2,11 +2,8 @@ package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.ClientState;
 import bwbv.rlt.client.ClientStateChangeListener;
-import bwbv.rlt.model.domain.RltDisziplin;
 
 import com.google.gwt.user.client.ui.DecoratedTabPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
