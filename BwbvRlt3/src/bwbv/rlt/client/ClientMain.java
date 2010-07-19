@@ -1,7 +1,7 @@
 
 package bwbv.rlt.client;
 
-import bwbv.rlt.client.service.RltJsonService;
+import bwbv.rlt.client.service.RltJsonServiceImpl;
 import bwbv.rlt.client.service.RltService;
 import bwbv.rlt.client.ui.MainPane;
 
@@ -27,7 +27,7 @@ public class ClientMain implements EntryPoint {
         setUncaughtExceptionHandler();
                 
 		ClientState clientState = new ClientState();
-		RltService rltService = new RltJsonService();
+		RltService rltService = new RltJsonServiceImpl();
 		ClientController controller = new ClientController(clientState, rltService);
 
         mainPane = new MainPane(clientState, controller);
