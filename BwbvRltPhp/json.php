@@ -8,6 +8,7 @@
     $query = $_GET["q"];
 	if ($query == "getrlts") {
 		echo getJsonFromDB("select rlt.id, rlt.kurzbez, rlt.turnierbez, rlt.datumtext, 
+				rlt.ort, rlt.halle, rlt.adresse, rlt.meldeschluss,
 				rltkat_id, rltkat.kat, rltkat.katbez,  
 				rltstatus_id, rltstatus.status, rltstatus.statusbez 
 				from rlt 
