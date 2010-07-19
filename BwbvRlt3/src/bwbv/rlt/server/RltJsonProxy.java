@@ -38,6 +38,7 @@ public class RltJsonProxy {
 		} catch (Exception e) {
 			System.err.println(e);
 		}
+		System.out.println(buffer);
 		return buffer;
 	}
 
