@@ -20,5 +20,17 @@
 		$id = $_GET["id"];
 		echo getJsonFromDB("select * from rlt where id=$id");
 	} else 
+	if ($query == "getusers") {
+		echo getJsonFromDB("SELECT id,benutzer,pwd FROM rltbenutzer");
+	} else 
+	if ($query == "login") {
+		$usr = $_GET["u"];
+		$pwd = $_GET["p"];
+		$uid = check_user($usr, $pwd);
+		if ($uid != -1) {
+			login($usr);
+		}
+		echo json_encode($uid);
+	} else 
 		echo "invalid request: $query";
 ?>

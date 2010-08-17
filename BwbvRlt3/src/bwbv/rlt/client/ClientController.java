@@ -15,4 +15,8 @@ public class ClientController {
 	public void readRlts() {
 		rltService.sendGetRltsRequest(clientState);
 	}
+	
+	public RltService getRltService() {
+		return rltService;
+	}
 }

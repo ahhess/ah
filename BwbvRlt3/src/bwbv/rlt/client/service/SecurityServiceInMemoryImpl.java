@@ -34,7 +34,7 @@ public class SecurityServiceInMemoryImpl implements SecurityService {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void login(String userName) throws AuthenticationException {
+	public void login(String userName, String pwd) throws AuthenticationException {
 		if (userName.equals("badguy")) {
 			throw new AuthenticationException();
 		}

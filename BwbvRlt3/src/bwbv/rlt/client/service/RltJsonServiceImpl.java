@@ -3,10 +3,12 @@ package bwbv.rlt.client.service;
 import java.util.ArrayList;
 
 import bwbv.rlt.client.ClientState;
+import bwbv.rlt.client.domain.AuthenticationException;
 import bwbv.rlt.model.domain.Rlt;
 import bwbv.rlt.model.domain.RltKat;
 import bwbv.rlt.model.domain.RltStatus;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -21,11 +23,11 @@ import com.google.gwt.user.client.Window;
 
 public class RltJsonServiceImpl implements RltService {
 
-	private static final String RLTSURL = "/json";
+	private static final String RLTSURL = "/json?q=";
 
 	public void sendGetRltsRequest(final ClientState clientState) {
 		// Send request to server and catch any errors.
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(RLTSURL));
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(RLTSURL + "getrlts"));
 
 		try {
 			builder.sendRequest(null, new RequestCallback() {
@@ -152,6 +154,44 @@ public class RltJsonServiceImpl implements RltService {
 	private void parseJsonRlt(String json, ClientState clientState) {
 		JSONValue jsonValue = JSONParser.parse(json);
 		JSONObject jobj = jsonValue.isObject();
+	}
+
+	@Override
+	public Boolean isLoggedIn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void login(final ClientState clientState, final String userName, String pwd) throws AuthenticationException {
+		try {
+			GWT.log("login: req="+RLTSURL + "login&u=" + userName + "&p=" + pwd, null);
+			RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(RLTSURL + "login&u=" + userName + "&p=" + pwd));
+			builder.sendRequest(null, new RequestCallback() {
+				public void onError(Request request, Throwable exception) {
+					Window.alert("Couldn't retrieve JSON:" + exception);
+				}
+
+				public void onResponseReceived(Request request, Response response) {
+					if (200 == response.getStatusCode()) {
+						GWT.log("login: response="+response.getText(), null);
+						if (!"-1".equals(response.getText())){
+							clientState.setUserName(userName);
+						}
+					} else {
+						Window.alert("Couldn't retrieve JSON (" + response.getStatusText() + ")");
+					}
+				}
+			});
+		} catch (RequestException e) {
+			GWT.log("login: exc:", e);
+		}
+	}
+	
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

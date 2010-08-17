@@ -17,11 +17,13 @@ public class RltJsonServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String b = req.getParameter("rlt");
-		if (b != null)
-			b = data.getRlt(b, true);
-		else
+		String b = req.getParameter("q");
+		System.out.println("RltJsonServlet: "+b);
+		if ("getrlts".equals(b))
 			b = data.getRlts();
+		else if ("login".equals(b))
+			b = data.login(req.getParameter("u"), req.getParameter("p"));
+		
 		PrintWriter out = resp.getWriter();
 		out.print(b);
 		out.flush();

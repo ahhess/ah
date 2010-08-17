@@ -17,8 +17,13 @@ public class RltJsonProxy {
 	public String getRlt(String id, boolean full) {
 		return getFromRemote(URI + "getrlt&id=" + id);
 	}
+	
+	public String login(String user, String pass) {
+		return getFromRemote(URI + "login&u=" + user + "&p=" + pass);
+	}
 
 	public String getFromRemote(String uri) {
+		System.out.println("getFromRemote: "+uri);
 		String buffer = null;
 		try {
 			URL u = new URL(uri);

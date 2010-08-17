@@ -33,6 +33,7 @@ public interface SecurityService /*extends RemoteService*/ {
 
 		public static SecurityService get() {
 			if (service == null) {
+//				service = new SecurityServiceInMemoryImpl();
 				service = new SecurityServiceInMemoryImpl();
 			}
 			return service;
@@ -44,7 +45,7 @@ public interface SecurityService /*extends RemoteService*/ {
 	 * @param userName
 	 * @throws AuthenticationException if userName is 'badguy'
 	 */
-    void login(String userName) throws AuthenticationException;
+    void login(String userName, String pwd) throws AuthenticationException;
 
     /**
      * Logs out the currently authenticated user.

@@ -1,7 +1,6 @@
 package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.ClientState;
-import bwbv.rlt.client.ClientStateChangeListener;
 import bwbv.rlt.model.domain.Rlt;
 import bwbv.rlt.model.domain.RltKat;
 
@@ -15,13 +14,14 @@ import com.google.gwt.user.client.ui.TreeItem;
 /**
  * Stack Panel Menu
  */
-public class MenuStackPanel extends StackPanel implements ClientStateChangeListener {
+public class MenuStackPanel extends StackPanel implements ClientState.ChangeListener {
 
-	public MenuStackPanel() {
+	public MenuStackPanel(ClientState clientState) {
+		clientState.addChangeListener(ClientState.ChangeListener.RLTLISTCHANGED_EVENT, this);
 		setWidth("100%");
 	}
 
-	public void onChange(final ClientState clientState) {
+	public void onChange(String eventName, final ClientState clientState) {
 
 		if (clientState.getRlts() != null) {
 			this.clear();
@@ -43,7 +43,7 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 				if (tree != null) {
 					TreeItem item = new TreeItem(
 					// rlt.getDatumtext() + ": " +
-							rlt.getKurzBez());
+							rlt.getLangBez());
 					item.setUserObject(rlt);
 					tree.addItem(item);
 				}
@@ -51,6 +51,6 @@ public class MenuStackPanel extends StackPanel implements ClientStateChangeListe
 		}
 	}
 
-	public void onRltSelected(ClientState clientState) {
-	}
+//	public void onRltSelected(ClientState clientState) {
+//	}
 }

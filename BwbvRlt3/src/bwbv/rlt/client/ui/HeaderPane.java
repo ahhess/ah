@@ -16,18 +16,20 @@
 
 package bwbv.rlt.client.ui;
 
+import bwbv.rlt.client.ClientController;
 import bwbv.rlt.client.ClientState;
 import bwbv.rlt.client.domain.AuthenticationException;
-import bwbv.rlt.client.service.SecurityService;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -38,9 +40,10 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * Borrowed from Beginning Google Web Toolkit Book
  */
-public class HeaderPane extends Composite {
+public class HeaderPane extends Composite implements ClientState.ChangeListener {
 
 	private ClientState clientState;
+	private ClientController clientController;
 	private PopupPanel confirmPopup;
 	private DockPanel main;
 
@@ -50,8 +53,11 @@ public class HeaderPane extends Composite {
 	 * @param titleText
 	 *            The text this header should show as a title.
 	 */
-	public HeaderPane(ClientState clientState) {
+	public HeaderPane(ClientState clientState, ClientController clientController) {
 		this.clientState = clientState;
+		this.clientController = clientController;
+		clientState.addChangeListener(ClientState.ChangeListener.USERCHANGED_EVENT, this);
+
 		main = new DockPanel();
 		main.add(new Label("BWBV RLT Online"), DockPanel.CENTER);
 		reset();
@@ -60,7 +66,8 @@ public class HeaderPane extends Composite {
 	}
 
 	public void reset() {
-		Boolean isLoggedIn = SecurityService.Holder.get().isLoggedIn();
+		//TODO: call isLoggedIn() ?
+		Boolean isLoggedIn = clientState.getUserName() == null;
 		HorizontalPanel panel = buildHeaderPanel(isLoggedIn);
 		main.remove(0);
 		main.add(panel, DockPanel.EAST);
@@ -73,11 +80,12 @@ public class HeaderPane extends Composite {
 	 */
 	private HorizontalPanel buildHeaderPanel(boolean isLoggedIn) {
 		HorizontalPanel panel = new HorizontalPanel();
+		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		if (isLoggedIn) {
 			panel.setSpacing(10);
 			panel.add(new Label("Welcome " + clientState.getUserName()));
 
-			PushButton logoutButton = new PushButton("Logout");
+			Button logoutButton = new Button("Logout");
 			logoutButton.setStyleName("LogoutButton");
 			logoutButton.addClickListener(new ClickListener() {
 				public void onClick(Widget sender) {
@@ -86,7 +94,7 @@ public class HeaderPane extends Composite {
 			});
 			panel.add(logoutButton);
 		} else {
-			PushButton loginButon = new PushButton("Login");
+			Button loginButon = new Button("Login");
 			loginButon.setStyleName("LoginButton");
 			loginButon.addClickListener(new ClickListener() {
 				public void onClick(Widget sender) {
@@ -99,16 +107,14 @@ public class HeaderPane extends Composite {
 	}
 
 	private void logout() {
-		SecurityService.Holder.get().logout();
-		reset();
+		//TODO call logout statt setUserName(null)
+		clientState.setUserName(null);
 	}
 
-	private void login(String userName) {
+	private void login(String userName, String pwd) {
 
 		try {
-			SecurityService.Holder.get().login(userName);
-			clientState.setUserName(userName);
-			reset();
+			clientController.getRltService().login(clientState, userName, pwd);
 		} catch (AuthenticationException caught) {
 			throw new RuntimeException(caught);
 		}
@@ -117,14 +123,21 @@ public class HeaderPane extends Composite {
 	private void showNewUserNameRequestPopupPanel() {
 		confirmPopup = new PopupPanel(false, true);
 		VerticalPanel panel = new VerticalPanel();
-		panel.add(new Label("What is your login Name?"));
+//		panel.add(new Label("What is your login Name?"));
+//		panel.add(textBox);
+		Grid grid = new Grid(2, 2);
+		grid.setText(0, 0, "Benutzer:");
 		final TextBox textBox = new TextBox();
-		panel.add(textBox);
+		grid.setWidget(0, 1, textBox);
+		grid.setText(1, 0, "Passwort:");
+		final PasswordTextBox pwdBox = new PasswordTextBox();
+		grid.setWidget(1, 1, pwdBox);
+		panel.add(grid);
 		Button ok = new Button("OK");
 		ok.addClickListener(new ClickListener() {
 			public void onClick(Widget w) {
 				confirmPopup.hide();
-				login(textBox.getText());
+				login(textBox.getText(), pwdBox.getText());
 			}
 		});
 
@@ -133,5 +146,10 @@ public class HeaderPane extends Composite {
         confirmPopup.center();
         textBox.setFocus(true);
         confirmPopup.show();
+	}
+
+	@Override
+	public void onChange(String eventName, ClientState clientState) {
+		reset();
 	}
 }

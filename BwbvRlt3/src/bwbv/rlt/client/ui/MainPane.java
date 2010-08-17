@@ -23,7 +23,7 @@ public class MainPane extends Composite {
 		mainPanel.setBorderWidth(5);
 		mainPanel.setSize("100%", "100%");
 
-		headerPane = new HeaderPane(clientState);
+		headerPane = new HeaderPane(clientState, controller);
 		mainPanel.add(headerPane, DockPanel.NORTH);
 		mainPanel.setCellHeight(headerPane, "30px");
 		mainPanel.setCellHorizontalAlignment(headerPane, DockPanel.ALIGN_CENTER);
@@ -35,11 +35,9 @@ public class MainPane extends Composite {
 		mainPanel.setCellHorizontalAlignment(statusBarPane, DockPanel.ALIGN_CENTER);
 		mainPanel.setCellVerticalAlignment(statusBarPane, DockPanel.ALIGN_MIDDLE);
 
-		menuPanel = new MenuPanel();
-		clientState.addChangeListener(menuPanel);
+		menuPanel = new MenuPanel(clientState);
 
-		centerPane = new CenterPane();
-		clientState.addChangeListener(centerPane);
+		centerPane = new CenterPane(clientState);
 
 		HorizontalSplitPanel horizontalSplitPanel = new HorizontalSplitPanel();
 		horizontalSplitPanel.setSplitPosition("250px");
