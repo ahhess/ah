@@ -1,27 +1,38 @@
 package bwbv.rlt.server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Enumeration;
 
-public class RltJsonProxy {
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-	private final static String URI = "http://localhost/bwbvrlt/json.php?q=";
+@SuppressWarnings("serial")
+public class RltJsonProxy extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		StringBuffer uri = new StringBuffer("http://localhost/bwbvrlt/json.php");
+		String sep = "?";
+		Enumeration<String> enumeration = req.getParameterNames();
+		while (enumeration.hasMoreElements()) {
+			String parameter = enumeration.nextElement();
+			uri.append(sep).append(parameter).append("=").append(req.getParameter(parameter));
+			sep = "&";
+		}
+		
+		PrintWriter out = resp.getWriter();
+		out.print(getFromRemote(uri.toString()));
+		out.flush();
+	}
 	
-	public String getRlts() {
-		return getFromRemote(URI + "getrlts");
-	}
-
-	public String getRlt(String id, boolean full) {
-		return getFromRemote(URI + "getrlt&id=" + id);
-	}
-	
-	public String login(String user, String pass) {
-		return getFromRemote(URI + "login&u=" + user + "&p=" + pass);
-	}
-
 	public String getFromRemote(String uri) {
 		System.out.println("getFromRemote: "+uri);
 		String buffer = null;
@@ -47,9 +58,4 @@ public class RltJsonProxy {
 		return buffer;
 	}
 
-	public static void main(String[] args) {
-		RltJsonProxy proxy = new RltJsonProxy();
-		System.out.println(proxy.getRlts());
-		System.out.println(proxy.getRlt("1", true));
-	}
 }

@@ -6,11 +6,11 @@
 <web-app>
 
   <servlet>
-    <servlet-name>RltJsonServlet</servlet-name>
-    <servlet-class>bwbv.rlt.server.RltJsonServlet</servlet-class>
+    <servlet-name>proxy</servlet-name>
+    <servlet-class>bwbv.rlt.server.RltJsonProxy</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RltJsonServlet</servlet-name>
+    <servlet-name>proxy</servlet-name>
     <url-pattern>/json</url-pattern>
   </servlet-mapping>
 

@@ -18,7 +18,6 @@ package bwbv.rlt.client.ui;
 
 import bwbv.rlt.client.ClientController;
 import bwbv.rlt.client.ClientState;
-import bwbv.rlt.client.domain.AuthenticationException;
 
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
@@ -67,7 +66,7 @@ public class HeaderPane extends Composite implements ClientState.ChangeListener 
 
 	public void reset() {
 		//TODO: call isLoggedIn() ?
-		Boolean isLoggedIn = clientState.getUserName() == null;
+		boolean isLoggedIn = clientState.getUserName() != null;
 		HorizontalPanel panel = buildHeaderPanel(isLoggedIn);
 		main.remove(0);
 		main.add(panel, DockPanel.EAST);
@@ -106,20 +105,6 @@ public class HeaderPane extends Composite implements ClientState.ChangeListener 
 		return panel;
 	}
 
-	private void logout() {
-		//TODO call logout statt setUserName(null)
-		clientState.setUserName(null);
-	}
-
-	private void login(String userName, String pwd) {
-
-		try {
-			clientController.getRltService().login(clientState, userName, pwd);
-		} catch (AuthenticationException caught) {
-			throw new RuntimeException(caught);
-		}
-	}
-
 	private void showNewUserNameRequestPopupPanel() {
 		confirmPopup = new PopupPanel(false, true);
 		VerticalPanel panel = new VerticalPanel();
@@ -146,6 +131,14 @@ public class HeaderPane extends Composite implements ClientState.ChangeListener 
         confirmPopup.center();
         textBox.setFocus(true);
         confirmPopup.show();
+	}
+
+	private void logout() {
+		clientController.getRltService().logout(clientState);
+	}
+
+	private void login(String userName, String pwd) {
+		clientController.getRltService().login(clientState, userName, pwd);
 	}
 
 	@Override

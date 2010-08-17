@@ -6,7 +6,8 @@
 	header('Pragma: no-cache');
 
     $query = $_GET["q"];
-	if ($query == "getrlts") {
+
+    if ($query == "getrlts") {
 		echo getJsonFromDB("select rlt.id, rlt.kurzbez, rlt.turnierbez, rlt.datumtext, 
 				rlt.ort, rlt.halle, rlt.adresse, rlt.meldeschluss,
 				rltkat_id, rltkat.kat, rltkat.katbez,  
@@ -16,13 +17,16 @@
 				inner join rltstatus on rlt.rltstatus_id = rltstatus.id
 				order by rlt.rltkat_id, rlt.datum");
 	} else 
+	
 	if ($query == "getrlt") {
 		$id = $_GET["id"];
 		echo getJsonFromDB("select * from rlt where id=$id");
 	} else 
+	
 	if ($query == "getusers") {
 		echo getJsonFromDB("SELECT id,benutzer,pwd FROM rltbenutzer");
 	} else 
+	
 	if ($query == "login") {
 		$usr = $_GET["u"];
 		$pwd = $_GET["p"];
@@ -32,5 +36,13 @@
 		}
 		echo json_encode($uid);
 	} else 
+
+	if ($query == "logout") {
+		echo json_encode(logout());
+	} else 
+		
+//	if ($query == "isloggedin") {
+//		echo json_encode(logged_in());
+//	} else 
 		echo "invalid request: $query";
 ?>
