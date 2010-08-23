@@ -37,7 +37,7 @@ public class MainPane extends Composite {
 
 		menuPanel = new MenuPanel(clientState);
 
-		centerPane = new CenterPane(clientState);
+		centerPane = new CenterPane(clientState, controller);
 
 		HorizontalSplitPanel horizontalSplitPanel = new HorizontalSplitPanel();
 		horizontalSplitPanel.setSplitPosition("250px");

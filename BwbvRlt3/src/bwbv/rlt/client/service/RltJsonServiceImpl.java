@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import bwbv.rlt.client.ClientState;
 import bwbv.rlt.model.domain.Rlt;
+import bwbv.rlt.model.domain.RltDisziplin;
 import bwbv.rlt.model.domain.RltKat;
 import bwbv.rlt.model.domain.RltStatus;
 
@@ -27,7 +28,7 @@ public class RltJsonServiceImpl implements RltService {
 
 		@Override
 		public void onError(Request request, Throwable exception) {
-			throw new RuntimeException(exception);
+			throw new RuntimeException("Error on request " + request.toString(), exception);
 		}
 
 		@Override
@@ -60,21 +61,45 @@ public class RltJsonServiceImpl implements RltService {
 		}
 	}
 
+//	@Override
+//	public void sendGetRltRequest(final ClientState clientState, int rltId) {
+//		final String uri = URL.encode(RLTSURL + "getrlt&id=" + rltId);
+//		GWT.log(uri, null);
+//		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, uri);
+//		try {
+//			builder.sendRequest(null, new RltRequestCallback() {
+//				@Override
+//				public void processResponseText(Response response) {
+//					parseJsonRlt(response.getText(), clientState);
+//				}
+//			});
+//		} catch (RequestException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+	
 	@Override
-	public void sendGetRltRequest(final ClientState clientState, int rltId) {
-		final String uri = URL.encode(RLTSURL + "getrlt&id=" + rltId);
+	public void sendGetRltDiszsRequest(final ClientState clientState, int rltId) {
+		final String uri = URL.encode(RLTSURL + "getrltdisz&id=" + rltId);
 		GWT.log(uri, null);
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, uri);
-		try {
-			builder.sendRequest(null, new RltRequestCallback() {
-				@Override
-				public void processResponseText(Response response) {
-					parseJsonRlt(response.getText(), clientState);
-				}
-			});
-		} catch (RequestException e) {
-			throw new RuntimeException(e);
-		}
+		
+		//fake:
+		RltDisziplin[] ds = new RltDisziplin[2];
+		ds[0] = new RltDisziplin(1,"HE");
+		ds[1] = new RltDisziplin(2,"DE");
+		clientState.setCurrentRltDiszs(ds);
+		
+//		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, uri);
+//		try {
+//			builder.sendRequest(null, new RltRequestCallback() {
+//				@Override
+//				public void processResponseText(Response response) {
+//					parseJsonRltDiszs(response.getText(), clientState);
+//				}
+//			});
+//		} catch (RequestException e) {
+//			throw new RuntimeException(e);
+//		}
 	}
 
 //	@Override
@@ -145,10 +170,20 @@ public class RltJsonServiceImpl implements RltService {
 		clientState.setRlts(rlts);
 	}
 
-	private void parseJsonRlt(String json, ClientState clientState) {
+//	private void parseJsonRlt(String json, ClientState clientState) {
+//		JSONValue jsonValue = JSONParser.parse(json);
+//		JSONObject jobj = jsonValue.isObject();
+//		clientState.setCurrentRlt(parseRlt(jobj));
+//	}
+	
+	private void parseJsonRltDiszs(String json, ClientState clientState) {
 		JSONValue jsonValue = JSONParser.parse(json);
-		JSONObject jobj = jsonValue.isObject();
-		clientState.setCurrentRlt(parseRlt(jobj));
+		JSONArray jarr = jsonValue.isArray();
+		for (int i = 0; i < jarr.size(); i++) {
+			JSONObject jobj = jarr.get(i).isObject();
+			//...
+		}
+//		clientState.getCurrentRlt().setDisziplins(...);
 	}
 
 	private Rlt parseRlt(JSONObject jobj) {
@@ -197,5 +232,5 @@ public class RltJsonServiceImpl implements RltService {
 		kat.setLangBez(jobj.get("katbez").isString().stringValue());
 		return kat;
 	}
-
+	
 }

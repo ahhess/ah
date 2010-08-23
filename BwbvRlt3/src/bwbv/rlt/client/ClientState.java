@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import bwbv.rlt.model.domain.Rlt;
+import bwbv.rlt.model.domain.RltDisziplin;
 
 public class ClientState {
 
 	public interface ChangeListener {
 		public static final String RLTSELECTED_EVENT = "rltSelected";
 		public static final String RLTLISTCHANGED_EVENT = "rltListChanged";
+		public static final String RLTDISZSCHANGED_EVENT = "rltDiszsChanged";
 		public static final String USERCHANGED_EVENT = "userChanged";
 		
 		public void onChange(String eventName, ClientState clientState);
@@ -48,6 +50,11 @@ public class ClientState {
 		notifyListeners(ChangeListener.RLTSELECTED_EVENT);
 	}
 	
+	public void setCurrentRltDiszs(RltDisziplin[] diszs) {
+		this.currentRlt.setDisziplins(diszs);
+		notifyListeners(ChangeListener.RLTDISZSCHANGED_EVENT);
+	}
+	
 //	public void addChangeListener(ChangeListener listener) {
 ////		listeners.add(listener);
 //		addChangeListener("default", listener);
@@ -63,8 +70,11 @@ public class ClientState {
 	}
 	
 	private void notifyListeners(String eventName) {
-		for (ChangeListener listener : listenerMap.get(eventName)) {
-			listener.onChange(eventName, this);
+		ArrayList<ChangeListener> list = listenerMap.get(eventName);
+		if (list != null) {
+			for (ChangeListener listener : list) {
+				listener.onChange(eventName, this);
+			}
 		}
 	}
 }

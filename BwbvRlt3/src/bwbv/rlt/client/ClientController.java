@@ -12,11 +12,11 @@ public class ClientController {
 		this.rltService = rltService;
 	}
 	
-	public void readRlts() {
-		rltService.sendGetRltsRequest(clientState);
-	}
-	
 	public RltService getRltService() {
 		return rltService;
+	}
+
+	public ClientState getClientState() {
+		return clientState;
 	}
 }
