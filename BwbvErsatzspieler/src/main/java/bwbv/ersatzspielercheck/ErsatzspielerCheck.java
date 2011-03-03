@@ -13,8 +13,9 @@ import bwbv.ersatzspielercheck.model.Spieler;
 public class ErsatzspielerCheck {
 
 	private String infile = "data/Spielergebnisse__Filter_Meisterschaft__20110208224726.csv";
-	private String rlfile = "data/Vereinsrangliste_NW+NB_Meldung_Vorrunde__20101209.csv";
-	private String kzVrRr = "V";
+//	private String rlfile = "data/Vereinsrangliste_NW+NB_Meldung_Vorrunde__20101209.csv";
+	private String rlfile = "data/Vereinsrangliste_NW+NB_Meldung_Rueckrunde__20110220200418.csv";
+	private String kzVrRr = "R";
 	private String sptfile = "data/Spieltage.properties";
 	private String outfile = "data/ErsatzspielerCheck.txt";
 
@@ -90,7 +91,7 @@ public class ErsatzspielerCheck {
 				spieler.addEinsatz(einsatz);
 
 				// Spieler in h�herer Mannschaft als Stammmannschaft eingesetzt?
-				if (mannschaft < spieler.getStammMannschaft()) {
+				if (mannschaft < spieler.getStammMannschaftVR()) {
 					ersatzspielerMap.put(spieler.getPassnr(), spieler);
 				}
 			}
@@ -117,7 +118,7 @@ public class ErsatzspielerCheck {
 				int c = 0;
 				int sm[] = spieler.getSpTMannschaft();
 				for (int i = 0; i < sm.length; i++) {
-					if (sm[i] < spieler.getStammMannschaft()) {
+					if (sm[i] < spieler.getStammMannschaftVR()) {
 						c++;
 					}
 					if (c < 5) {

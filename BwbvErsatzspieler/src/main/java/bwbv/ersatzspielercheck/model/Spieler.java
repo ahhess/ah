@@ -10,7 +10,8 @@ public class Spieler {
 	private String passnr;
 	private String nachname;
 	private String vorname;
-	private int stammMannschaft = -1;
+	private int stammMannschaftVR = -1;
+	private int stammMannschaftRR = -1;
 	private Verein verein;
 	private int[] spTMannschaft = {0,0,0,0,0,0,0,0,0,0};
 	
@@ -65,7 +66,8 @@ public class Spieler {
 			", nachname=" + nachname + 
 			", vorname=" + vorname + 
 			", passnr=" + passnr + 
-			", stammMannschaft=" + stammMannschaft + 
+			", stammMannschaftVR=" + stammMannschaftVR + 
+			", stammMannschaftRR=" + stammMannschaftRR + 
 			", spTMannschaft=" + Arrays.toString(spTMannschaft) +
 //			", falschEinsaetze=" + falschEinsaetze.size() + ": " + falschEinsaetze +
 //			", spieltagsErsatzEinsaetze=" + spieltagsErsatzEinsaetze.size() + ": " 
@@ -109,13 +111,21 @@ public class Spieler {
 		this.vorname = vorname;
 	}
 
-	public int getStammMannschaft() {
-		return stammMannschaft;
+	public int getStammMannschaftVR() {
+		return stammMannschaftVR;
 	}
 
-	public void setStammMannschaft(int mannschaft) {
-		this.stammMannschaft = mannschaft;
+	public void setStammMannschaftVR(int mannschaft) {
+		this.stammMannschaftVR = mannschaft;
 //		this.maxMannschaft = mannschaft;
+	}
+	
+	public int getStammMannschaftRR() {
+		return stammMannschaftRR;
+	}
+	
+	public void setStammMannschaftRR(int mannschaft) {
+		this.stammMannschaftRR = mannschaft;
 	}
 
 //	public int getMaxMannschaft() {
