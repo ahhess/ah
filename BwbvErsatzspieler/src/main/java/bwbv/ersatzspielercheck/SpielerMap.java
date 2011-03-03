@@ -21,11 +21,15 @@ public class SpielerMap extends HashMap<String, Spieler> {
 				void processRow(String[] token) {
 
 					Spieler spieler = new Spieler();
-					spieler.setNachname(token[21]); // 7
-					spieler.setVorname(token[22]); // 8
-					spieler.setPassnr(token[19]); // 9
+					spieler.setNachname(token[24]); 
+					spieler.setVorname(token[25]); 
+					spieler.setPassnr(token[22]);
 					try {
-						spieler.setStammMannschaft(Integer.parseInt(token[13]));
+						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
+					} catch (NumberFormatException e) {
+					}
+					try {
+						spieler.setStammMannschaftRR(Integer.parseInt(token[14]));
 					} catch (NumberFormatException e) {
 					}
 
@@ -49,11 +53,11 @@ public class SpielerMap extends HashMap<String, Spieler> {
 				void processRow(String[] token) {
 
 					Spieler spieler = new Spieler();
-					spieler.setNachname(token[21]); // 7
-					spieler.setVorname(token[22]); // 8
-					spieler.setPassnr(token[19]); // 9
+					spieler.setNachname(token[21]);
+					spieler.setVorname(token[22]);
+					spieler.setPassnr(token[19]);
 					try {
-						spieler.setStammMannschaft(Integer.parseInt(token[13]));
+						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
 					} catch (NumberFormatException e) {
 					}
 
