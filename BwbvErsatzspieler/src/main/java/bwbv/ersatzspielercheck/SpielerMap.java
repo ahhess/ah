@@ -7,7 +7,7 @@ import bwbv.ersatzspielercheck.model.Spieler;
 import bwbv.ersatzspielercheck.model.Verein;
 
 @SuppressWarnings("serial")
-public class SpielerMap extends HashMap<String, Spieler> {
+public class SpielerMap extends HashMap<SpielerMapKey, Spieler> {
 
 	public HashMap<String, Verein> vereine = new HashMap<String, Verein>();
 
@@ -21,17 +21,9 @@ public class SpielerMap extends HashMap<String, Spieler> {
 				void processRow(String[] token) {
 
 					Spieler spieler = new Spieler();
-					spieler.setNachname(token[24]); 
-					spieler.setVorname(token[25]); 
+					spieler.setNachname(token[24]);
+					spieler.setVorname(token[25]);
 					spieler.setPassnr(token[22]);
-					try {
-						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
-					} catch (NumberFormatException e) {
-					}
-					try {
-						spieler.setStammMannschaftRR(Integer.parseInt(token[14]));
-					} catch (NumberFormatException e) {
-					}
 
 					String vnr = token[2];
 					Verein verein = vereine.get(vnr);
@@ -42,9 +34,19 @@ public class SpielerMap extends HashMap<String, Spieler> {
 						verein.setBezirk(token[1]);
 						vereine.put(vnr, verein);
 					}
-					spieler.setVerein(verein);
+					
+					try {
+						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
+						spieler.setVereinVR(verein);
+					} catch (NumberFormatException e) {
+					}
+					try {
+						spieler.setStammMannschaftRR(Integer.parseInt(token[14]));
+						spieler.setVereinRR(verein);
+					} catch (NumberFormatException e) {
+					}
 
-					put(spieler.getPassnr(), spieler);
+					put(new SpielerMapKey(vnr, spieler.getPassnr()), spieler);
 				}
 			};
 		} else {
@@ -70,9 +72,9 @@ public class SpielerMap extends HashMap<String, Spieler> {
 						verein.setBezirk(token[1]);
 						vereine.put(vnr, verein);
 					}
-					spieler.setVerein(verein);
+					spieler.setVereinVR(verein);
 
-					put(spieler.getPassnr(), spieler);
+					put(new SpielerMapKey(vnr, spieler.getPassnr()), spieler);
 				}
 			};
 		}

@@ -12,9 +12,8 @@ import bwbv.ersatzspielercheck.model.Spieler;
 
 public class ErsatzspielerCheck {
 
-	private String infile = "data/Spielergebnisse__Filter_Meisterschaft__20110208224726.csv";
-//	private String rlfile = "data/Vereinsrangliste_NW+NB_Meldung_Vorrunde__20101209.csv";
-	private String rlfile = "data/Vereinsrangliste_NW+NB_Meldung_Rueckrunde__20110220200418.csv";
+	private String infile = "data/Spielergebnisse.csv";
+	private String rlfile = "data/VRL_RR.csv";
 	private String kzVrRr = "R";
 	private String sptfile = "data/Spieltage.properties";
 	private String outfile = "data/ErsatzspielerCheck.txt";
@@ -71,10 +70,19 @@ public class ErsatzspielerCheck {
 		// Spieler anhand Passnr suchen
 		String passnr = token[iPassnr];
 		if (passnr != null && !"".equals(passnr) && !"00000000".equals(passnr)) {
-			Spieler spieler = spielerMap.get(passnr);
+			String vnr;
+			String vrRr = token[6];
+			if ("VR".equals(vrRr)){
+				vnr = token[12];
+			} else {
+				vnr = token[17];
+			}
+			SpielerMapKey key = new SpielerMapKey(vnr, passnr);				
+			Spieler spieler = spielerMap.get(key);
 			if (spieler == null) {
-				System.err.println("Passnr <" + passnr + "> nicht gefunden!? Name: " + token[iPassnr + 2] + ", "
-						+ token[iPassnr + 3]);
+				System.err.println("Spieler zur VNr <" + vnr +
+						"> Passnr <" + passnr + "> nicht gefunden!? Name: " + 
+						token[iPassnr + 2] + ", " +	token[iPassnr + 3]);
 			} else {
 				// Einsatz dem Spieler zuordnen
 				Einsatz einsatz = new Einsatz();
@@ -90,9 +98,15 @@ public class ErsatzspielerCheck {
 				einsatz.setSpieltag(getSpieltagFromDatum(einsatz.getDatum()));
 				spieler.addEinsatz(einsatz);
 
-				// Spieler in h�herer Mannschaft als Stammmannschaft eingesetzt?
-				if (mannschaft < spieler.getStammMannschaftVR()) {
-					ersatzspielerMap.put(spieler.getPassnr(), spieler);
+				// Spieler in hoeherer Mannschaft als Stammmannschaft eingesetzt?
+				if ("VR".equals(vrRr)) { 
+					if (mannschaft < spieler.getStammMannschaftVR()) { 
+						ersatzspielerMap.put(key, spieler);
+					}
+				} else {
+					if (mannschaft < spieler.getStammMannschaftRR()) { 
+						ersatzspielerMap.put(key, spieler);
+					}
 				}
 			}
 		}
@@ -113,7 +127,7 @@ public class ErsatzspielerCheck {
 		try {
 			writer = new FileWriter(outfile);
 			for (Spieler spieler : ersatzspielerMap.values()) {
-				// mehr als 4 Eins�tze in h�heren Mannschaften sind kritisch
+				// mehr als 4 Einsaetze in hoeheren Mannschaften sind kritisch
 				// if (spieler.getSpieltagsErsatzEinsaetze().size() > 4) {
 				int c = 0;
 				int sm[] = spieler.getSpTMannschaft();
