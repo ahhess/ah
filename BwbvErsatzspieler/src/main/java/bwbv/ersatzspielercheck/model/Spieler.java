@@ -12,7 +12,8 @@ public class Spieler {
 	private String vorname;
 	private int stammMannschaftVR = -1;
 	private int stammMannschaftRR = -1;
-	private Verein verein;
+	private Verein vereinVR;
+	private Verein vereinRR;
 	private int[] spTMannschaft = {0,0,0,0,0,0,0,0,0,0};
 	
 //	private List<Einsatz> einsaetze = new ArrayList<Einsatz>();
@@ -62,7 +63,7 @@ public class Spieler {
 	@Override
 	public String toString() {
 		return "Spieler " +
-			"[" + verein +
+			"[" + vereinVR +
 			", nachname=" + nachname + 
 			", vorname=" + vorname + 
 			", passnr=" + passnr + 
@@ -152,12 +153,20 @@ public class Spieler {
 //		this.spieltagsErsatzEinsaetze = spieltagsEinsaetze;
 //	}
 
-	public Verein getVerein() {
-		return verein;
+	public Verein getVereinVR() {
+		return vereinVR;
 	}
 
-	public void setVerein(Verein verein) {
-		this.verein = verein;
+	public void setVereinVR(Verein verein) {
+		this.vereinVR = verein;
+	}
+	
+	public Verein getVereinRR() {
+		return vereinRR;
+	}
+	
+	public void setVereinRR(Verein verein) {
+		this.vereinRR = verein;
 	}
 
 	public Map<String, List<Einsatz>> getSpieltagsEinsaetze() {
