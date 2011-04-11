@@ -7,7 +7,7 @@ import bwbv.ersatzspielercheck.model.Spieler;
 import bwbv.ersatzspielercheck.model.Verein;
 
 @SuppressWarnings("serial")
-public class SpielerMap extends HashMap<SpielerMapKey, Spieler> {
+public class SpielerMap extends HashMap<String, Spieler> {
 
 	public HashMap<String, Verein> vereine = new HashMap<String, Verein>();
 
@@ -19,67 +19,60 @@ public class SpielerMap extends HashMap<SpielerMapKey, Spieler> {
 			loader = new CSVLoader() {
 				@Override
 				void processRow(String[] token) {
-
-					Spieler spieler = new Spieler();
-					spieler.setNachname(token[24]);
-					spieler.setVorname(token[25]);
-					spieler.setPassnr(token[22]);
-
-					String vnr = token[2];
-					Verein verein = vereine.get(vnr);
-					if (verein == null) {
-						verein = new Verein();
-						verein.setNummer(vnr);
-						verein.setName(token[3]);
-						verein.setBezirk(token[1]);
-						vereine.put(vnr, verein);
-					}
-					
+					Spieler spieler = getSpieler(token[22], token[24], token[25]);
+					Verein verein = getVerein(token[2], token[3], token[1]);					
 					try {
 						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
 						spieler.setVereinVR(verein);
 					} catch (NumberFormatException e) {
+						// ok, spieler kann nur rr-verein haben
 					}
 					try {
 						spieler.setStammMannschaftRR(Integer.parseInt(token[14]));
 						spieler.setVereinRR(verein);
 					} catch (NumberFormatException e) {
+						// ok, spieler kann nur vr-verein haben
 					}
-
-					put(new SpielerMapKey(vnr, spieler.getPassnr()), spieler);
+					put(spieler.getPassnr(), spieler);
 				}
 			};
 		} else {
 			loader = new CSVLoader() {
 				@Override
 				void processRow(String[] token) {
-
-					Spieler spieler = new Spieler();
-					spieler.setNachname(token[21]);
-					spieler.setVorname(token[22]);
-					spieler.setPassnr(token[19]);
+					Spieler spieler = getSpieler(token[19], token[21], token[22]);
+					Verein verein = getVerein(token[2], token[3], token[1]);
 					try {
 						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
+						spieler.setVereinVR(verein);
 					} catch (NumberFormatException e) {
+						System.err.println("ungueltige StammMannschaftVR: " +
+								spieler.getNachname() + ", "  +
+								spieler.getVorname() + ": " + e);
 					}
-
-					String vnr = token[2];
-					Verein verein = vereine.get(vnr);
-					if (verein == null) {
-						verein = new Verein();
-						verein.setNummer(vnr);
-						verein.setName(token[3]);
-						verein.setBezirk(token[1]);
-						vereine.put(vnr, verein);
-					}
-					spieler.setVereinVR(verein);
-
-					put(new SpielerMapKey(vnr, spieler.getPassnr()), spieler);
+					put(spieler.getPassnr(), spieler);
 				}
 			};
 		}
 		loader.load(filename, 1);
 
+	}
+
+	private Spieler getSpieler(String passnr, String nachname, String vorname) {
+		Spieler spieler = get(passnr);
+		if(spieler == null){
+			spieler = new Spieler(passnr, nachname, vorname);
+		}
+		return spieler;
+	}
+
+	private Verein getVerein(String vnr, String name, String bezirk) {
+		Verein verein = vereine.get(vnr);
+		if (verein == null) {
+			verein = new Verein(vnr, name, bezirk);
+			vereine.put(vnr, verein);
+		}
+		return verein;
 	}
 
 	public HashMap<String, Verein> getVereine() {

@@ -6,6 +6,15 @@ public class Verein {
 	private String name;
 	private String bezirk;
 	
+	public Verein() {
+	}
+	
+	public Verein(String nummer, String name, String bezirk) {
+		this.nummer = nummer;
+		this.name = name;
+		this.bezirk = bezirk;
+	}
+	
 	public String getNummer() {
 		return nummer;
 	}
