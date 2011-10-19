@@ -1,3 +1,4 @@
+package de.vogella.grails.guestbook
 class ShiroRole {
     String name
 

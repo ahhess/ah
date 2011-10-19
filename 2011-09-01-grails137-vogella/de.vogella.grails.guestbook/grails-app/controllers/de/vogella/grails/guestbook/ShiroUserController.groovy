@@ -1,3 +1,5 @@
+package de.vogella.grails.guestbook
+
 class ShiroUserController {
 
     def scaffold = true 

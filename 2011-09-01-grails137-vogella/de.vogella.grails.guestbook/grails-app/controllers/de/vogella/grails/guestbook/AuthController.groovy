@@ -1,3 +1,4 @@
+package de.vogella.grails.guestbook
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken

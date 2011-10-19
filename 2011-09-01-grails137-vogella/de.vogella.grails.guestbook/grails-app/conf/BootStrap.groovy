@@ -1,4 +1,5 @@
 import de.vogella.grails.guestbook.*
+
 import org.apache.shiro.crypto.hash.Sha512Hash
 
 class BootStrap {
