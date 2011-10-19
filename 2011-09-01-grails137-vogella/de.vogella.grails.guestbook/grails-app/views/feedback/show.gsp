@@ -51,19 +51,6 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="feedback.comments.label" default="Comments" /></td>
-                            
-                            <td valign="top" style="text-align: left;" class="value">
-                                <ul>
-                                <g:each in="${feedbackInstance.comments}" var="c">
-                                    <li><g:link controller="comment" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
-                                </g:each>
-                                </ul>
-                            </td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="feedback.dateCreated.label" default="Date Created" /></td>
                             
                             <td valign="top" class="value"><g:formatDate date="${feedbackInstance?.dateCreated}" /></td>
@@ -75,6 +62,43 @@
                             
                             <td valign="top" class="value"><g:formatDate date="${feedbackInstance?.lastUpdated}" /></td>
                             
+                        </tr>
+                     
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="feedback.comments.label" default="Comments" /></td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+<%--                            	
+                                <ul>
+                                <g:each in="${feedbackInstance.comments}" var="c">
+                                    <li><g:link controller="comment" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+                                </g:each>
+                                </ul>
+--%>
+					            <div class="list">
+					                <table>
+					                    <thead>
+					                        <tr>
+					                            <g:sortableColumn property="id" title="${message(code: 'comment.id.label', default: 'Id')}" />
+					                            <g:sortableColumn property="comment" title="${message(code: 'comment.comment.label', default: 'Comment')}" />
+					                            <th><g:message code="comment.user.label" default="User" /></th>
+					                            <g:sortableColumn property="lastUpdated" title="${message(code: 'comment.lastUpdated.label', default: 'Last Updated')}" />
+					                        </tr>
+					                    </thead>
+					                    <tbody>
+					                    <g:each in="${feedbackInstance.comments}" status="i" var="commentInstance">
+					                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+					                            <td><g:link controller="comment" action="show" id="${commentInstance.id}">${fieldValue(bean: commentInstance, field: "id")}</g:link></td>
+					                            <td>${fieldValue(bean: commentInstance, field: "comment")}</td>
+					                            <td>${fieldValue(bean: commentInstance, field: "user")}</td>
+					                            <td><g:formatDate date="${commentInstance.lastUpdated}" /></td>			                        
+					                        </tr>
+					                    </g:each>
+					                    </tbody>
+					                </table>
+								</div>                            
+								
+							</td>
                         </tr>
                     
                     </tbody>
