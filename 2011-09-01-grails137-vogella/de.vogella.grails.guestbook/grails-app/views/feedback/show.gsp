@@ -46,7 +46,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="feedback.user.label" default="User" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${feedbackInstance?.user?.id}">${feedbackInstance?.user?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value"><g:link controller="shiroUser" action="show" id="${feedbackInstance?.user?.id}">${feedbackInstance?.user?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     

@@ -45,7 +45,7 @@
                                   <label for="user"><g:message code="comment.user.label" default="User" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: commentInstance, field: 'user', 'errors')}">
-                                    <g:select name="user.id" from="${de.vogella.grails.guestbook.User.list()}" optionKey="id" value="${commentInstance?.user?.id}" noSelection="['null': '']" />
+                                    <g:select name="user.id" from="${de.vogella.grails.guestbook.ShiroUser.list()}" optionKey="id" value="${commentInstance?.user?.id}" noSelection="['null': '']" />
                                 </td>
                             </tr>
                         

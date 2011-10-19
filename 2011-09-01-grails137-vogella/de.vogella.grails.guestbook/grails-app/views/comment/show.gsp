@@ -39,7 +39,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="comment.user.label" default="User" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${commentInstance?.user?.id}">${commentInstance?.user?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value"><g:link controller="shiroUser" action="show" id="${commentInstance?.user?.id}">${commentInstance?.user?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     

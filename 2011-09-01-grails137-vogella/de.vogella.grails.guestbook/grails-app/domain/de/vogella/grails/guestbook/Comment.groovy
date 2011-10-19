@@ -5,7 +5,7 @@ class Comment {
 	Date dateCreated // Predefined names by Grails will be filled automatically
 	Date lastUpdated // Predefined names by Grails will be filled automatically
 
-	User user;
+	ShiroUser user;
 	// This will make sure that all comments for a feedback are deleted in case the feedback item is deleted
 	static belongsTo=[feedback:Feedback]
 

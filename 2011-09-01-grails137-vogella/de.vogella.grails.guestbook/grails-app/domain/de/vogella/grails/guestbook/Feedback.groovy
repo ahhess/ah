@@ -8,7 +8,7 @@ class Feedback {
 	Date lastUpdated // Predefined names by Grails will be filled automatically
 
 	// Relationsship to the other classes
-	User user
+	ShiroUser user
 	static hasMany=[comments:Comment]
 
 	// Contrains are defined as static 

@@ -54,7 +54,7 @@
                                   <label for="user"><g:message code="feedback.user.label" default="User" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: feedbackInstance, field: 'user', 'errors')}">
-                                    <g:select name="user.id" from="${de.vogella.grails.guestbook.User.list()}" optionKey="id" value="${feedbackInstance?.user?.id}"  />
+                                    <g:select name="user.id" from="${de.vogella.grails.guestbook.ShiroUser.list()}" optionKey="id" value="${feedbackInstance?.user?.id}"  />
                                 </td>
                             </tr>
                         
