@@ -1,8 +1,10 @@
 package de.vogella.grails.guestbook
 
+import org.apache.shiro.crypto.hash.Sha512Hash
+
 class ShiroUserController {
 
-    def scaffold = true 
+//    def scaffold = true 
 	
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -18,11 +20,13 @@ class ShiroUserController {
     def create = {
         def shiroUserInstance = new ShiroUser()
         shiroUserInstance.properties = params
+//		shiroUserInstance.passwordHash = new Sha512Hash(shiroUserInstance.passwordHash).toHex()
         return [shiroUserInstance: shiroUserInstance]
     }
 
     def save = {
         def shiroUserInstance = new ShiroUser(params)
+		shiroUserInstance.passwordHash = new Sha512Hash(shiroUserInstance.passwordHash).toHex()
         if (shiroUserInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'shiroUser.label', default: 'ShiroUser'), shiroUserInstance.id])}"
             redirect(action: "show", id: shiroUserInstance.id)
