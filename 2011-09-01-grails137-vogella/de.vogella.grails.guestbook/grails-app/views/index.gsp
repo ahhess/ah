@@ -55,6 +55,12 @@
             <div class="homePagePanel">
                 <div class="panelTop"></div>
                 <div class="panelBody">
+                    <h1>Menue</h1>
+                    <ul>
+	                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+	                        <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.name}</g:link></li>
+	                    </g:each>
+                    </ul>
                     <h1>Application Status</h1>
                     <ul>
                         <li>App version: <g:meta name="app.version"></g:meta></li>
