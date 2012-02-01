@@ -9,11 +9,11 @@ public class Einsatz {
 	
 	@Override
 	public String toString() {
-		return "Einsatz [spieltag=" + spieltag
-		+ ", datum=" + datum 
-		+ ", mannschaft=" + mannschaft 
+		return "<Einsatz spt=\"" + spieltag
+		+ "\" datum=\"" + datum 
+		+ "\" mannschaft=\"" + mannschaft 
 		//+ ", disz=" + disz 
-		+ "]";
+		+ "\"/>";
 	}
 
 	public String getDatum() {
