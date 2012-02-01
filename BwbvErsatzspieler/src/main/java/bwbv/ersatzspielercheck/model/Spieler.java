@@ -1,7 +1,6 @@
 package bwbv.ersatzspielercheck.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,18 +48,23 @@ public class Spieler {
 
 	@Override
 	public String toString() {
-		return "Spieler " + "[passnr=" + passnr + ", nachname=" + nachname + ", vorname=" + vorname
-				+ ", mannschaftseinsatz=" + mannschaftseinsatzToSting() + ", " + vereinVR
-				+ ", stammMannschaftVR=" + stammMannschaftVR + ", " + vereinRR + ", stammMannschaftRR="
-				+ stammMannschaftRR + ", " + spieltagsEinsaetze + "]";
+		return "<Spieler passnr=\"" + passnr + "\" nachname=\"" 
+				+ nachname + "\" vorname=\"" + vorname + "\">"
+				+ "<VR stammMannschaft=\"" + stammMannschaftVR + "\">"	+ vereinVR + "</VR>"
+				+ "<RR stammMannschaft=\"" + stammMannschaftRR + "\">"	+ vereinRR + "</RR>"
+				+ mannschaftseinsatzToSting() 
+				+ "<SpieltagsEinsaetze>" + spieltagsEinsaetze + "</SpieltagsEinsaetze>"
+				+ "</Spieler>";
 	}
 
 	private String mannschaftseinsatzToSting() {
-		String s="[";
+		String s="<Mannschaftseinsaetze>";
 		for(int i = 0;i<10;i++){
-			s += "[" + mannschaftseinsatz[i][0] + "," + mannschaftseinsatz[i][1] + "],"; 	
+			s += "<me nr=\"" + i 
+				+ "\" m1=\"" + mannschaftseinsatz[i][0] 
+			    + "\" m2=\"" + mannschaftseinsatz[i][1] +"\"/>"; 	
 		}
-		return s+"]";
+		return s+"</Mannschaftseinsaetze>";
 	}
 	
 	public String getPassnr() {

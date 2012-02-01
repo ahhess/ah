@@ -3,6 +3,8 @@ package bwbv.ersatzspielercheck;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import bwbv.ersatzspielercheck.CSVLoader;
@@ -18,10 +20,12 @@ public class ErsatzspielerCheck {
 	private Properties spieltage = new Properties();
 	private SpielerMap spielerMap = new SpielerMap();
 	private SpielerMap ersatzspielerMap = new SpielerMap();
+	private List<Spieler> festgespielt = new ArrayList<Spieler>();
+	private List<Spieler> falschspieler = new ArrayList<Spieler>();
 
 	public static void main(String[] args) {
 		try {
-			new ErsatzspielerCheck(args);
+			ErsatzspielerCheck e = new ErsatzspielerCheck(args);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -123,17 +127,21 @@ public class ErsatzspielerCheck {
 	 */
 	private void checkErsatzspieler() throws IOException {
 		FileWriter writer = new FileWriter(config.getProperty("outfile"));
+		writer.write("<?xml version=\"1.0\" encoding=\""
+				+ writer.getEncoding() + "\"?>\n");
+		writer.write("<ErsatzspielerCheck>\n");
 		for (Spieler spieler : ersatzspielerMap.values()) {
 			int mannschaftszaehler[] = new int[9];
 			int maxMannschaft = spieler.getStammMannschaftVR();
 			for (int spt = 0; spt < 10; spt++) {
 				if(spt==5){
-					if(spieler.getStammMannschaftRR() > 0){
+					if(spieler.getStammMannschaftRR() < maxMannschaft){
 						maxMannschaft = spieler.getStammMannschaftRR();
 					}
 					if(!spieler.getVereinRR().equals(spieler.getVereinVR())){
 						//zaehler wieder loeschen bei vereinswechsel
 						mannschaftszaehler = new int[9];
+						maxMannschaft = spieler.getStammMannschaftRR();
 					}
 				}
 				int m = spieler.getMannschaftseinsatz()[spt][0];
@@ -147,17 +155,54 @@ public class ErsatzspielerCheck {
 				if(m > 0){
 					if(m > maxMannschaft){
 						System.err.println("--> achtung FALSCHEINSATZ: " + spieler);
-						writer.write("--> achtung FALSCHEINSATZ: "+spieler+"\n");
+						writer.write("<FALSCHEINSATZ m=\"" + m + "max=\"" + maxMannschaft +   
+								"\"> "+spieler+"</FALSCHEINSATZ>\n");
+						falschspieler.add(spieler);
 					}
 					mannschaftszaehler[m]++;
-					if(mannschaftszaehler[m] > 4 && m < maxMannschaft){
+					if(mannschaftszaehler[m] >= 4 && m < maxMannschaft){
 //						System.out.println("festgespielt: " + spieler);
-						writer.write("festgespielt: "+spieler+"\n");
+						writer.write("<festgespielt m=\"" + m + "max=\"" + maxMannschaft +   
+								"\"> "+spieler+"</festgespielt>\n");
 						maxMannschaft = m;
+						festgespielt.add(spieler);
 					}
 				}
 			}
 		}
+		writer.write("</ErsatzspielerCheck>\n");
 		writer.close();
+	}
+
+	public SpielerMap getSpielerMap() {
+		return spielerMap;
+	}
+
+	public void setSpielerMap(SpielerMap spielerMap) {
+		this.spielerMap = spielerMap;
+	}
+
+	public SpielerMap getErsatzspielerMap() {
+		return ersatzspielerMap;
+	}
+
+	public void setErsatzspielerMap(SpielerMap ersatzspielerMap) {
+		this.ersatzspielerMap = ersatzspielerMap;
+	}
+
+	public List<Spieler> getFestgespielt() {
+		return festgespielt;
+	}
+
+	public void setFestgespielt(List<Spieler> festgespielt) {
+		this.festgespielt = festgespielt;
+	}
+
+	public List<Spieler> getFalschspieler() {
+		return falschspieler;
+	}
+
+	public void setFalschspieler(List<Spieler> falschspieler) {
+		this.falschspieler = falschspieler;
 	}
 }

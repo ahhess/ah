@@ -36,8 +36,8 @@ public class Verein {
 	
 	@Override
 	public String toString() {
-		return "Verein=" + name
+		return "<Verein name=\"" + name
 			//+ " (" + bezirk + ")" 
-			+ " (" + nummer + ")"; 
+			+ "\" nr=\"" + nummer + "\"/>"; 
 	}
 }
