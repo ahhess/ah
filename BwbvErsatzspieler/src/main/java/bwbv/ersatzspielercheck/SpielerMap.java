@@ -2,6 +2,7 @@ package bwbv.ersatzspielercheck;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import bwbv.ersatzspielercheck.model.Spieler;
 import bwbv.ersatzspielercheck.model.Verein;
@@ -9,10 +10,12 @@ import bwbv.ersatzspielercheck.model.Verein;
 @SuppressWarnings("serial")
 public class SpielerMap extends HashMap<String, Spieler> {
 
-	public HashMap<String, Verein> vereine = new HashMap<String, Verein>();
+	private static Logger logger = Logger.getLogger(SpielerMap.class.getName());
+	
+	private HashMap<String, Verein> vereine;
 
 	public void load(String filename, String kzVrRr) throws IOException {
-		System.out.println("lade Spieler ");
+		logger.info("lade Spieler (" + kzVrRr + ") von " + filename);
 
 		CSVLoader loader;
 		if ("R".equalsIgnoreCase(kzVrRr)) {
@@ -34,6 +37,7 @@ public class SpielerMap extends HashMap<String, Spieler> {
 						// ok, spieler kann nur vr-verein haben
 					}
 					put(spieler.getPassnr(), spieler);
+					verein.getSpielerMap().put(spieler.getPassnr(), spieler);
 				}
 			};
 		} else {
@@ -46,11 +50,12 @@ public class SpielerMap extends HashMap<String, Spieler> {
 						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
 						spieler.setVereinVR(verein);
 					} catch (NumberFormatException e) {
-						System.err.println("ungueltige StammMannschaftVR: " +
+						logger.warning("ungueltige StammMannschaftVR: " +
 								spieler.getNachname() + ", "  +
 								spieler.getVorname() + ": " + e);
 					}
 					put(spieler.getPassnr(), spieler);
+					verein.getSpielerMap().put(spieler.getPassnr(), spieler);
 				}
 			};
 		}
@@ -62,15 +67,21 @@ public class SpielerMap extends HashMap<String, Spieler> {
 		Spieler spieler = get(passnr);
 		if(spieler == null){
 			spieler = new Spieler(passnr, nachname, vorname);
+			logger.finer("Spieler: "+spieler.toString());
 		}
 		return spieler;
 	}
 
 	private Verein getVerein(String vnr, String name, String bezirk) {
+		if(vereine == null){		
+			vereine = new HashMap<String, Verein>();
+		}
+
 		Verein verein = vereine.get(vnr);
 		if (verein == null) {
 			verein = new Verein(vnr, name, bezirk);
 			vereine.put(vnr, verein);
+			logger.fine("Verein: "+verein.toString());
 		}
 		return verein;
 	}
