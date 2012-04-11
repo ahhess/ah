@@ -1,18 +1,20 @@
 package bwbv.ersatzspielercheck;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Logger;
 
-import bwbv.ersatzspielercheck.CSVLoader;
-import bwbv.ersatzspielercheck.SpielerMap;
 import bwbv.ersatzspielercheck.model.Einsatz;
 import bwbv.ersatzspielercheck.model.Spieler;
 
 public class ErsatzspielerCheck {
+	
+	private static Logger logger = Logger.getLogger(ErsatzspielerCheck.class.getName());
 
 	private String CONF = "data/ErsatzspielerCheck.properties";
 
@@ -32,6 +34,17 @@ public class ErsatzspielerCheck {
 	}
 
 	public ErsatzspielerCheck(String[] args) throws Exception {
+		logger.info("start");
+
+		init(args);
+		processEinsaetze();
+		checkErsatzspieler();
+		
+		logger.info("ende.");
+	}
+
+	public void init(String[] args) throws IOException, FileNotFoundException {
+		logger.info("lade config aus " + CONF);
 		config.load(new FileReader(CONF));
 		
 		for (int i = 0; i < args.length; i++) {
@@ -51,18 +64,22 @@ public class ErsatzspielerCheck {
 
 		//Spieltage: Zuordnung Datum zu Spieltagsnr
 		//(Spieltagsnr: 0=SpT1, ..., 4=SpT4a, 5=SpT5, ..., 8=SpT8, 9=SpT8a)
-		spieltage.load(new FileReader(config.getProperty("sptfile")));
+		String filename = config.getProperty("sptfile");
+		logger.info("lade Spieltage aus "+filename);
+		spieltage.load(new FileReader(filename));
 		
-		spielerMap.load(config.getProperty("vrlVrFile"), "V");
-		if("R".equals(config.getProperty("kzVrRr")))
-			spielerMap.load(config.getProperty("vrlRrFile"), "R");
-		
-		processEinsaetze();
-		checkErsatzspieler();
+		filename = config.getProperty("vrlVrFile");
+		logger.info("lade Vorrunden-RL aus "+filename);
+		spielerMap.load(filename, "V");
+		if("R".equals(config.getProperty("kzVrRr"))) {
+			filename = config.getProperty("vrlRrFile");
+			logger.info("lade Rückrunden-RL aus "+filename);
+			spielerMap.load(filename, "R");
+		}
 	}
 
 	private void processEinsaetze() throws IOException {
-		System.out.println("lade Spielergebnisse ");
+		logger.info("start");
 		CSVLoader ergebnisLoader = new CSVLoader() {
 			@Override
 			void processRow(String[] token) {
@@ -81,10 +98,19 @@ public class ErsatzspielerCheck {
 		if (passnr != null && !"".equals(passnr) && !"0".equals(passnr) && !"00000000".equals(passnr)) {
 			Spieler spieler = spielerMap.get(passnr);
 			if (spieler == null) {
-				System.err.println("Spieler zur Passnr <" + passnr 
-						+ "> nicht gefunden!? Name: " + 
-						token[iPassnr + 2] + ", " +	token[iPassnr + 3]);
-			} else {
+				logger.warning("Unbekannte Passnr <" + passnr + 
+						"> Name: " + token[iPassnr + 2] + ", " + token[iPassnr + 3]);
+				if (passnr != null && passnr.length() > 1){
+					//Sonderbehandlung: "A" vor der Passnr entfernen und nochmal probieren
+					passnr = passnr.substring(1);
+					spieler = spielerMap.get(passnr);
+					if (spieler != null) {
+						logger.info("Spieler gefunden zu Passnr <" + passnr + 
+								">  Name: " + token[iPassnr + 2] + ", " + token[iPassnr + 3]);
+					}
+				}
+			}
+			if (spieler != null) {
 				// Einsatz dem Spieler zuordnen
 				Einsatz einsatz = new Einsatz();
 				int mannschaft = Integer.parseInt(token[iMannschaft]);
@@ -117,7 +143,7 @@ public class ErsatzspielerCheck {
 		String spieltagDatum = datum.substring(0, 10);
 		String spieltag = spieltage.getProperty(spieltagDatum);
 		if (spieltag == null) {
-			System.err.println("unbekannter SpT:" + spieltagDatum);
+			logger.warning("unbekannter SpT:" + spieltagDatum);
 		}
 		return spieltag;
 	}
@@ -154,15 +180,15 @@ public class ErsatzspielerCheck {
 				}
 				if(m > 0){
 					if(m > maxMannschaft){
-						System.err.println("--> achtung FALSCHEINSATZ: " + spieler);
-						writer.write("<FALSCHEINSATZ m=\"" + m + "max=\"" + maxMannschaft +   
+						logger.warning("--> achtung FALSCHEINSATZ: " + spieler);
+						writer.write("<FALSCHEINSATZ m=\"" + m + "\" max=\"" + maxMannschaft +   
 								"\"> "+spieler+"</FALSCHEINSATZ>\n");
 						falschspieler.add(spieler);
 					}
 					mannschaftszaehler[m]++;
 					if(mannschaftszaehler[m] >= 4 && m < maxMannschaft){
-//						System.out.println("festgespielt: " + spieler);
-						writer.write("<festgespielt m=\"" + m + "max=\"" + maxMannschaft +   
+//						logger.info("festgespielt: " + spieler);
+						writer.write("<festgespielt m=\"" + m + "\" max=\"" + maxMannschaft +   
 								"\"> "+spieler+"</festgespielt>\n");
 						maxMannschaft = m;
 						festgespielt.add(spieler);

@@ -2,11 +2,14 @@ package bwbv.ersatzspielercheck;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public abstract class CSVLoader {
 
+	private static Logger logger = Logger.getLogger(CSVLoader.class.getName());
+
 	void load(String filename, int skipRows) throws IOException {
-		System.out.println("lade " + filename);
+		logger.info("lade "+filename);
 		int anz = 0;
 		int j = skipRows - 1;
 		BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -17,13 +20,13 @@ public abstract class CSVLoader {
 				processRow(line.split(";"));
 				anz++;
 				if (i == 100) {
-					System.out.print(".");
+					//System.out.print(".");
 					i = 0;
 				}
 			}
 			line = br.readLine();
 		}
-		System.out.println("\n" + anz + " Zeilen geladen.");
+		logger.info("" + anz + " Zeilen geladen.");
 	}
 
 	abstract void processRow(String[] token);
