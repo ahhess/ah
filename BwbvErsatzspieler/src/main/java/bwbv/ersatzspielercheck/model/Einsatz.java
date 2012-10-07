@@ -9,13 +9,17 @@ public class Einsatz {
 	
 	@Override
 	public String toString() {
+		return datum + " SpT " + spieltag + " M " + mannschaft;
+	}
+
+	public String toXML() {
 		return "<Einsatz spt=\"" + spieltag
 		+ "\" datum=\"" + datum 
 		+ "\" mannschaft=\"" + mannschaft 
 		//+ ", disz=" + disz 
 		+ "\"/>";
 	}
-
+	
 	public String getDatum() {
 		return datum;
 	}

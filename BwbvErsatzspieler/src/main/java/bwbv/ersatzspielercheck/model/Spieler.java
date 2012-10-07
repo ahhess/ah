@@ -48,16 +48,20 @@ public class Spieler {
 
 	@Override
 	public String toString() {
-		return "<Spieler passnr=\"" + passnr + "\" nachname=\"" 
-				+ nachname + "\" vorname=\"" + vorname + "\">"
-				+ "<VR stammMannschaft=\"" + stammMannschaftVR + "\">"	+ vereinVR + "</VR>"
-				+ "<RR stammMannschaft=\"" + stammMannschaftRR + "\">"	+ vereinRR + "</RR>"
-				+ mannschaftseinsatzToSting() 
-				+ "<SpieltagsEinsaetze>" + spieltagsEinsaetze + "</SpieltagsEinsaetze>"
-				+ "</Spieler>";
+		return nachname + ", " + vorname + " (" + passnr + ")"; 
 	}
 
-	private String mannschaftseinsatzToSting() {
+	public String toXML() {
+		return "<Spieler passnr=\"" + passnr + "\" nachname=\"" 
+		+ nachname + "\" vorname=\"" + vorname + "\">"
+		+ "<VR stammMannschaft=\"" + stammMannschaftVR + "\">"	+ vereinVR + "</VR>"
+		+ "<RR stammMannschaft=\"" + stammMannschaftRR + "\">"	+ vereinRR + "</RR>"
+		+ mannschaftseinsatzToXML() 
+		+ "<SpieltagsEinsaetze>" + spieltagsEinsaetze + "</SpieltagsEinsaetze>"
+		+ "</Spieler>";
+	}
+	
+	private String mannschaftseinsatzToXML() {
 		String s="<Mannschaftseinsaetze>";
 		for(int i = 0;i<10;i++){
 			s += "<me nr=\"" + i 

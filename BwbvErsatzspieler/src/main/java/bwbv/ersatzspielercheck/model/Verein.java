@@ -48,8 +48,12 @@ public class Verein {
 	
 	@Override
 	public String toString() {
+		return name + " (" + bezirk + "-" + nummer + ")"; 
+	}
+	
+	public String toXML() {
 		return "<Verein name=\"" + name
-			//+ " (" + bezirk + ")" 
-			+ "\" nr=\"" + nummer + "\"/>"; 
+		//+ " (" + bezirk + ")" 
+		+ "\" nr=\"" + nummer + "\"/>"; 
 	}
 }
