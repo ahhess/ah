@@ -39,27 +39,36 @@ public class ErsatzspielerCheck {
 		init(args);
 		processEinsaetze();
 		checkErsatzspieler();
+//		exportSpielerXML("outfile", falschspieler);
+//		exportSpielerXML("outfileFestgespielt", festgespielt);
+		exportSpielerXML("outfile", new ArrayList<Spieler>(ersatzspielerMap.values()));
 		
 		logger.info("ende.");
 	}
 
 	public void init(String[] args) throws IOException, FileNotFoundException {
-		logger.info("lade config aus " + CONF);
-		config.load(new FileReader(CONF));
-		
-		for (int i = 0; i < args.length; i++) {
-			if (i == 0)
-				config.setProperty("infile", args[i]);
-			else if (i == 1)
-				config.setProperty("vrlVrFile", args[i]);
-			else if (i == 2)
-				config.setProperty("vrlRrFile", args[i]);
-			else if (i == 3)
-				config.setProperty("kzVrRr", args[i]);
-			else if (i == 4)
-				config.setProperty("sptfile", args[i]);
-			else if (i == 5)
-				config.setProperty("outfile", args[i]);
+
+		String confFilename=CONF;
+		if (args.length==1)
+			confFilename=args[0];
+		if (args.length<=1){		
+			logger.info("lade config aus " + confFilename);
+			config.load(new FileReader(confFilename));
+		} else {
+			for (int i = 0; i < args.length; i++) {
+				if (i == 0)
+					config.setProperty("infile", args[i]);
+				else if (i == 1)
+					config.setProperty("vrlVrFile", args[i]);
+				else if (i == 2)
+					config.setProperty("vrlRrFile", args[i]);
+				else if (i == 3)
+					config.setProperty("kzVrRr", args[i]);
+				else if (i == 4)
+					config.setProperty("sptfile", args[i]);
+				else if (i == 5)
+					config.setProperty("outfile", args[i]);
+			}
 		}
 
 		//Spieltage: Zuordnung Datum zu Spieltagsnr
@@ -68,14 +77,14 @@ public class ErsatzspielerCheck {
 		logger.info("lade Spieltage aus "+filename);
 		spieltage.load(new FileReader(filename));
 		
-		filename = config.getProperty("vrlVrFile");
-		logger.info("lade Vorrunden-RL aus "+filename);
-		spielerMap.load(filename, "V");
-		if("R".equals(config.getProperty("kzVrRr"))) {
+//		filename = config.getProperty("vrlVrFile");
+//		logger.info("lade Vorrunden-RL aus "+filename);
+//		spielerMap.load(filename, "V");
+//		if("R".equals(config.getProperty("kzVrRr"))) {
 			filename = config.getProperty("vrlRrFile");
 			logger.info("lade Rückrunden-RL aus "+filename);
 			spielerMap.load(filename, "R");
-		}
+//		}
 	}
 
 	private void processEinsaetze() throws IOException {
@@ -152,10 +161,7 @@ public class ErsatzspielerCheck {
 	 * mehr als 4 Einsaetze in hoeheren Mannschaften sind kritisch
 	 */
 	private void checkErsatzspieler() throws IOException {
-		FileWriter writer = new FileWriter(config.getProperty("outfile"));
-		writer.write("<?xml version=\"1.0\" encoding=\""
-				+ writer.getEncoding() + "\"?>\n");
-		writer.write("<ErsatzspielerCheck>\n");
+
 		for (Spieler spieler : ersatzspielerMap.values()) {
 			int mannschaftszaehler[] = new int[9];
 			int maxMannschaft = spieler.getStammMannschaftVR();
@@ -181,20 +187,25 @@ public class ErsatzspielerCheck {
 				if(m > 0){
 					if(m > maxMannschaft){
 						logger.warning("--> achtung FALSCHEINSATZ: " + spieler);
-						writer.write("<FALSCHEINSATZ m=\"" + m + "\" max=\"" + maxMannschaft +   
-								"\"> "+spieler+"</FALSCHEINSATZ>\n");
 						falschspieler.add(spieler);
 					}
 					mannschaftszaehler[m]++;
 					if(mannschaftszaehler[m] >= 4 && m < maxMannschaft){
 //						logger.info("festgespielt: " + spieler);
-						writer.write("<festgespielt m=\"" + m + "\" max=\"" + maxMannschaft +   
-								"\"> "+spieler+"</festgespielt>\n");
 						maxMannschaft = m;
 						festgespielt.add(spieler);
 					}
 				}
 			}
+		}
+	}
+	
+	private void exportSpielerXML(String outfile, List<Spieler> spielerList) throws IOException {
+		FileWriter writer = new FileWriter(config.getProperty(outfile));
+		writer.write("<?xml version=\"1.0\" encoding=\"" + writer.getEncoding() + "\"?>\n");
+		writer.write("<ErsatzspielerCheck>\n");
+		for (Spieler spieler : spielerList) {
+			writer.write(spieler.toXML() + "\n");
 		}
 		writer.write("</ErsatzspielerCheck>\n");
 		writer.close();

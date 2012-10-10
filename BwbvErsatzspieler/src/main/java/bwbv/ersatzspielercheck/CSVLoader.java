@@ -19,10 +19,6 @@ public abstract class CSVLoader {
 			if (i > j) {
 				processRow(line.split(";"));
 				anz++;
-				if (i == 100) {
-					//System.out.print(".");
-					i = 0;
-				}
 			}
 			line = br.readLine();
 		}
