@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import bwbv.ersatzspielercheck.model.Spieler;
 import bwbv.ersatzspielercheck.model.Verein;
 
+/**
+ * Hashmap fuer Spieler. Key ist die Passnr.
+ */
 @SuppressWarnings("serial")
 public class SpielerMap extends HashMap<String, Spieler> {
 
