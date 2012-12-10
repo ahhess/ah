@@ -13,10 +13,10 @@ import bwbv.ersatzspielercheck.model.Einsatz;
 import bwbv.ersatzspielercheck.model.Spieler;
 
 public class ErsatzspielerCheck {
-	
+
 	private static Logger logger = Logger.getLogger(ErsatzspielerCheck.class.getName());
 
-	private String CONF = "data/ErsatzspielerCheck.properties";
+	private String confFilename = "data/ErsatzspielerCheck.properties";
 
 	private Properties config = new Properties();
 	private Properties spieltage = new Properties();
@@ -33,6 +33,10 @@ public class ErsatzspielerCheck {
 		}
 	}
 
+	public ErsatzspielerCheck() {
+		logger.info("start");
+	}
+
 	public ErsatzspielerCheck(String[] args) throws Exception {
 		logger.info("start");
 
@@ -42,16 +46,40 @@ public class ErsatzspielerCheck {
 //		exportSpielerXML("outfile", falschspieler);
 //		exportSpielerXML("outfileFestgespielt", festgespielt);
 		exportSpielerXML("outfile", new ArrayList<Spieler>(ersatzspielerMap.values()));
-		
+
 		logger.info("ende.");
 	}
 
 	public void init(String[] args) throws IOException, FileNotFoundException {
+		loadConfig(args);
+		loadSpieltage();
+		loadVRL();
+	}
 
-		String confFilename=CONF;
+	public void loadVRL() throws IOException {
+		//		filename = config.getProperty("vrlVrFile");
+		//		logger.info("lade Vorrunden-RL aus "+filename);
+		//		spielerMap.load(filename, "V");
+		//		if("R".equals(config.getProperty("kzVrRr"))) {
+					String filename;
+					filename = config.getProperty("vrlRrFile");
+					logger.info("lade Rueckrunden-RL aus "+filename);
+					spielerMap.load(filename, "R");
+		//		}
+	}
+
+	public void loadSpieltage() throws IOException, FileNotFoundException {
+		//Spieltage: Zuordnung Datum zu Spieltagsnr
+		//(Spieltagsnr: 0=SpT1, ..., 4=SpT4a, 5=SpT5, ..., 8=SpT8, 9=SpT8a)
+		String filename = config.getProperty("sptfile");
+		logger.info("lade Spieltage aus "+filename);
+		spieltage.load(new FileReader(filename));
+	}
+
+	public void loadConfig(String[] args) throws IOException, FileNotFoundException {
 		if (args.length==1)
 			confFilename=args[0];
-		if (args.length<=1){		
+		if (args.length<=1){
 			logger.info("lade config aus " + confFilename);
 			config.load(new FileReader(confFilename));
 		} else {
@@ -70,24 +98,9 @@ public class ErsatzspielerCheck {
 					config.setProperty("outfile", args[i]);
 			}
 		}
-
-		//Spieltage: Zuordnung Datum zu Spieltagsnr
-		//(Spieltagsnr: 0=SpT1, ..., 4=SpT4a, 5=SpT5, ..., 8=SpT8, 9=SpT8a)
-		String filename = config.getProperty("sptfile");
-		logger.info("lade Spieltage aus "+filename);
-		spieltage.load(new FileReader(filename));
-		
-//		filename = config.getProperty("vrlVrFile");
-//		logger.info("lade Vorrunden-RL aus "+filename);
-//		spielerMap.load(filename, "V");
-//		if("R".equals(config.getProperty("kzVrRr"))) {
-			filename = config.getProperty("vrlRrFile");
-			logger.info("lade Rückrunden-RL aus "+filename);
-			spielerMap.load(filename, "R");
-//		}
 	}
 
-	private void processEinsaetze() throws IOException {
+	public void processEinsaetze() throws IOException {
 		logger.info("start");
 		CSVLoader ergebnisLoader = new CSVLoader() {
 			@Override
@@ -107,14 +120,14 @@ public class ErsatzspielerCheck {
 		if (passnr != null && !"".equals(passnr) && !"0".equals(passnr) && !"00000000".equals(passnr)) {
 			Spieler spieler = spielerMap.get(passnr);
 			if (spieler == null) {
-				logger.warning("Unbekannte Passnr <" + passnr + 
+				logger.warning("Unbekannte Passnr <" + passnr +
 						"> Name: " + token[iPassnr + 2] + ", " + token[iPassnr + 3]);
 				if (passnr != null && passnr.length() > 1){
 					//Sonderbehandlung: "A" vor der Passnr entfernen und nochmal probieren
 					passnr = passnr.substring(1);
 					spieler = spielerMap.get(passnr);
 					if (spieler != null) {
-						logger.info("Spieler gefunden zu Passnr <" + passnr + 
+						logger.info("Spieler gefunden zu Passnr <" + passnr +
 								">  Name: " + token[iPassnr + 2] + ", " + token[iPassnr + 3]);
 					}
 				}
@@ -135,12 +148,12 @@ public class ErsatzspielerCheck {
 				spieler.addEinsatz(einsatz);
 
 				// Spieler in hoeherer Mannschaft als Stammmannschaft eingesetzt?
-				if ("VR".equals(token[6])) { 
-					if (mannschaft < spieler.getStammMannschaftVR()) { 
+				if ("VR".equals(token[6])) {
+					if (mannschaft < spieler.getStammMannschaftVR()) {
 						ersatzspielerMap.put(passnr, spieler);
 					}
 				} else {
-					if (mannschaft < spieler.getStammMannschaftRR()) { 
+					if (mannschaft < spieler.getStammMannschaftRR()) {
 						ersatzspielerMap.put(passnr, spieler);
 					}
 				}
@@ -157,10 +170,10 @@ public class ErsatzspielerCheck {
 		return spieltag;
 	}
 
-	/** 
+	/**
 	 * mehr als 4 Einsaetze in hoeheren Mannschaften sind kritisch
 	 */
-	private void checkErsatzspieler() throws IOException {
+	public void checkErsatzspieler() throws IOException {
 
 		for (Spieler spieler : ersatzspielerMap.values()) {
 			int mannschaftszaehler[] = new int[9];
@@ -199,8 +212,8 @@ public class ErsatzspielerCheck {
 			}
 		}
 	}
-	
-	private void exportSpielerXML(String outfile, List<Spieler> spielerList) throws IOException {
+
+	public void exportSpielerXML(String outfile, List<Spieler> spielerList) throws IOException {
 		FileWriter writer = new FileWriter(config.getProperty(outfile));
 		writer.write("<?xml version=\"1.0\" encoding=\"" + writer.getEncoding() + "\"?>\n");
 		writer.write("<ErsatzspielerCheck>\n");
@@ -242,4 +255,20 @@ public class ErsatzspielerCheck {
 	public void setFalschspieler(List<Spieler> falschspieler) {
 		this.falschspieler = falschspieler;
 	}
+
+	public String getConfFilename() {
+		return confFilename;
+	}
+
+	public void setConfFilename(String confFilename) {
+		this.confFilename = confFilename;
+	}
+
+        public Properties getConfig() {
+            return config;
+        }
+
+        public Properties getSpieltage() {
+            return spieltage;
+        }
 }
