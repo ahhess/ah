@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Spieler {
+
+	private static Logger logger = Logger.getLogger(Spieler.class.getName());
 
 	private String passnr;
 	private String nachname;
@@ -30,17 +33,21 @@ public class Spieler {
 		if (spTEinsaetze == null) {
 			spTEinsaetze = new ArrayList<Einsatz>();
 			spieltagsEinsaetze.put(einsatz.getDatum(), spTEinsaetze);
-			try {
-				int spTnr = Integer.parseInt(einsatz.getSpieltag());
-				if (mannschaftseinsatz[spTnr][0] == 0) {
-					mannschaftseinsatz[spTnr][0] = einsatz.getMannschaft();
-				} else {
-					if (mannschaftseinsatz[spTnr][1] == 0) {
-						mannschaftseinsatz[spTnr][1] = einsatz.getMannschaft();
+			if (einsatz.getSpieltag() == null) {
+				logger.warning("Einsatz nicht registriert: " + this + ": " + einsatz);
+			} else {
+				try {
+					int spTnr = Integer.parseInt(einsatz.getSpieltag());
+					if (mannschaftseinsatz[spTnr][0] == 0) {
+						mannschaftseinsatz[spTnr][0] = einsatz.getMannschaft();
+					} else {
+						if (mannschaftseinsatz[spTnr][1] == 0) {
+							mannschaftseinsatz[spTnr][1] = einsatz.getMannschaft();
+						}
 					}
+				} catch (NumberFormatException e) {
+					logger.severe(e.toString());
 				}
-			} catch (NumberFormatException e) {
-				System.err.println(e.toString() + ": " + this + " : " + einsatz);
 			}
 		}
 		spTEinsaetze.add(einsatz);
@@ -48,29 +55,25 @@ public class Spieler {
 
 	@Override
 	public String toString() {
-		return nachname + ", " + vorname + " (" + passnr + ")"; 
+		return nachname + ", " + vorname + " (" + passnr + ")";
 	}
 
 	public String toXML() {
-		return "<Spieler passnr=\"" + passnr + "\" nachname=\"" 
-		+ nachname + "\" vorname=\"" + vorname + "\">"
-		+ "<VR stammMannschaft=\"" + stammMannschaftVR + "\">"	+ vereinVR + "</VR>"
-		+ "<RR stammMannschaft=\"" + stammMannschaftRR + "\">"	+ vereinRR + "</RR>"
-		+ mannschaftseinsatzToXML() 
-		+ "<SpieltagsEinsaetze>" + spieltagsEinsaetze + "</SpieltagsEinsaetze>"
-		+ "</Spieler>";
+		return "<Spieler passnr=\"" + passnr + "\" nachname=\"" + nachname + "\" vorname=\"" + vorname + "\">"
+				+ "<VR stammMannschaft=\"" + stammMannschaftVR + "\">" + vereinVR + "</VR>" + "<RR stammMannschaft=\""
+				+ stammMannschaftRR + "\">" + vereinRR + "</RR>" + mannschaftseinsatzToXML() + "<SpieltagsEinsaetze>"
+				+ spieltagsEinsaetze + "</SpieltagsEinsaetze>" + "</Spieler>";
 	}
-	
+
 	private String mannschaftseinsatzToXML() {
-		String s="<Mannschaftseinsaetze>";
-		for(int i = 0;i<10;i++){
-			s += "<me nr=\"" + i 
-				+ "\" m1=\"" + mannschaftseinsatz[i][0] 
-			    + "\" m2=\"" + mannschaftseinsatz[i][1] +"\"/>"; 	
+		String s = "<Mannschaftseinsaetze>";
+		for (int i = 0; i < 10; i++) {
+			s += "<me nr=\"" + i + "\" m1=\"" + mannschaftseinsatz[i][0] + "\" m2=\"" + mannschaftseinsatz[i][1]
+					+ "\"/>";
 		}
-		return s+"</Mannschaftseinsaetze>";
+		return s + "</Mannschaftseinsaetze>";
 	}
-	
+
 	public String getPassnr() {
 		return passnr;
 	}
