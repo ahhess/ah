@@ -47,8 +47,8 @@ public class SpielerMap extends HashMap<String, Spieler> {
 			loader = new CSVLoader() {
 				@Override
 				void processRow(String[] token) {
-					Spieler spieler = getSpieler(token[19], token[21], token[22]);
-					Verein verein = getVerein(token[2], token[3], token[1]);
+					Spieler spieler = getSpieler(token[22], token[24], token[25]);
+					Verein verein = getVerein(token[2], token[3], token[1]);					
 					try {
 						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
 						spieler.setVereinVR(verein);
