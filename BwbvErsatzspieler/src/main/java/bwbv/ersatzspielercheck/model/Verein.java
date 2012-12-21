@@ -1,14 +1,19 @@
 package bwbv.ersatzspielercheck.model;
 
 import bwbv.ersatzspielercheck.SpielerMap;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Verein {
+public class Verein implements Comparable<String> {
 
 	private String nummer;
 	private String name;
 	private String bezirk;
 	/** Map mit Spielern dieses Vereins */
 	private SpielerMap spielerMap = new SpielerMap(); 
+	private SpielerMap ersatzspielerMap = new SpielerMap(); 
+	private List<Spieler> festgespielt = new ArrayList<Spieler>();
+	private List<Spieler> falschspieler = new ArrayList<Spieler>();
 
 	public Verein() {
 	}
@@ -45,7 +50,31 @@ public class Verein {
 	public void setSpielerMap(SpielerMap spielerMap) {
 		this.spielerMap = spielerMap;
 	}
-	
+
+        public SpielerMap getErsatzspielerMap() {
+            return ersatzspielerMap;
+        }
+
+        public void setErsatzspielerMap(SpielerMap ersatzspielerMap) {
+            this.ersatzspielerMap = ersatzspielerMap;
+        }
+
+        public List<Spieler> getFalschspieler() {
+            return falschspieler;
+        }
+
+        public void setFalschspieler(List<Spieler> falschspieler) {
+            this.falschspieler = falschspieler;
+        }
+
+        public List<Spieler> getFestgespielt() {
+            return festgespielt;
+        }
+
+        public void setFestgespielt(List<Spieler> festgespielt) {
+            this.festgespielt = festgespielt;
+        }	
+
 	@Override
 	public String toString() {
 		return name + " (" + bezirk + "-" + nummer + ")"; 
@@ -56,4 +85,11 @@ public class Verein {
 		//+ " (" + bezirk + ")" 
 		+ "\" nr=\"" + nummer + "\"/>"; 
 	}
+
+        @Override
+        public int compareTo(String o) {
+            if (name==null)
+                return -1;
+            return name.compareToIgnoreCase(o);
+        }
 }
