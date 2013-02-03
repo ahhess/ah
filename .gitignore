@@ -3,3 +3,7 @@
 .settings
 target
 build
+/BwbvErsatzspielerGUI/nbproject/private/
+/BwbvErsatzspieler/nbproject/private/
+/BwbvErsatzspieler/dist/
+/BwbvErsatzspielerGUI/dist/
