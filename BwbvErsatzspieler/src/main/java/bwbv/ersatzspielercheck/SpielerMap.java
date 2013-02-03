@@ -1,11 +1,10 @@
 package bwbv.ersatzspielercheck;
 
+import bwbv.ersatzspielercheck.model.Spieler;
+import bwbv.ersatzspielercheck.model.Verein;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Logger;
-
-import bwbv.ersatzspielercheck.model.Spieler;
-import bwbv.ersatzspielercheck.model.Verein;
 
 /**
  * Hashmap fuer Spieler. Key ist die Passnr.
@@ -25,7 +24,7 @@ public class SpielerMap extends HashMap<String, Spieler> {
 			loader = new CSVLoader() {
 				@Override
 				void processRow(String[] token) {
-					Spieler spieler = getSpieler(token[22], token[24], token[25]);
+					Spieler spieler = getSpieler(token[21], token[22], token[24], token[25]);
 					Verein verein = getVerein(token[2], token[3], token[1]);					
 					try {
 						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
@@ -39,37 +38,49 @@ public class SpielerMap extends HashMap<String, Spieler> {
 					} catch (NumberFormatException e) {
 						// ok, spieler kann nur vr-verein haben
 					}
-					put(spieler.getPassnr(), spieler);
-					verein.getSpielerMap().put(spieler.getPassnr(), spieler);
+					try {
+						spieler.setRangVR(Integer.parseInt(token[17]));
+					} catch (NumberFormatException e) {
+						// ok, spieler kann nur rr-verein haben
+					}
+					try {
+						spieler.setRangRR(Integer.parseInt(token[18]));
+					} catch (NumberFormatException e) {
+						// ok, spieler kann nur vr-verein haben
+					}
+					put(spieler.getNr(), spieler);
+					verein.getSpielerMap().put(spieler.getNr(), spieler);
 				}
 			};
 		} else {
 			loader = new CSVLoader() {
 				@Override
 				void processRow(String[] token) {
-					Spieler spieler = getSpieler(token[22], token[24], token[25]);
+					Spieler spieler = getSpieler(token[18], token[19], token[21], token[22]);
 					Verein verein = getVerein(token[2], token[3], token[1]);					
 					try {
 						spieler.setStammMannschaftVR(Integer.parseInt(token[13]));
-						spieler.setVereinVR(verein);
+                                                spieler.setVereinVR(verein);
 					} catch (NumberFormatException e) {
-						logger.warning("ungueltige StammMannschaftVR: " +
-								spieler.getNachname() + ", "  +
-								spieler.getVorname() + ": " + e);
+						logger.warning("ungueltige StammMannschaftVR: " + spieler);
 					}
-					put(spieler.getPassnr(), spieler);
-					verein.getSpielerMap().put(spieler.getPassnr(), spieler);
+					try {
+						spieler.setRangVR(Integer.parseInt(token[15]));
+					} catch (NumberFormatException e) {
+						logger.warning("ungueltiger RangVR: " + spieler);
+					}
+					put(spieler.getNr(), spieler);
+					verein.getSpielerMap().put(spieler.getNr(), spieler);
 				}
 			};
 		}
 		loader.load(filename, 1);
-
 	}
 
-	private Spieler getSpieler(String passnr, String nachname, String vorname) {
-		Spieler spieler = get(passnr);
+	private Spieler getSpieler(String nr, String passnr, String nachname, String vorname) {
+		Spieler spieler = get(nr);
 		if(spieler == null){
-			spieler = new Spieler(passnr, nachname, vorname);
+			spieler = new Spieler(nr, passnr, nachname, vorname);
 			logger.finer("Spieler: "+spieler.toString());
 		}
 		return spieler;

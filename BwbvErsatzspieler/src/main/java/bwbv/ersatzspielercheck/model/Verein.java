@@ -77,7 +77,7 @@ public class Verein implements Comparable<String> {
 
 	@Override
 	public String toString() {
-		return name + " (" + bezirk + "-" + nummer + ")"; 
+		return name + " (" + nummer + ")"; 
 	}
 	
 	public String toXML() {
