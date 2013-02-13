@@ -22,18 +22,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Application extends javax.swing.JFrame {
     
+    private static final String SPT[] = {
+        "SpT1", "SpT2", "SpT3", "SpT4", "SpT4a", 
+        "SpT5", "SpT6", "SpT7", "SpT8", "SpT8a"};
     private static final Logger logger = Logger.getLogger(Application.class.getName());
     private static String cfg = "../bwbvErsatzspieler/data/ErsatzspielerCheck.properties";
 
     private ErsatzspielerCheck ec;
     private VereinModel vereinModel = new VereinModel();
-    private SpielerModel spielerModel = new SpielerModel();
+    private VereinsspielerModel vereinsspielerModel = new VereinsspielerModel();
+    private SpielerModel spielerModel1 = new SpielerModel();
     private DefaultTableModel spieltagModel = new DefaultTableModel();
     private Verein vereinSelected;
     private SpielerMap spielerMap;
-    /**
-     * Creates new form Application
-     */
+
     public Application() throws Exception {
         ec = new ErsatzspielerCheck();
         performEcInit(cfg);
@@ -60,17 +62,23 @@ public class Application extends javax.swing.JFrame {
         checkButton = new javax.swing.JButton();
         browseButton = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel4 = new javax.swing.JPanel();
+        rbFalscheinsatz1 = new javax.swing.JRadioButton();
+        rbFestgespielte1 = new javax.swing.JRadioButton();
+        rbErsatzspieler1 = new javax.swing.JRadioButton();
+        jScrollPaneSpielerTable1 = new javax.swing.JScrollPane();
+        spielerTable1 = new javax.swing.JTable();
+        jSplitPaneVereine = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPaneVereine = new javax.swing.JScrollPane();
+        jScrollPaneVereinTable = new javax.swing.JScrollPane();
         vereinTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         rbSpieler = new javax.swing.JRadioButton();
         rbErsatzspieler = new javax.swing.JRadioButton();
         rbFestgespielte = new javax.swing.JRadioButton();
         rbFalscheinsatz = new javax.swing.JRadioButton();
-        jScrollPaneSpieler = new javax.swing.JScrollPane();
+        jScrollPaneSpielerTable = new javax.swing.JScrollPane();
         spielerTable = new javax.swing.JTable();
         jScrollPaneSpieltage = new javax.swing.JScrollPane();
         spieltagTable = new javax.swing.JTable();
@@ -92,7 +100,6 @@ public class Application extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jLabel1.setText("Konfig-Datei:");
 
@@ -111,6 +118,7 @@ public class Application extends javax.swing.JFrame {
         });
 
         browseButton.setText("Durchsuchen...");
+        browseButton.setEnabled(false);
         browseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseButtonActionPerformed(evt);
@@ -147,6 +155,62 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        buttonGroupSpieler.add(rbFalscheinsatz1);
+        rbFalscheinsatz1.setSelected(true);
+        rbFalscheinsatz1.setText("Falscheinsatz");
+        rbFalscheinsatz1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFalscheinsatz1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroupSpieler.add(rbFestgespielte1);
+        rbFestgespielte1.setText("Festgespielte");
+        rbFestgespielte1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFestgespielte1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroupSpieler.add(rbErsatzspieler1);
+        rbErsatzspieler1.setText("Ersatzspieler");
+        rbErsatzspieler1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbErsatzspieler1ActionPerformed(evt);
+            }
+        });
+
+        spielerTable1.setAutoCreateRowSorter(true);
+        spielerTable1.setModel(spielerModel1);
+        jScrollPaneSpielerTable1.setViewportView(spielerTable1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPaneSpielerTable1, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rbFalscheinsatz1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbFestgespielte1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbErsatzspieler1)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbFestgespielte1)
+                    .addComponent(rbFalscheinsatz1)
+                    .addComponent(rbErsatzspieler1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneSpielerTable1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Spieler", jPanel4);
+
         jPanel2.setPreferredSize(new java.awt.Dimension(250, 430));
 
         jLabel2.setText("Vereine");
@@ -157,24 +221,24 @@ public class Application extends javax.swing.JFrame {
         vereinTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         vereinTable.getSelectionModel().addListSelectionListener(new VereinSelectionListener());
         vereinTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-        jScrollPaneVereine.setViewportView(vereinTable);
+        jScrollPaneVereinTable.setViewportView(vereinTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneVereine, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(jScrollPaneVereinTable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneVereine, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+                .addComponent(jScrollPaneVereinTable, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setLeftComponent(jPanel2);
+        jSplitPaneVereine.setLeftComponent(jPanel2);
 
         buttonGroupSpieler.add(rbSpieler);
         rbSpieler.setText("Spieler");
@@ -193,7 +257,6 @@ public class Application extends javax.swing.JFrame {
         });
 
         buttonGroupSpieler.add(rbFestgespielte);
-        rbFestgespielte.setSelected(true);
         rbFestgespielte.setText("Festgespielte");
         rbFestgespielte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,8 +273,8 @@ public class Application extends javax.swing.JFrame {
         });
 
         spielerTable.setAutoCreateRowSorter(true);
-        spielerTable.setModel(spielerModel);
-        jScrollPaneSpieler.setViewportView(spielerTable);
+        spielerTable.setModel(vereinsspielerModel);
+        jScrollPaneSpielerTable.setViewportView(spielerTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,7 +289,7 @@ public class Application extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbFalscheinsatz)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPaneSpieler, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+            .addComponent(jScrollPaneSpielerTable, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,12 +300,12 @@ public class Application extends javax.swing.JFrame {
                     .addComponent(rbFestgespielte)
                     .addComponent(rbFalscheinsatz))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneSpieler, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                .addComponent(jScrollPaneSpielerTable, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setRightComponent(jPanel3);
+        jSplitPaneVereine.setRightComponent(jPanel3);
 
-        jTabbedPane1.addTab("Spieler", jSplitPane1);
+        jTabbedPane1.addTab("Vereine", jSplitPaneVereine);
 
         spieltagTable.setModel(spieltagModel);
         spieltagTable.setColumnSelectionAllowed(true);
@@ -383,6 +446,17 @@ public class Application extends javax.swing.JFrame {
         showSpieler(vereinSelected);
     }//GEN-LAST:event_rbFalscheinsatzActionPerformed
 
+    private void rbErsatzspieler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbErsatzspieler1ActionPerformed
+        showSpieler();
+    }//GEN-LAST:event_rbErsatzspieler1ActionPerformed
+
+    private void rbFestgespielte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFestgespielte1ActionPerformed
+        showSpieler();
+    }//GEN-LAST:event_rbFestgespielte1ActionPerformed
+
+    private void rbFalscheinsatz1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFalscheinsatz1ActionPerformed
+        showSpieler();
+    }//GEN-LAST:event_rbFalscheinsatz1ActionPerformed
     
     ///////////////////////////////////////////
     
@@ -413,19 +487,29 @@ public class Application extends javax.swing.JFrame {
         }
     }
 
+    private void showSpieler() {
+        if(rbErsatzspieler1.isSelected())
+            spielerModel1.setSpielerMap(ec.getErsatzspielerMap());
+        else if(rbFalscheinsatz1.isSelected())
+            spielerModel1.setSpielerList(ec.getFalschspieler());
+        else 
+            spielerModel1.setSpielerList(ec.getFestgespielt());
+        spielerTable1.tableChanged(null);
+    }
+
     private void showSpieler(Verein verein) {
         if(verein!=null){
             vereinSelected = verein;
         }
         if(vereinSelected!=null){
             if(rbErsatzspieler.isSelected())
-                spielerModel.setSpielerMap(vereinSelected.getErsatzspielerMap());
+                vereinsspielerModel.setSpielerMap(vereinSelected.getErsatzspielerMap());
             else if(rbFalscheinsatz.isSelected())
-                spielerModel.setSpielerList(vereinSelected.getFalschspieler());
+                vereinsspielerModel.setSpielerList(vereinSelected.getFalschspieler());
             else if(rbFestgespielte.isSelected())
-                spielerModel.setSpielerList(vereinSelected.getFestgespielt());
+                vereinsspielerModel.setSpielerList(vereinSelected.getFestgespielt());
             else
-                spielerModel.setSpielerMap(vereinSelected.getSpielerMap());
+                vereinsspielerModel.setSpielerMap(vereinSelected.getSpielerMap());
             spielerTable.tableChanged(null);
         }
     }
@@ -495,18 +579,12 @@ public class Application extends javax.swing.JFrame {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
-//                showSpieler(vereinModel.getVerein(vereinTable.getSelectedRow()));
-                
-                int viewRow = vereinTable.getSelectedRow();
-                int modelRow = vereinTable.convertRowIndexToModel(viewRow);
-                Verein v = vereinModel.getVerein(modelRow);
-                logger.finest("view=" + viewRow + ", model=" + modelRow + ", Verein=" + v.getName());
                 showSpieler(vereinModel.getVerein(vereinTable.convertRowIndexToModel(vereinTable.getSelectedRow())));
             }
         }
     }
     
-    private class SpielerModel extends AbstractTableModel {
+    private class VereinsspielerModel extends AbstractTableModel {
         
         List<Spieler> list = null;
         
@@ -538,10 +616,8 @@ public class Application extends javax.swing.JFrame {
                 case 4: return "M.VR";
                 case 5: return "M.RR";
             }
-            if(columnIndex < 16){
-                return "SpT" + String.valueOf(columnIndex - 5); 
-            }
-            return "";
+            return SPT[columnIndex - 6]; 
+//            return "SpT" + String.valueOf(columnIndex - 5); 
         }
                 
         @Override
@@ -567,20 +643,34 @@ public class Application extends javax.swing.JFrame {
             return list.get(rowIndex);
         }
     }
-    
-//    private class spielerSelectionListener implements ListSelectionListener {
-//        @Override
-//        public void valueChanged(ListSelectionEvent e) {
-//            if (!e.getValueIsAdjusting()) {
-//                // TODO showSpieler
-////                showSpieler(spielerModel.getSpieler(spielerTable.getSelectedRow()));
-//            }
-//        }
-//    }
-    
+
     /**
-     * @param args the command line arguments
+     * Vereinsspieler + vorangestellter Vereinsname
      */
+    private class SpielerModel extends VereinsspielerModel {
+
+        @Override
+        public int getColumnCount() {
+            return super.getColumnCount() + 1;
+        }
+
+        @Override
+        public String getColumnName(int columnIndex){
+            if(columnIndex == 0)
+                return "Verein";
+            return super.getColumnName(columnIndex - 1);
+        }
+                
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            if(columnIndex == 0){
+                Spieler s = list.get(rowIndex);
+                return s.getVereinVR().getName();
+            }
+            return super.getValueAt(rowIndex, columnIndex - 1);
+        }    
+    }
+    
     public static void main(String args[]) {
         
         if(args.length > 0)
@@ -650,11 +740,13 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPaneSpieler;
+    private javax.swing.JScrollPane jScrollPaneSpielerTable;
+    private javax.swing.JScrollPane jScrollPaneSpielerTable1;
     private javax.swing.JScrollPane jScrollPaneSpieltage;
-    private javax.swing.JScrollPane jScrollPaneVereine;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JScrollPane jScrollPaneVereinTable;
+    private javax.swing.JSplitPane jSplitPaneVereine;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
@@ -662,12 +754,16 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JRadioButton rbErsatzspieler;
+    private javax.swing.JRadioButton rbErsatzspieler1;
     private javax.swing.JRadioButton rbFalscheinsatz;
+    private javax.swing.JRadioButton rbFalscheinsatz1;
     private javax.swing.JRadioButton rbFestgespielte;
+    private javax.swing.JRadioButton rbFestgespielte1;
     private javax.swing.JRadioButton rbSpieler;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JTable spielerTable;
+    private javax.swing.JTable spielerTable1;
     private javax.swing.JTable spieltagTable;
     private javax.swing.JTable vereinTable;
     // End of variables declaration//GEN-END:variables
