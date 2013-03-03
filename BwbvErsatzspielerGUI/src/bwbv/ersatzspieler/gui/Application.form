@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroupSpieler">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupVereinsspieler">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
@@ -103,6 +105,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBar"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -239,7 +242,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPaneSpielerTable1" alignment="0" pref="728" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneSpielerTable" alignment="0" pref="728" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="rbFalscheinsatz1" min="-2" max="-2" attributes="0"/>
@@ -260,7 +263,7 @@
                               <Component id="rbErsatzspieler1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPaneSpielerTable1" pref="433" max="32767" attributes="0"/>
+                          <Component id="jScrollPaneSpielerTable" pref="433" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -300,11 +303,11 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbErsatzspieler1ActionPerformed"/>
                   </Events>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPaneSpielerTable1">
+                <Container class="javax.swing.JScrollPane" name="jScrollPaneSpielerTable">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="spielerTable1">
+                    <Component class="javax.swing.JTable" name="spielerTable">
                       <Properties>
                         <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -417,7 +420,7 @@
                               <Component id="rbFalscheinsatz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPaneSpielerTable" pref="685" max="32767" attributes="0"/>
+                          <Component id="jScrollPaneVereinsspielerTable" pref="685" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -430,7 +433,7 @@
                                   <Component id="rbFalscheinsatz" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPaneSpielerTable" pref="431" max="32767" attributes="0"/>
+                              <Component id="jScrollPaneVereinsspielerTable" pref="431" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -439,7 +442,7 @@
                     <Component class="javax.swing.JRadioButton" name="rbSpieler">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="buttonGroupSpieler"/>
+                          <ComponentRef name="buttonGroupVereinsspieler"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Spieler"/>
                       </Properties>
@@ -450,7 +453,7 @@
                     <Component class="javax.swing.JRadioButton" name="rbErsatzspieler">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="buttonGroupSpieler"/>
+                          <ComponentRef name="buttonGroupVereinsspieler"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Ersatzspieler"/>
                       </Properties>
@@ -461,8 +464,9 @@
                     <Component class="javax.swing.JRadioButton" name="rbFestgespielte">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="buttonGroupSpieler"/>
+                          <ComponentRef name="buttonGroupVereinsspieler"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="Festgespielte"/>
                       </Properties>
                       <Events>
@@ -472,7 +476,7 @@
                     <Component class="javax.swing.JRadioButton" name="rbFalscheinsatz">
                       <Properties>
                         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                          <ComponentRef name="buttonGroupSpieler"/>
+                          <ComponentRef name="buttonGroupVereinsspieler"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Falscheinsatz"/>
                       </Properties>
@@ -480,11 +484,11 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbFalscheinsatzActionPerformed"/>
                       </Events>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPaneSpielerTable">
+                    <Container class="javax.swing.JScrollPane" name="jScrollPaneVereinsspielerTable">
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="spielerTable">
+                        <Component class="javax.swing.JTable" name="vereinsspielerTable">
                           <Properties>
                             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
