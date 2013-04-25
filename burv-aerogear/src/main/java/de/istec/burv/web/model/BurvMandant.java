@@ -18,7 +18,7 @@ public class BurvMandant implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="MANDANT_ID", unique=true, nullable=false, length=2)
+	@Column(name="MANDANT_ID", unique=true, nullable=false, columnDefinition="char", length=2)
 	private String mandantId;
 
 	@Column(unique=true, nullable=false, length=40)
