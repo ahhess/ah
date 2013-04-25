@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BuRV Web App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- Set the tab, home page, shortcut icons -->
+    <link rel="Shortcut Icon" href="img/aerogear_icon_16x.png">
+    <link rel="apple-touch-icon" href="img/aerogear_avatar_48px.png"/>
+
+    <!-- For minification, comment out this link -->
+    <!-- Shared styles -->
+    <link rel="stylesheet" href="css/screen.css"/>
+
+    <!-- Set viewport scaling and zoom features -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="js/libs/modernizr-2.6.2.min.js"></script>
+    <script type="text/javascript" src="js/libs/underscore-min.js"></script>
+
+    <!-- Minification - See Readme for details -->
+    <!-- For minification, comment out this file -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <!-- For minification, uncomment this file -->
+    <!-- <script type="text/javascript" src="js/app.min.js"></script> -->
+
+    <script type="text/javascript">
+        yepnope([{
+            //Load CDN hosted jQuery or fall back to local file.
+            /*--------Note-----------
+            This approach should only be used if you trust the source of where the resource (JavaScript) is located.
+            In this case, use of the jquery CDN is much faster if your user's browser already has this file cached.
+            If they don't have it cached, try to load it from the CDN as this will be faster if the user is
+            located closer to a CDN than you currently hosted server.
+            */
+            load: "http://code.jquery.com/jquery-1.8.2.min.js",
+            complete: function() {
+                if ( !window.jQuery ) {
+                    //In production, you would want to fall back to a minified file.
+                    //We fall back to the full version because Eclipse reports false errors in some minified JavaScript files.
+                    yepnope.load( "js/libs/jquery-1.8.2.js" );
+                }
+            }
+        },{
+            //device detection and asynchronous script loading
+            /*--------Note-----------
+            Here we're using the yepnope framework which gives us the ability to load scripts dynamically, based on
+            Modernizr's results.
+            With Modernizr, we use media queries and touch detection to see if we are on a mobile, touch based device
+            or if we're at anything less than 480px.. this gives us a mobile ui on desktop browsers when resized to <480px
+            width for testing.
+            */
+            test: Modernizr.mq( "only all and (max-width: 640px)" ),
+            yep: {
+                //assign labeled callbacks for later execution after script loads.
+                //we are on mobile device so load appropriate CSS
+                "jqmcss": "css/jquery.mobile-1.2.0.min.css",
+                // For minification, uncomment this line
+                //"mcss": "css/m.screen.min.css"
+                // For minification, comment out this line
+                "mcss": "css/m.screen.css"
+            },
+            nope: {
+                //we are on desktop
+                // For minification, uncomment this line
+                //"scss": "css/d.screen.min.css"
+                // For minification, comment out this line
+            	"scss": "css/d.screen.css"
+            },
+            callback: {
+                //use the labeled callbacks from above, and load jQuery Mobile
+                "jqmcss": function( url, result, key ) {
+                    yepnope({
+                        load: "http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js",
+                        complete: function() {
+                            if ( !$.mobile ) {
+                                yepnope( "js/libs/jquery.mobile-1.2.0.min.js" );
+                            }
+                        }
+                    });
+                },
+                "scss": function( url, result, key ) {
+                    $( document ).ready( function() {
+                        //here we are moving content around based on the browser/device.
+                        $( "aside" ).insertAfter( $( "section" ) );
+                    });
+                }
+            },
+            complete: function() {
+                $( document ).ready( function() {
+                    //setup the app after all scripts have loaded
+
+                    $( "#container" ).show();
+                    //Fetches the initial BurvMandant data and populates the table using jquery templates
+                    getBurvMandantTemplate();
+
+                    //Register an event listener on the sumbit action
+                    $('#reg').submit(function(event) {
+                        event.preventDefault();
+
+                        var burvMandantData = $(this).serializeObject();
+                        //Workaround for jQM adding a hidden field for submit buttons which then
+                        //gets serialized into the form values
+                        if ( burvMandantData.save ) {
+                            delete burvMandantData.save;
+                        }
+                        saveBurvMandant(burvMandantData);
+                    });
+
+                    //Register the cancel listener
+                    $('#cancel').click(function(event) {
+                        //clear input fields
+                        $('#reg')[0].reset();
+
+                        //clear existing msgs
+                        $('span.invalid').remove();
+                        $('span.success').remove();
+                    });
+
+                    $("#refreshButtonD, #refreshButtonM").click(function(event) {
+                        updateBurvMandantTable();
+                    });
+
+                    //Clear BurvMandant registration and error messages on page change
+                    $("#container").delegate("#register-art", "pagebeforeshow", function(event) {
+                        $("#formMsgs").empty();
+                        $('span.invalid').remove();
+                    });
+                });
+
+                $.fn.serializeObject = function() {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function() {
+                        if (o[this.name]) {
+                            if (!o[this.name].push) {
+                                o[this.name] = [o[this.name]];
+                            }
+                            o[this.name].push(this.value || '');
+                        } else {
+                            o[this.name] = this.value || '';
+                        }
+                    });
+                    return o;
+                };
+            }
+        }]);
+    </script>
+</head>
+<body>
+    <div id="container" style="display:none">
+        <div class="logo">
+            <img src="img/aerogear_logo_150px.png"/>
+        </div>
+        <div class="dualbrand">
+            <img src="img/dualbrand_logo.png"/>
+        </div>
+        <section>
+            <h1>Welcome to ISTEC BuRV Web App</h1>
+            <article id="intro-art" data-role="page" data-theme="a">
+                <!-- Header -->
+                <div data-role="header" class="header">
+                    <img class="header_logo" src="img/icon_medium.png"/>
+                    <h3>BuRV Web App</h3>
+                    <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
+                </div>
+                <!-- /Header -->
+
+                <div data-role="content">
+                    <img src="img/aerogear_icon_64px.png" class="mobileicon"/>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer" data-role="footer" data-position="fixed">
+                    <div class="footer_left">
+                        <a href="#intro-art" data-role="button" data-icon="home">Home</a>
+                    </div>
+                    <div class="footer_right">
+                        <span class="footer_txt">Mandant:</span>
+                        <a href="#register-art" id="addBurvMandant" data-role="button" data-inline="true" data-icon="plus">Add</a>
+                        <a href="#burvmandant-art" data-role="button" data-inline="true" data-icon="grid">List</a>
+                    </div>
+                </div>
+                <!-- /Footer -->
+            </article>
+
+            <article id="register-art" data-role="page" data-theme="a">
+                <!-- Header -->
+                <div data-role="header" class="header">
+                    <img class="header_logo" src="img/icon_medium.png"/>
+                    <h3>BuRV Web App</h3>
+                    <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
+                </div>
+                <!-- /Header -->
+
+                <div data-role="content">
+
+                    <!-- For now mapping bean validation constraints from server side model is a manual task -->
+                    <form name="reg" id="reg" data-ajax="false">
+                        <fieldset>
+                            <legend>Mandant speichern:</legend>
+                            <div>
+                                <label for="name">Id:</label>
+                                <input type="text" name="mandantId" id="mandantId" placeholder="Id" required autofocus/>
+                            </div>
+                            <div>
+                                <label for="bezeichnung">Bezeichnung:</label>
+                                <input type="text" name="bezeichnung" id="bezeichnung" placeholder="Bezeichnung" required/>
+                            </div>
+                            <div id="formMsgs"></div>
+                            <div data-role="controlgroup" data-type="horizontal">
+                                <input type="submit" name="save" id="save" value="Speichern"/>
+                                <input type="button" name="cancel" id="cancel" value="Abbrechen"/>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer" data-role="footer" data-position="fixed">
+                    <div class="footer_left">
+                        <a href="#intro-art" data-role="button" data-icon="home">Home</a>
+                    </div>
+                    <div class="footer_right">
+                        <span class="footer_txt">Mandant:</span>
+                        <a href="#register-art" data-role="button" data-inline="true" data-icon="plus">Add</a>
+                        <a href="#burvmandant-art" data-role="button" data-inline="true" data-icon="grid">List</a>
+                    </div>
+                </div>
+                <!-- /Footer -->
+            </article>
+
+            <article id="burvmandant-art" data-role="page" data-theme="a">
+                <!-- Header -->
+                <div data-role="header" class="header" data-position="fixed">
+                    <img class="header_logo" src="img/icon_medium.png"/>
+                    <h3>BuRV Web App</h3>
+                    <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
+                </div>
+                <!-- /Header -->
+                <h2>Mandanten:</h2>
+
+                <div data-role="content">
+                    <button id="refreshButtonM" data-role="button" data-inline="true" data-icon="refresh">Refresh</button>
+                    <div id="burvmandants"></div>
+                    <div class="burvmandant-foot">
+                        REST URL for all: 
+                        <a href="rest/burvmandants" target="_blank" rel="external">JSON</a>
+                        <button id="refreshButtonD">Refresh</button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="footer" data-role="footer" data-position="fixed">
+                    <div class="footer_left">
+                        <a href="#intro-art" data-role="button" data-icon="home">Home</a>
+                    </div>
+                    <div class="footer_right">
+                        <span class="footer_txt">Mandant:</span>
+                        <a href="#register-art" data-role="button" data-inline="true" data-icon="plus">Add</a>
+                        <a href="#burvmandant-art" data-role="button" data-inline="true" data-icon="grid">List</a>
+                    </div>
+                </div>
+                <!-- /Footer -->
+            </article>
+
+            <aside id="info-aside" data-role="page" data-theme="a">
+                <!-- Header -->
+                <div data-role="header">
+                    <h3>Find out more</h3>
+                </div>
+                <!-- /Header -->
+
+                <div data-role="content">
+                    <p>Find out more TBD</p>
+                </div>
+            </aside>
+        </section>
+
+        <footer>
+            <!-- <img src="img/logo.png" alt="HTML5"/>  -->
+            <p>This project was created by ISTEC GmbH with HTML5.<br/></p>
+        </footer>
+    </div>
+</body>
+</html>
