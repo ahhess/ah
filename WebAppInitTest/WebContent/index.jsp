@@ -17,10 +17,12 @@
 		
 		String p = request.getParameter("p");
 		String val = null;
+		String val1 = null;
 		String val2 = null;
 		String contextPath = appConfig.getProperty("contextPath");
 		if (p != null){
 			val = appConfig.getProperty(p);
+			val1 = System.getProperty(p);
 		}
 		if(contextPath != null) {
 			val2 = "ITTCONF" + contextPath.replace("/", "_");
@@ -32,7 +34,7 @@
 			<tr>
 				<td><input name="p" value="<%= p %>"></td>
 				<td><input type="submit"></td>
-				<td><%= val %></td>
+				<td>env: <%= val %> System: <%= val1 %></td>
 			</tr>
 			<tr>
 				<td>ITT Value</td>
@@ -51,8 +53,12 @@
 		</table>
 	</form>
 
-	<h2>AppInit Properties</h2>
-	<table>
+	<table border="1">
+		<tr>
+			<td colspan="2">
+				<h2>AppConfig Properties</h2>
+			</td>
+		</tr>
 		<%
 			for (String key : appConfig.getSortedPropertiesKeys()) {
 		%>
@@ -63,10 +69,11 @@
 		<%
 			}
 		%>
-	</table>
-
-	<h2>AppInit Properties</h2>
-	<table>
+		<tr>
+			<td colspan="2">
+				<h2>System Properties</h2>
+			</td>
+		</tr>
 		<%
 			for (String key : AppConfig.getSortedPropertiesKeys(System
 					.getProperties())) {

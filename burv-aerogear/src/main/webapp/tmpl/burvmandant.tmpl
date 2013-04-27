@@ -1,0 +1,15 @@
+<script type="text/template" id="burvmandant-tmpl">
+<% var addHeader = true;
+_.each(burvmandants, function(burvmandant) { 
+    if ( Modernizr.mq( "only all and (max-width: 640px)" ) ) {
+        addHeader = true;
+    }
+    %>
+	<div class="row burvmandants">
+		<div class="col"><% if ( addHeader ) { %><div class="head">Id</div><% } %><div class="data"><%=burvmandant.mandantId%></div></div>
+		<div class="col"><% if ( addHeader ) { %><div class="head">Bezeichnung</div><% } %><div class="data"><%=burvmandant.bezeichnung%></div></div>
+		<div class="col"><% if ( addHeader ) { %><div class="head">REST URL</div><% } %><div class="data"><a href="rest/burvmandants/<%=burvmandant.mandantId%>" rel="external" target="_blank" class="resturl ui-link">JSON</a></div></div>
+	</div>
+<% addHeader = false;
+}); %>
+</script>
