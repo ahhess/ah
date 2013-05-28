@@ -77,7 +77,7 @@ public class SpielerMap extends HashMap<String, Spieler> {
 		loader.load(filename, 1);
 	}
 
-	private Spieler getSpieler(String nr, String passnr, String nachname, String vorname) {
+	public Spieler getSpieler(String nr, String passnr, String nachname, String vorname) {
 		Spieler spieler = get(nr);
 		if(spieler == null){
 			spieler = new Spieler(nr, passnr, nachname, vorname);
@@ -86,7 +86,7 @@ public class SpielerMap extends HashMap<String, Spieler> {
 		return spieler;
 	}
 
-	private Verein getVerein(String vnr, String name, String bezirk) {
+	public Verein getVerein(String vnr, String name, String bezirk) {
 		if(vereine == null){		
 			vereine = new HashMap<String, Verein>();
 		}
