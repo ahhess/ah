@@ -477,7 +477,7 @@ public class Application extends javax.swing.JFrame {
             showVereine();
             showSpieler();
         } catch (Exception ex) {
-            //Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
             addMsg(ex.toString());
         }
     }
@@ -521,7 +521,7 @@ public class Application extends javax.swing.JFrame {
     
     private void addMsg(String msg) {
         msgBuffer += msg + "\n";
-//        msgTextPane.setText(msgTextPane.getText() + msg + "\n");
+        msgTextPane.setText(msgBuffer);
     }
 
     private void showSpieltage() {
@@ -536,6 +536,7 @@ public class Application extends javax.swing.JFrame {
             }
             spieltagModel = new DefaultTableModel(
                 spieltage, new String[]{"Datum", "SpT Nr."});
+            spieltagTable.setModel(spieltagModel);
         }
     }
             
@@ -588,8 +589,7 @@ public class Application extends javax.swing.JFrame {
     }
     
     private class VereinsspielerModel extends AbstractTableModel {
-        
-        List<Spieler> list = null;
+        private List<Spieler> list = null;
         
         public void setSpielerList(List spielerList){
             list = spielerList;
@@ -614,8 +614,8 @@ public class Application extends javax.swing.JFrame {
             switch (columnIndex) {
                 case 0: return "Name";
                 case 1: return "Vorname";
-                case 2: return "VR";
-                case 3: return "RR";
+                case 2: return "Pos.VR";
+                case 3: return "Pos.RR";
                 case 4: return "M.VR";
                 case 5: return "M.RR";
             }
@@ -721,7 +721,8 @@ public class Application extends javax.swing.JFrame {
 
             public void run() {
                 try {
-                    new Application().setVisible(true);
+                    Application app = new Application();
+                    app.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
                 }
