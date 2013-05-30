@@ -16,8 +16,6 @@ import bwbv.ersatzspielercheck.ErsatzspielerCheck;
 import bwbv.ersatzspielercheck.SpielerMap;
 import bwbv.ersatzspielercheck.model.Spieler;
 import bwbv.ersatzspielercheck.model.Verein;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 
 /**
@@ -226,6 +224,7 @@ public class Application extends javax.swing.JFrame {
         vereinTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         vereinTable.getSelectionModel().addListSelectionListener(new VereinSelectionListener());
         vereinTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        vereinTable.getColumnModel().getColumn(1).setPreferredWidth(80);
         jScrollPaneVereinTable.setViewportView(vereinTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -280,6 +279,8 @@ public class Application extends javax.swing.JFrame {
 
         vereinsspielerTable.setAutoCreateRowSorter(true);
         vereinsspielerTable.setModel(vereinsspielerModel);
+        vereinsspielerTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        vereinsspielerTable.getColumnModel().getColumn(1).setPreferredWidth(50);
         jScrollPaneVereinsspielerTable.setViewportView(vereinsspielerTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -602,7 +603,8 @@ public class Application extends javax.swing.JFrame {
 	}
 
 	private class VereinsspielerModel extends AbstractTableModel {
-		protected List<Spieler> list = null;
+
+        protected List<Spieler> list = null;
 
 		public void setSpielerList(List spielerList) {
 			list = spielerList;
@@ -621,26 +623,37 @@ public class Application extends javax.swing.JFrame {
 		public int getColumnCount() {
 			return 16;
 		}
-
+        
 		@Override
 		public String getColumnName(int columnIndex) {
-			switch (columnIndex) {
-			case 0:
-				return "Name";
-			case 1:
-				return "Vorname";
-			case 2:
-				return "Pos.VR";
-			case 3:
-				return "Pos.RR";
-			case 4:
-				return "M.VR";
-			case 5:
-				return "M.RR";
-			}
+            switch (columnIndex) {
+                case 0:
+                    return "Name";
+                case 1:
+                    return "Vorname";
+                case 2:
+                    return "Pos.VR";
+                case 3:
+                    return "Pos.RR";
+                case 4:
+                    return "M.VR";
+                case 5:
+                    return "M.RR";
+            }
 			return SPT[columnIndex - 6];
 			// return "SpT" + String.valueOf(columnIndex - 5);
 		}
+
+        public Class getColumnClass(int columnIndex) {
+            switch (columnIndex) {
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    return Integer.class;
+            }
+            return String.class;
+        }
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
@@ -690,6 +703,13 @@ public class Application extends javax.swing.JFrame {
 				return "Verein RR";
 			return super.getColumnName(columnIndex - 2);
 		}
+        
+		@Override
+		public Class getColumnClass(int columnIndex) {
+			if (columnIndex <=1)
+				return String.class;
+			return super.getColumnClass(columnIndex - 2);
+		}
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
@@ -732,16 +752,7 @@ public class Application extends javax.swing.JFrame {
 					break;
 				}
 			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Application.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Application.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Application.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+		} catch (Exception ex) {
 			java.util.logging.Logger.getLogger(Application.class.getName())
 					.log(java.util.logging.Level.SEVERE, null, ex);
 		}
@@ -755,6 +766,7 @@ public class Application extends javax.swing.JFrame {
 			public void run() {
 				try {
 					Application app = new Application();
+                    // TODo maximize
 					app.setVisible(true);
 				} catch (Exception ex) {
 					Logger.getLogger(Application.class.getName()).log(
