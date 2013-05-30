@@ -218,7 +218,6 @@
             <Component class="javax.swing.JButton" name="browseButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Durchsuchen..."/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseButtonActionPerformed"/>

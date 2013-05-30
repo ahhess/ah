@@ -16,6 +16,9 @@ import bwbv.ersatzspielercheck.ErsatzspielerCheck;
 import bwbv.ersatzspielercheck.SpielerMap;
 import bwbv.ersatzspielercheck.model.Spieler;
 import bwbv.ersatzspielercheck.model.Verein;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFileChooser;
 
 /**
  * BWBV Ersatzpieler Application and Main Frame
@@ -121,7 +124,6 @@ public class Application extends javax.swing.JFrame {
         });
 
         browseButton.setText("Durchsuchen...");
-        browseButton.setEnabled(false);
         browseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseButtonActionPerformed(evt);
@@ -426,8 +428,10 @@ public class Application extends javax.swing.JFrame {
 	}// GEN-LAST:event_checkButtonActionPerformed
 
 	private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_browseButtonActionPerformed
-		// TODO browseButtonActionPerformed
-		addMsg("TODO browseButtonActionPerformed");
+        JFileChooser chooser = new JFileChooser(configFilename.getText());
+        int res = chooser.showOpenDialog(this);
+        if (res == JFileChooser.APPROVE_OPTION)
+            configFilename.setText(chooser.getSelectedFile().getAbsolutePath());
 	}// GEN-LAST:event_browseButtonActionPerformed
 
 	private void configButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_configButtonActionPerformed
