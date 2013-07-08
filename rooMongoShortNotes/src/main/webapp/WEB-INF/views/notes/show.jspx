@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_ah_roomongo_shortnotes_domain_Note" object="${note}" path="/notes" z="hg5Q9/ZlJhele5V2sdr1YJXytyw=">
+        <field:display field="title" id="s_ah_roomongo_shortnotes_domain_Note_title" object="${note}" z="MMR2iY9vx4SBdIFiU6JW2APHK4Y="/>
+        <field:display field="content" id="s_ah_roomongo_shortnotes_domain_Note_content" object="${note}" z="moKB69c/0CofgmQxzlAgnz/8ZWI="/>
+        <field:display field="notebook" id="s_ah_roomongo_shortnotes_domain_Note_notebook" object="${note}" z="QgPPJCRqfdO1C2lWtgwYpDHtVM4="/>
+    </page:show>
+</div>

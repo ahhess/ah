@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_ah_roomongo_shortnotes_domain_Note" modelAttribute="note" path="/notes" versionField="none" z="TbWuzgjgxEtdcpoKyUp3xWoB7bo=">
+        <field:input field="title" id="c_ah_roomongo_shortnotes_domain_Note_title" required="true" z="c3s7/ez3ZjEKb/gyu9j337Ex7vo="/>
+        <field:textarea field="content" id="c_ah_roomongo_shortnotes_domain_Note_content" required="true" z="tPcAiHYQm5Og7xQ8cyCP3bAQizo="/>
+        <field:select field="notebook" id="c_ah_roomongo_shortnotes_domain_Note_notebook" itemValue="id" items="${notebooks}" path="/notebooks" required="true" z="Lr2SbmW7OFY/FSwFefwDK512bRA="/>
+    </form:update>
+</div>
