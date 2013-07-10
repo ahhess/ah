@@ -4,11 +4,9 @@
 package ah.roomongo.shortnotes.service;
 
 import ah.roomongo.shortnotes.domain.Notebook;
-import ah.roomongo.shortnotes.repository.NotebookRepository;
 import ah.roomongo.shortnotes.service.NotebookServiceImpl;
 import java.math.BigInteger;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +16,8 @@ privileged aspect NotebookServiceImpl_Roo_Service {
     
     declare @type: NotebookServiceImpl: @Transactional;
     
-    @Autowired
-    NotebookRepository NotebookServiceImpl.notebookRepository;
-    
     public long NotebookServiceImpl.countAllNotebooks() {
         return notebookRepository.count();
-    }
-    
-    public void NotebookServiceImpl.deleteNotebook(Notebook notebook) {
-        notebookRepository.delete(notebook);
     }
     
     public Notebook NotebookServiceImpl.findNotebook(BigInteger id) {
@@ -39,14 +30,6 @@ privileged aspect NotebookServiceImpl_Roo_Service {
     
     public List<Notebook> NotebookServiceImpl.findNotebookEntries(int firstResult, int maxResults) {
         return notebookRepository.findAll(new org.springframework.data.domain.PageRequest(firstResult / maxResults, maxResults)).getContent();
-    }
-    
-    public void NotebookServiceImpl.saveNotebook(Notebook notebook) {
-        notebookRepository.save(notebook);
-    }
-    
-    public Notebook NotebookServiceImpl.updateNotebook(Notebook notebook) {
-        return notebookRepository.save(notebook);
     }
     
 }

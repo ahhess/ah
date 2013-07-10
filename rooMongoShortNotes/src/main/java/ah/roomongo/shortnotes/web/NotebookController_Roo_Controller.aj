@@ -67,10 +67,31 @@ privileged aspect NotebookController_Roo_Controller {
         return "notebooks/list";
     }
     
+    @RequestMapping(method = RequestMethod.PUT, produces = "text/html")
+    public String NotebookController.update(@Valid Notebook notebook, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
+            populateEditForm(uiModel, notebook);
+            return "notebooks/update";
+        }
+        uiModel.asMap().clear();
+        notebookService.updateNotebook(notebook);
+        return "redirect:/notebooks/" + encodeUrlPathSegment(notebook.getId().toString(), httpServletRequest);
+    }
+    
     @RequestMapping(value = "/{id}", params = "form", produces = "text/html")
     public String NotebookController.updateForm(@PathVariable("id") BigInteger id, Model uiModel) {
         populateEditForm(uiModel, notebookService.findNotebook(id));
         return "notebooks/update";
+    }
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    public String NotebookController.delete(@PathVariable("id") BigInteger id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+        Notebook notebook = notebookService.findNotebook(id);
+        notebookService.deleteNotebook(notebook);
+        uiModel.asMap().clear();
+        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+        return "redirect:/notebooks";
     }
     
     void NotebookController.addDateTimeFormatPatterns(Model uiModel) {
