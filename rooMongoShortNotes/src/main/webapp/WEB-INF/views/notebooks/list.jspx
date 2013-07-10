@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_ah_roomongo_shortnotes_domain_Notebook" items="${notebooks}" z="Ck3K6Hl6t5/+H2KC4Lz+ynI9aj0=">
+        <table:table data="${notebooks}" id="l_ah_roomongo_shortnotes_domain_Notebook" path="/notebooks" z="c7rswOqL8prS6RC/lWSfJ/2nEzE=">
+            <table:column id="c_ah_roomongo_shortnotes_domain_Notebook_name" property="name" z="s7EBMOuvI3vbL5V0xOimkzS87vI="/>
+            <table:column id="c_ah_roomongo_shortnotes_domain_Notebook_author" property="author" z="pG7majxtvqi1tJRSomLJvQAxI/A="/>
+            <table:column date="true" dateTimePattern="${notebook_created_date_format}" id="c_ah_roomongo_shortnotes_domain_Notebook_created" property="created" z="BuBEweOJIq1K65uu4lQO/UumHu0="/>
+        </table:table>
+    </page:list>
+</div>
