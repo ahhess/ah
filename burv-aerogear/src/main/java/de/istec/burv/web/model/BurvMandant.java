@@ -1,10 +1,15 @@
 package de.istec.burv.web.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -35,8 +40,11 @@ public class BurvMandant implements Serializable {
 //			@JoinColumn(name="BENUTZER_NR", nullable=false)
 //			}
 //		)
-//	private List<BurvBenutzer> burvBenutzers;
-//
+
+	//bi-directional many-to-one association to BurvBenutzer
+	@OneToMany(mappedBy="burvMandant")
+	private List<BurvMandantBenutzer> burvMandantBenutzers;
+
 //	//bi-directional many-to-one association to BurvRolle
 //	@OneToMany(mappedBy="burvMandant")
 //	private List<BurvRolle> burvRolles;
@@ -60,14 +68,14 @@ public class BurvMandant implements Serializable {
 		this.bezeichnung = bezeichnung;
 	}
 
-//	public List<BurvBenutzer> getBurvBenutzers() {
-//		return this.burvBenutzers;
-//	}
-//
-//	public void setBurvBenutzers(List<BurvBenutzer> burvBenutzers) {
-//		this.burvBenutzers = burvBenutzers;
-//	}
-//
+	public List<BurvMandantBenutzer> getBurvMandantBenutzers() {
+		return this.burvMandantBenutzers;
+	}
+
+	public void setBurvMandantBenutzers(List<BurvMandantBenutzer> burvMandantBenutzers) {
+		this.burvMandantBenutzers = burvMandantBenutzers;
+	}
+
 //	public List<BurvRolle> getBurvRolles() {
 //		return this.burvRolles;
 //	}
