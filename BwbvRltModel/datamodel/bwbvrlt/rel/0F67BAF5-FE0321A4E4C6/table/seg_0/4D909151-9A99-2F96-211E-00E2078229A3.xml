@@ -1,0 +1,135 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="4D909151-9A99-2F96-211E-00E2078229A3" directorySegmentName="seg_0" name="RltErgebnis">
+   <createdBy>Andy</createdBy>
+   <createdTime>2012-09-21 23:08:15 UTC</createdTime>
+   <changedBy>Andy</changedBy>
+   <changedTime>2012-09-21 23:30:04 UTC</changedTime>
+   <ownerDesignName>bwbvrlt</ownerDesignName>
+   <pkName>RltErgebnis_PK</pkName>
+   <fonts>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Title</foType>
+         <fontStyle>1</fontStyle>
+         <colorRGB>-16776961</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Column</foType>
+         <colorRGB>-16777216</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Datatype</foType>
+         <colorRGB>-16744448</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>PK Element</foType>
+         <colorRGB>-16776961</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>FK Element</foType>
+         <colorRGB>-16777216</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>UK Element</foType>
+         <colorRGB>-16776961</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Not Null</foType>
+         <colorRGB>-65536</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Key</foType>
+         <colorRGB>-16777216</colorRGB>
+      </FontObject>
+   </fonts>
+   <columns>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="Rlt_id" id="7B9A82DF-0919-3C10-8D74-F42A4488E415">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:14:10 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:17:01 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <use>0</use>
+         <logicalDatatype>LOGDT027</logicalDatatype>
+         <domain>39EAF6B0-5EB4-CAEB-3FC2-8F1744FF7584</domain>
+         <delegate>F575FE6C-4501-06CD-4339-EB99CA64E763</delegate>
+         <previousColumn>false</previousColumn>
+         <associations>
+            <colAssociation fkAssociation="C44C4E00-071C-C157-F4FD-DDCA33D1FD6B" referredColumn="F575FE6C-4501-06CD-4339-EB99CA64E763"/>
+         </associations>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="Disz" id="7EA87A16-8E60-37BC-DA58-9F01D6C15630">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:14:17 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:30:04 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>2</dataTypeSize>
+         <domain>A8AB992B-83C4-2934-C6A9-BDA96370811A</domain>
+         <previousColumn>false</previousColumn>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="Spieler_id" id="C08ABC4A-6D3A-6AA2-B9E7-F77B69C87D62">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:08:45 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:17:21 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <use>0</use>
+         <logicalDatatype>LOGDT027</logicalDatatype>
+         <domain>39EAF6B0-5EB4-CAEB-3FC2-8F1744FF7584</domain>
+         <delegate>0C1ECC2C-4B13-914C-B654-BC86D2FFE091</delegate>
+         <previousColumn>false</previousColumn>
+         <associations>
+            <colAssociation fkAssociation="D1B29149-7867-B0D2-F684-4F91D9330FD2" referredColumn="0C1ECC2C-4B13-914C-B654-BC86D2FFE091"/>
+         </associations>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="punkte" id="1A5AB37C-19DC-45F7-BBDF-CCF676AB7099">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:09:48 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:09:48 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <use>1</use>
+         <logicalDatatype>LOGDT026</logicalDatatype>
+         <dataTypePrecision>7</dataTypePrecision>
+         <dataTypeScale>2</dataTypeScale>
+      </Column>
+   </columns>
+   <indexes>
+      <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1BC056FA-97F7-4809-6071-B45A25A54F04" name="RltErgebnis_PK">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:12:21 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:12:21 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <pk>true</pk>
+         <indexState>Primary Constraint</indexState>
+         <indexColumnUsage>
+            <colUsage columnID="7B9A82DF-0919-3C10-8D74-F42A4488E415"/>
+            <colUsage columnID="7EA87A16-8E60-37BC-DA58-9F01D6C15630"/>
+            <colUsage columnID="C08ABC4A-6D3A-6AA2-B9E7-F77B69C87D62"/>
+         </indexColumnUsage>
+      </ind_PK_UK>
+      <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="51C368AA-A48B-8706-7B7E-D66EF0F247A0" name="RltErgebnis_Spieler_FK">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:08:45 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:08:45 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <indexColumnUsage>
+            <colUsage columnID="C08ABC4A-6D3A-6AA2-B9E7-F77B69C87D62"/>
+         </indexColumnUsage>
+      </ind_PK_UK>
+      <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="7292929F-EA8A-4AB9-61F6-859C0B68D39D" name="RltErgebnis_Rlt_FK">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:14:10 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:14:10 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <indexColumnUsage>
+            <colUsage columnID="7B9A82DF-0919-3C10-8D74-F42A4488E415"/>
+         </indexColumnUsage>
+      </ind_PK_UK>
+   </indexes>
+</Table>
