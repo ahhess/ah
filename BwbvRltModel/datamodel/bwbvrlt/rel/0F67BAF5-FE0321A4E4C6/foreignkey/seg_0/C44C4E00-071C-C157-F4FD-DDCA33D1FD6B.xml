@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="C44C4E00-071C-C157-F4FD-DDCA33D1FD6B" directorySegmentName="seg_0" name="RltErgebnis_Rlt_FK">
+   <createdBy>Andy</createdBy>
+   <createdTime>2012-09-21 23:14:10 UTC</createdTime>
+   <changedBy>Andy</changedBy>
+   <changedTime>2012-09-21 23:14:10 UTC</changedTime>
+   <ownerDesignName>bwbvrlt</ownerDesignName>
+   <containerWithKeyObject>4D909151-9A99-2F96-211E-00E2078229A3</containerWithKeyObject>
+   <deleteRule>RESTRICT</deleteRule>
+   <localFKIndex>7292929F-EA8A-4AB9-61F6-859C0B68D39D</localFKIndex>
+   <keyObject>3691BB31-9B6B-4B57-49AD-5752C8E2CC58</keyObject>
+   <mandatory>true</mandatory>
+   <transferable>true</transferable>
+</FKIndexAssociation>

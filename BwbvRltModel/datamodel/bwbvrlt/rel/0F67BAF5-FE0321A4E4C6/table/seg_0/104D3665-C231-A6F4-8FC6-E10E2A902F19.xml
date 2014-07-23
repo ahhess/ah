@@ -1,0 +1,172 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="104D3665-C231-A6F4-8FC6-E10E2A902F19" directorySegmentName="seg_0" name="Rlt">
+   <createdBy>Andy</createdBy>
+   <createdTime>2012-09-21 19:41:04 UTC</createdTime>
+   <changedBy>Andy</changedBy>
+   <changedTime>2012-09-21 23:27:32 UTC</changedTime>
+   <ownerDesignName>bwbvrlt</ownerDesignName>
+   <pkName>Rlt_PK</pkName>
+   <fonts>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Title</foType>
+         <fontStyle>1</fontStyle>
+         <colorRGB>-16776961</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Column</foType>
+         <colorRGB>-16777216</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Datatype</foType>
+         <colorRGB>-16744448</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>PK Element</foType>
+         <colorRGB>-16776961</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>FK Element</foType>
+         <colorRGB>-16777216</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>UK Element</foType>
+         <colorRGB>-16776961</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Not Null</foType>
+         <colorRGB>-65536</colorRGB>
+      </FontObject>
+      <FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+         <foType>Key</foType>
+         <colorRGB>-16777216</colorRGB>
+      </FontObject>
+   </fonts>
+   <columns>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="id" id="F575FE6C-4501-06CD-4339-EB99CA64E763">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:32:50 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:16:02 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <use>0</use>
+         <logicalDatatype>LOGDT027</logicalDatatype>
+         <domain>39EAF6B0-5EB4-CAEB-3FC2-8F1744FF7584</domain>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="kurzbez" id="C65A0648-4509-6D81-35B5-F1D46CFAB331">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 19:56:31 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:44:15 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>50</dataTypeSize>
+         <domain>196C0658-27C8-10E7-9112-4B7C854E754B</domain>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="turnierbez" id="FE989A67-45DD-D86F-0A08-011D8C832361">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:31:14 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:44:15 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>255</dataTypeSize>
+         <domain>71931F65-67C6-59B5-6508-DAC4A22EC69B</domain>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="adresse" id="FF355C96-7304-7A5E-A6AF-D59B1E1E4D68">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:31:14 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:44:15 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>255</dataTypeSize>
+         <domain>71931F65-67C6-59B5-6508-DAC4A22EC69B</domain>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="ort" id="B6E5022E-88A1-2BC2-9FAD-B99660D9B738">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:31:14 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:44:15 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>255</dataTypeSize>
+         <domain>71931F65-67C6-59B5-6508-DAC4A22EC69B</domain>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="halle" id="55C49ADB-8FC0-1439-4404-1DD0E3EA4F57">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:31:31 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:44:15 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>100</dataTypeSize>
+         <domain>71931F65-67C6-59B5-6508-DAC4A22EC69B</domain>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="datum" id="DB816F80-CE27-AC9F-ECEE-6EE93F1E932C">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:34:01 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:34:01 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>1</use>
+         <logicalDatatype>LOGDT007</logicalDatatype>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="datumtext" id="ECC99CE4-89ED-3116-8603-2487ECF07856">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:34:01 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:34:01 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>1</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <dataTypeSize>20</dataTypeSize>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="meldeschluss" id="828C0945-D773-005E-9BD3-493192803557">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:34:01 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:34:01 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>1</use>
+         <logicalDatatype>LOGDT007</logicalDatatype>
+      </Column>
+      <Column class="oracle.dbtools.crest.model.design.relational.Column" name="kategorie" id="E3FBA3A7-1691-C0AE-BC79-9376DEC25D49">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 23:23:28 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 23:27:32 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <nullsAllowed>true</nullsAllowed>
+         <use>0</use>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+         <domain>FF45B6A3-F20C-739B-A7B1-867D4A09B867</domain>
+      </Column>
+   </columns>
+   <indexes>
+      <ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3691BB31-9B6B-4B57-49AD-5752C8E2CC58" name="Rlt_PK">
+         <createdBy>Andy</createdBy>
+         <createdTime>2012-09-21 22:32:50 UTC</createdTime>
+         <changedBy>Andy</changedBy>
+         <changedTime>2012-09-21 22:32:50 UTC</changedTime>
+         <ownerDesignName>bwbvrlt</ownerDesignName>
+         <pk>true</pk>
+         <indexState>Primary Constraint</indexState>
+         <indexColumnUsage>
+            <colUsage columnID="F575FE6C-4501-06CD-4339-EB99CA64E763"/>
+         </indexColumnUsage>
+      </ind_PK_UK>
+   </indexes>
+</Table>

@@ -1,0 +1,15 @@
+project --topLevelPackage bwbvrlt --packaging POM
+module create --moduleName model --topLevelPackage bwbvrlt.model
+jpa setup --provider HIBERNATE --database H2_IN_MEMORY 
+entity jpa --class ~.Rlt --testAutomatically 
+entity jpa --class ~.RltSpieler --testAutomatically 
+entity jpa --class ~.RltErgebnis --testAutomatically 
+
+module focus --moduleName ~
+module create --moduleName ui --topLevelPackage bwbvrlt.ui --packaging POM
+module create --moduleName mvc --topLevelPackage bwbvrlt.ui.mvc
+web mvc setup
+web mvc all --package ~
+web mvc finder all 
+web mvc language --code de
+logging setup --level INFO 

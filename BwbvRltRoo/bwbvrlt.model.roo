@@ -1,0 +1,19 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-09-23 12:06:00
+project --topLevelPackage bwbvrlt --packaging POM
+module create --moduleName model --topLevelPackage bwbvrlt.model
+jpa setup --provider HIBERNATE --database H2_IN_MEMORY 
+entity jpa --class ~.Rlt --testAutomatically 
+field string --fieldName name --notNull --unique
+field date --fieldName datum --type java.util.Date --notNull 
+field string --fieldName kategorie --notNull --sizeMax 4
+entity jpa --class ~.RltSpieler --testAutomatically 
+field string --fieldName name --notNull --unique
+field string --fieldName passnr --notNull --unique
+field string --fieldName verein 
+field string --fieldName bezirk --sizeMax 4
+entity jpa --class ~.RltErgebnis --testAutomatically 
+field string --fieldName disz --sizeMax 4 --notNull 
+field number --fieldName platz --type int --notNull 
+field number --fieldName punkte --type double --value 0.0
+field reference --fieldName rltSpieler --type ~.RltSpieler --notNull 
+field reference --fieldName rlt --type ~.Rlt --notNull 
