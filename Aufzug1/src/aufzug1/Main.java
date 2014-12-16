@@ -53,7 +53,7 @@ public class Main {
 
             public void run() {
                 
-                AufzugData data = new AufzugData(3);                
+                AufzugData data = new AufzugData(5);                
                 AufzugController controller = new AufzugController(data);
                 
                 MainFrame mainFrame = new MainFrame(controller);

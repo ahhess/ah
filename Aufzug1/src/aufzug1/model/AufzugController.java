@@ -22,8 +22,8 @@ public class AufzugController {
         return data;
     }
     
-    public void fordereAufzugAnFuerEtage(int etagenNr){
-        data.getEtage(etagenNr).setAngefordert(true);
+    public void fordereAufzugAnFuerEtage(Etage etage){
+        etage.setAngefordert(true);
     }
 
     public void tuereOeffnen(){
@@ -49,8 +49,6 @@ public class AufzugController {
     }
     
     public void fahre(){
-        if(!data.isTuereZu()){
-            
-        }
+    	tuereSchliessen();
     }
 }

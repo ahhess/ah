@@ -11,10 +11,11 @@ public class AufzugData {
 
     private static final Logger LOGGER = Logger.getLogger(AufzugData.class.getName());
     
+    private Etage etage[];
     private int anzahlEtagen = 0;
     private int aktuelleEtagennr = 0;
     private int vorigeEtagennr = 0;
-    private Etage etage[];
+    private int zielEtagennr = 0;
     private boolean tuereZu = true;
     private boolean aufzugInEtage = true;
 
@@ -23,7 +24,7 @@ public class AufzugData {
         this.anzahlEtagen = anzahlEtagen;
         etage = new Etage[anzahlEtagen];
         for (int i = 0; i < anzahlEtagen; i++) {
-            etage[i] = new Etage(String.valueOf(i));
+            etage[i] = new Etage(i, String.valueOf(i));
         }
     }
 
@@ -66,6 +67,17 @@ public class AufzugData {
     public void setVorigeEtagennr(int vorigeEtagennr) {
         this.vorigeEtagennr = vorigeEtagennr;
     }
-    
-    
+
+	public int getZielEtagennr() {
+		return zielEtagennr;
+	}
+
+	public void setZielEtagennr(int zielEtagennr) {
+		this.zielEtagennr = zielEtagennr;
+	}
+
+	public void setAnzahlEtagen(int anzahlEtagen) {
+		this.anzahlEtagen = anzahlEtagen;
+	}
+        
 }

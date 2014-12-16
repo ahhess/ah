@@ -1,10 +1,20 @@
 package aufzug1.ui;
 
-import aufzug1.model.AufzugController;
-import aufzug1.model.Etage;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.*;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
+import aufzug1.model.AufzugController;
+import aufzug1.model.AufzugData;
+import aufzug1.model.Beobachter;
+import aufzug1.model.Etage;
 
 /**
  *
@@ -13,9 +23,35 @@ import javax.swing.*;
 public class MainFrame extends javax.swing.JFrame {
 
     private AufzugController controller;
+    private AufzugData aufzugData;
+    
     private JPanel aufzugPanel;
     private JPanel aussenPanel;
     private JLabel jLabel1;
+    
+    private class EtagenBeobachter implements Beobachter {
+
+    	private JButton button;
+    	private Etage etage;
+    	private Color defaultBg;
+    	
+    	public EtagenBeobachter(JButton b, Etage e) {
+    		button = b;
+    		defaultBg = button.getBackground();
+    		etage = e;
+//    		e.registriere(this);
+		}
+    	
+		@Override
+		public void aktualisiere() {
+			if (etage.isAngefordert())
+				button.setBackground(Color.WHITE);
+			else 
+				button.setBackground(defaultBg);
+		}
+    	
+    }
+    private ArrayList<EtagenBeobachter> etagenBeobachters = new ArrayList<EtagenBeobachter>();
     
     /**
      * Creates new form MainFrame
@@ -27,7 +63,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
         
     private void initComponents2() {
-        int anzahlEtagen = controller.getData().getAnzahlEtagen();
+        aufzugData = controller.getData();
+        int anzahlEtagen = aufzugData.getAnzahlEtagen();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new FlowLayout());
@@ -37,7 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1 = new JLabel();
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel1.setText(String.valueOf(controller.getData().getAktuelleEtagennr()));
+        jLabel1.setText(String.valueOf(aufzugData.getAktuelleEtagennr()));
         aufzugPanel.add(jLabel1);
 
         aussenPanel = new JPanel();
@@ -45,9 +82,16 @@ public class MainFrame extends javax.swing.JFrame {
         aussenPanel.add(new JLabel(""));
         
         for (int i = anzahlEtagen-1; i>=0; i--) {
-            Etage etage = controller.getData().getEtage(i);
-            aufzugPanel.add(getEtagenButton(etage));
-            aussenPanel.add(getEtagenButton(etage));
+            Etage etage = aufzugData.getEtage(i);
+            JButton b = newEtagenButton(etage);
+//            etagenBeobachters.add(new EtagenBeobachter(b, etage));
+            etage.registriere(new EtagenBeobachter(b, etage));
+            aufzugPanel.add(b);
+
+            b = newEtagenButton(etage);
+//            etagenBeobachters.add(new EtagenBeobachter(b, etage));
+            etage.registriere(new EtagenBeobachter(b, etage));
+            aussenPanel.add(b);
         }
 
         getContentPane().add(aufzugPanel);
@@ -56,14 +100,15 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }
 
-    private JButton getEtagenButton(final Etage etage){
+    private JButton newEtagenButton(final Etage etage){
         JButton jButton = new JButton(etage.getLabel());
         jButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                etage.setAngefordert(true);
+//                etage.setAngefordert(true);
+            	controller.fordereAufzugAnFuerEtage(etage);
             }
-        });    
+        });
         return jButton;
     }
     
